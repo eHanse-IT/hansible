@@ -1,0 +1,6 @@
+- name: ensure apache is at the latest version
+    apt: name=httpd state=latest
+#- name: write the apache config file
+#    template: src=/srv/httpd.j2 dest=/etc/httpd.conf
+#    notify:
+#    - restart apache

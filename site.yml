@@ -1,0 +1,16 @@
+---
+#Das ist das Basis-Playbook für die eHanse-Server.
+
+- name: Gemeinsame Einstellungen aufuehren (common)
+  hosts: all
+  remote_user: root
+  roles:
+   - common
+   - ssh
+   - firewall
+
+- name: Apache Webserver auf den nootwendigen Hosts installieren
+  hosts: webservers
+  remote_user: root
+  roles:
+   - webserver

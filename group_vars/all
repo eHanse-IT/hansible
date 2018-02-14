@@ -1,0 +1,5 @@
+---
+#Die Variablen, die hier gelisted sind, gelten für alle Gruppen
+
+httpd_port: 80
+ntpserver: 192.168.1.2
