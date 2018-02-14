@@ -1,5 +1,6 @@
 ---
 #Das ist das Basis-Playbook für die eHanse-Server.
+#Kann diese file geloescht werden?
 
 - name: Gemeinsame Einstellungen aufuehren (common)
   hosts: all
