@@ -1,7 +1,18 @@
 ---
+
+ # Verweise auf andere Playbooks (einfaches Konfigschema)
  - include: roles/users_pb.yml
  - include: roles/ssh_pb.yml
  - include: roles/firewall_pb.yml
+
+ # Verweise auf echte Ansible-Roles
+# - hosts: eHanse
+#   user: joerg
+#   roles:
+#     -role: letsencrypt
+#      letsencrpyt-variable: bla
+
+
  # apache
  # timezone
  # hostnbame
