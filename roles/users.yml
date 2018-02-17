@@ -6,17 +6,22 @@
   
 
   #default variables - passw generieren mit mkpasswd --method=sha-512
+  vars_files:
+    - ../group_vars/vars 
+    - ../group_vars/vault
+
   vars:
     ehanse_users:
     - username: joerg
-      pwd_cryp: '$6$orQVPJDyOhG$SKNJNONgf9jPtkMpJg1YE1tizTMnG7vCTgxd7VtX9MoJAqlMbLXQfKNdYPyn8WT/behsml65UJzBwP1iH4lnc1'
+      pwd_cryp: "{{ joerg_pwd_cryp }}"
       key: "{{ lookup('file', 'authorized_keys/joerg.pub') }}"  
     - username: frank
-      pwd_cryp: '$6$50IEJs25URBMSfc$f5WYJveFe2LSR6QNx17v1D35k.mvNby.MWq0xzHGxOaIFVmoaId9EpvXa4T3Y0X2smZzZLwkYgYyv6G5vre7M0'
+      pwd_cryp: "{{ frank_pwd_cryp }}"
       key: "{{ lookup('file', 'authorized_keys/frank.pub') }}"   
     - username: dominik
-      pwd_cryp: '$6$gM3XXer2j$9Ticvw/6tWkLXhG6wnloZSexv6E82U7fFfI7akhjY8iW0gg64CYmdqoR7nnrc.HfMqAPlKTh67alQU66X7Cj0.'
-      key: "{{ lookup('file', 'authorized_keys/dominik.pub') }}"  
+      pwd_cryp: "{{ dominik_pwd_cryp }}"
+      key: "{{ lookup('file', 'authorized_keys/dominik.pub') }}"
+ 
 
 
   #handlers
