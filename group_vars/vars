@@ -1,0 +1,3 @@
+ joerg_pw: "{{ _vault_joerg_pw }}"
+ frank_pw: "{{ _vault_frank_pw }}"
+ dominik_pw: "{{ _vault_dominik_pw }}"

@@ -1,8 +1,0 @@
-[webservers]
-#eHanse Production Server
-#5.45.105.50      ansible_port=7365
-#OAW Prod Server
-#103.15.135.56    ansible_port=7365
-#OAW Test Server
-103.15.135.176    ansible_port=7365
-
