@@ -1,7 +1,7 @@
 ---
- - include: roles/users.yml
-# - include: roles/ssh.yml
-# - include: roles/firewall.yml
+ - include: roles/users_pb.yml
+ - include: roles/ssh_pb.yml
+ - include: roles/firewall_pb.yml
  # apache
  # timezone
  # hostnbame
