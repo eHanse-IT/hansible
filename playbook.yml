@@ -2,6 +2,10 @@
  - include: roles/users.yml
  - include: roles/ssh.yml
  - include: roles/firewall.yml
+ # apache
+ # timezone
+ # hostnbame
+ # odoo
 
   
 

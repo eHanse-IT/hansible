@@ -72,6 +72,7 @@
        src: "5.45.105.50"
        dest: "any"
        to_port: "5666"
+
      
    - name: UFW disable jeden anderen Port EXPLIZIT zusaetzlich zur Policy wg. Idempotzenz Ansible
      ufw:
