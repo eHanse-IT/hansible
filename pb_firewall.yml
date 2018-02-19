@@ -32,7 +32,7 @@
 
    - name: Configuring firewall
      template:
-       src: etc/default/ufw.j2
+       src: roles/firewall/templates/etc/default/ufw.j2
        dest: /etc/default/ufw
        owner: root
        group: root

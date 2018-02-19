@@ -1,8 +1,18 @@
 [eHanse]
 5.45.105.50      ansible_port=7365    # eHanse Production Server
+#185.170.113.205  ansible-port=7365    # eHanse Test Server
 
 [oaw]
 103.15.135.56    ansible_port=7365    # OAW Prod Server
 103.231.254.5    ansible_port=7365    # OAW Test Server new
+
+[prodservers]
+5.45.105.50      ansible_port=7365    # eHanse Production Server
+103.15.135.56    ansible_port=7365    # OAW Prod Server
+
+[testservers]
+185.170.113.205  ansible-port=7365    # eHanse Test Server
+103.231.254.5    ansible_port=7365    # OAW Test Server new
+
 
 

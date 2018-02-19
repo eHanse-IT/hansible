@@ -1,9 +1,11 @@
 ---
 
  # Verweise auf andere Playbooks (einfaches Konfigschema)
- - include: roles/users_pb.yml
- - include: roles/ssh_pb.yml
- - include: roles/firewall_pb.yml
+ - include: pb_users.yml
+ - include: pb_ssh.yml
+ - include: pb_firewall.yml
+
+
 
  # Verweise auf echte Ansible-Roles
 # - hosts: eHanse
