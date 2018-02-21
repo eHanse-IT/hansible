@@ -1,0 +1,47 @@
+<VirtualHost *:80>
+        ServerName {{ domain }}
+        ServerAlias www.{{ domain }}
+        # Das folgende erzwingt SSL
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+<virtualhost *:443>
+   ServerName {{ domain }}
+   ServerAlias www.{{ domain }}
+   ServerAdmin info@ehanse.de
+   ErrorLog ${APACHE_LOG_DIR}/error.log
+   CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+   #SSLEngine On
+   #SSLCertificateFile /etc/ssl/ehanse2.crt
+   #SSLCertificateKeyFile /etc/ssl/private/ehanse2.key
+   #SSLCertificateChainFile /etc/ssl/intermediate2.crt
+   #Content Sec Policy aktivieren
+   #Header set Content-Security-Policy "default-src 'ehanse.de'"
+
+   #Verhindere Man-In-The-Middle-Attacks mit Strict Transp Sec
+    <IfModule mod_headers.c>
+      Header always set Strict-Transport-Security "max-age=15768000; includeSubDomains; preload"
+      KeepAlive On
+      KeepAliveTimeout 100
+      MaxKeepAliveRequests 200
+    </IfModule>
+
+   <Proxy *>
+     Order deny,allow
+     Allow from all
+   </Proxy>
+
+   ProxyRequests Off
+   #ProxyVia On
+   ProxyPass / http://127.0.0.1:8069/
+   ProxyPassReverse / http://127.0.0.1:8069
+   #RequestHeader set “X-Forwarded-Proto” “https”
+   #RequestHeader set "X-Forwarded-Host" "www.ehanse.de"
+   Header add X-ODOO_DBFILTER "ProdDB"
+    RequestHeader add X-ODOO_DBFILTER "ProdDB"
+   #SetEnv proxy-nokeepalive 1
+
+</virtualhost>
