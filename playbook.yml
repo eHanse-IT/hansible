@@ -7,15 +7,14 @@
 
 
 
- # Verweise auf echte Ansible-Roles
-# - hosts: eHanse
-#   user: joerg
-#   roles:
-#     -role: letsencrypt
-#      letsencrpyt-variable: bla
+# Verweise auf echte Ansible-Roles
+ - hosts: eHanse
+   user: joerg
+   roles:
+    - role: apache
 
 
- # apache
+
  # timezone
  # hostnbame
  # odoo --> schenkels script

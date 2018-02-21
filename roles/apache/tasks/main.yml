@@ -1,0 +1,49 @@
+---
+- name: Task - Install Apache Webserver
+  apt:
+    name: apache2
+    update_cache: yes
+    state: latest
+
+- name: Task - Enable Apache mod_rewrite (req for Odoo)
+  apache2_module:
+    name: rewrite
+    state: present
+  notify: restart_apache2_event
+
+- name: Task - Enable Apache mod_ssl
+  apache2_module:
+    name: ssl
+    state: present
+  notify: restart_apache2_event
+
+- name: Task - Enable Apache mod_proxy (req for Odoo)
+  apache2_module:
+    name: proxy
+    state: present
+  notify: restart_apache2_event
+
+- name: Task - Enable Apache mod_filter
+  apache2_module:
+    name: filter
+    state: present
+  notify: restart_apache2_event
+
+- name: Task - Enable Apache mod_headers (req for multi Odoo DB)
+  apache2_module:
+    name: headers
+    state: present
+  notify: restart_apache2_event
+
+- name: Task - Let Apache2 listen on 80 and 443
+  template:
+    src: templates/ports.conf.j2
+    dest: /etc/apache2/ports.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_apache2_event
+
+
+
+
