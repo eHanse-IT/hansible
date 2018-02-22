@@ -40,12 +40,20 @@
 
 - name: Apache konfigurieren
   hosts: eHanse
+  #vars:
+  # apache_listen_port
+  # apache_listen_ssl
+  # apache_vhosts:
+  #  - vhost_servername: wiki.ehanse.de
+  #    vhost_domain: ...
+  #    vhost_documentroot: ...
+  #    vhost_SSL Certific: ...
+  #
+  #
+  #
+  #
   roles:
    - apache
-
-
-
-
 
 
 

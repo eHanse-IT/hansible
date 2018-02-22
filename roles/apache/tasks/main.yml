@@ -5,35 +5,16 @@
     update_cache: yes
     state: present
 
-- name: Task - Enable Apache mod_rewrite (req for Odoo)
+- name: Task - Enable Apache modules (partly req for Odoo)
   apache2_module:
-    name: rewrite
+    name: {{ item }}
     state: present
-  notify: restart_apache2_event
-
-- name: Task - Enable Apache mod_ssl
-  apache2_module:
-    name: ssl
-    state: present
-  notify: restart_apache2_event
-
-- name: Task - Enable Apache mod_proxy (req for Odoo)
-  apache2_module:
-    name: proxy
-    state: present
-  notify: restart_apache2_event
-
-- name: Task - Enable Apache mod_filter
-  apache2_module:
-    name: filter
-    state: present
-  notify: restart_apache2_event
-
-- name: Task - Enable Apache mod_headers (req for multi Odoo DB)
-  apache2_module:
-    name: headers
-    state: present
-  notify: restart_apache2_event
+  with_items:
+   - rewrite
+   - ssl
+   - proxy
+   - filter
+   - headers # req. for Odoo multi DB
 
 - name: Task - Let Apache2 listen on 80 and 443
   template:
@@ -45,5 +26,31 @@
   notify: restart_apache2_event
 
 
+# secure apache according Cookboook
+# remove default virtual hosts
+# --> now apache is prepared and able to receive further vhosts
+
+
+#- name: Add Apache virtualhost for Drupal 8 development.
+#template:
+#src: "templates/drupal.dev.conf.j2"
+#dest: "/etc/apache2/sites-available/{{ domain }}.dev.conf"
+#owner: root
+#group: root
+#mode: 0644
+#notify: restart apache
+
+#- name: Symlink Drupal virtualhost to sites-enabled.
+#file:
+#src: "/etc/apache2/sites-available/{{ domain }}.dev.conf"
+#dest: "/etc/apache2/sites-enabled/{{ domain }}.dev.conf"
+#state: link
+#notify: restart apache
+
+#- name: Remove default virtualhost file.
+#file:
+#path: "/etc/apache2/sites-enabled/000-default.conf"
+#state: absent
+#notify: restart apache
 
 
