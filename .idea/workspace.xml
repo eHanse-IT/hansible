@@ -2,19 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="554ef9d8-7186-4c11-8cfb-ff113375d489" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/roles/firewall/handlers/main.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/roles/firewall/vars/main.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/roles/ssh/handlers/main.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/roles/ssh/tasks/main.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/roles/ssh/vars/main.yml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pb_apache.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pb_ssh.yml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/pb_firewall.yml" afterPath="$PROJECT_DIR$/roles/firewall/tasks/main.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/roles/firewall/templates/etc/default/ufw.j2" afterPath="$PROJECT_DIR$/roles/firewall/templates/ufw.j2" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/roles/users/tasks/main.yml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pb_users.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/roles/firewall/vars/main.yml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/roles/ssh/vars/main.yml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/group_vars/vars" afterPath="$PROJECT_DIR$/vars" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/group_vars/vault" afterPath="$PROJECT_DIR$/vault" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/group_vars/vars" afterPath="$PROJECT_DIR$/group_vars/vars" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/playbook.yml" afterPath="$PROJECT_DIR$/playbook.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/roles/apache/tasks/main.yml" afterPath="$PROJECT_DIR$/roles/apache/tasks/main.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,16 +41,6 @@
         </entry>
       </file>
       <file leaf-file-name="main.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/roles/firewall/vars/main.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/roles/apache/tasks/main.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -69,27 +54,17 @@
         <entry file="file://$PROJECT_DIR$/playbook.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pb_users.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pb_users.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="main.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/roles/ssh/vars/main.yml">
+        <entry file="file://$PROJECT_DIR$/roles/users/tasks/main.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+            <state relative-caret-position="126">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -129,13 +104,15 @@
         <option value="$PROJECT_DIR$/roles/apache/templates/virtualhost.conf.j2" />
         <option value="$PROJECT_DIR$/group_vars/vars" />
         <option value="$PROJECT_DIR$/roles/firewall/handlers/main.yml" />
-        <option value="$PROJECT_DIR$/roles/firewall/vars/main.yml" />
         <option value="$PROJECT_DIR$/roles/firewall/tasks/main.yml" />
         <option value="$PROJECT_DIR$/roles/apache/tasks/main.yml" />
         <option value="$PROJECT_DIR$/roles/ssh/handlers/main.yml" />
-        <option value="$PROJECT_DIR$/roles/ssh/vars/main.yml" />
         <option value="$PROJECT_DIR$/pb_ssh.yml" />
         <option value="$PROJECT_DIR$/roles/ssh/tasks/main.yml" />
+        <option value="$PROJECT_DIR$/roles/users/tasks/main.yml" />
+        <option value="$PROJECT_DIR$/pb_users.yml" />
+        <option value="$PROJECT_DIR$/roles/firewall/vars/main.yml" />
+        <option value="$PROJECT_DIR$/roles/ssh/vars/main.yml" />
         <option value="$PROJECT_DIR$/playbook.yml" />
       </list>
     </option>
@@ -178,12 +155,19 @@
             <path>
               <item name="hansible" type="b2602c69:ProjectViewProjectNode" />
               <item name="hansible" type="462c0819:PsiDirectoryNode" />
-              <item name="group_vars" type="462c0819:PsiDirectoryNode" />
+              <item name="roles" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hansible" type="b2602c69:ProjectViewProjectNode" />
               <item name="hansible" type="462c0819:PsiDirectoryNode" />
               <item name="roles" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hansible" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hansible" type="462c0819:PsiDirectoryNode" />
+              <item name="roles" type="462c0819:PsiDirectoryNode" />
+              <item name="firewall" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="hansible" type="b2602c69:ProjectViewProjectNode" />
@@ -195,7 +179,13 @@
               <item name="hansible" type="b2602c69:ProjectViewProjectNode" />
               <item name="hansible" type="462c0819:PsiDirectoryNode" />
               <item name="roles" type="462c0819:PsiDirectoryNode" />
-              <item name="ssh" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hansible" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hansible" type="462c0819:PsiDirectoryNode" />
+              <item name="roles" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
               <item name="tasks" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -212,6 +202,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/roles/firewall/templates" />
       <recent name="$PROJECT_DIR$/roles/firewall/tasks" />
       <recent name="$PROJECT_DIR$/roles/firewall" />
@@ -302,7 +293,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/group_vars/vault">
+    <entry file="file://$PROJECT_DIR$/vault">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -310,7 +301,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/group_vars/vars">
+    <entry file="file://$PROJECT_DIR$/vars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
@@ -334,38 +325,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/roles/firewall/vars/main.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="38" lean-forward="true" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/roles/firewall/templates/ufw.j2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/roles/firewall/tasks/main.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="63" column="21" lean-forward="false" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/roles/apache/tasks/main.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pb_apache.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -378,22 +337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/roles/ssh/vars/main.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="3" lean-forward="false" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/roles/ssh/tasks/main.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -414,10 +357,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/roles/firewall/vars/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="39" lean-forward="true" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roles/firewall/templates/ufw.j2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roles/ssh/tasks/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roles/firewall/tasks/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1134">
+          <caret line="63" column="21" lean-forward="false" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roles/apache/tasks/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roles/users/tasks/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/roles/ssh/vars/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/playbook.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="3" column="47" lean-forward="false" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
           <folding />
         </state>
       </provider>

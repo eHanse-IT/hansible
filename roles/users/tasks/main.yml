@@ -1,0 +1,32 @@
+---
+- name: Gruppe sshusers einrichten
+  group:
+    name: sshusers
+    state: present
+
+- name: users einrichten
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.pwd_cryp }}"
+    createhome: yes
+    home: "/home/{{ item.username }}"
+    shell: /bin/bash
+    system: no
+    groups: sshusers,sudo
+    state: present
+  with_items:
+    - "{{ ehanse_users }}"
+
+- name: authorized_keys einrichten
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ item.key }}"
+  with_items:
+    - "{{ ehanse_users }}"
+
+- name: User entfernen (Beispiel)
+  user:
+    name: irgendeinuser
+    state: absent
+    remove: yes
+    force: yes

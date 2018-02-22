@@ -1,19 +1,47 @@
 ---
-# Verweise auf andere Playbooks (einfaches Konfigschema)
-- include: pb_users.yml
-
-
-# Verweise auf echte Ansible-Roles
-- hosts:  eHanse
+- name: User konfigurieren
+  hosts: eHanse
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  vars:
+    ehanse_users:
+    - username: joerg
+      pwd_cryp: "{{ joerg_pwd_cryp }}"
+      key: "{{ lookup('file', 'roles/users/authorized_keys/joerg.pub') }}"
+    - username: frank
+      pwd_cryp: "{{ frank_pwd_cryp }}"
+      key: "{{ lookup('file', 'roles/users/authorized_keys/frank.pub') }}"
+    - username: dominik
+      pwd_cryp: "{{ dominik_pwd_cryp }}"
+      key: "{{ lookup('file', 'roles/users/authorized_keys/dominik.pub') }}"
   roles:
-   - role: ssh
+   - users
 
 
-- hosts: eHanse
-  user: joerg
+- name: SSH konfigurieren
+  hosts: eHanse
+  vars:
+    ssh_soll_port: "{{ ansible_port }}"
   roles:
-   - role: firewall
-   - role: apache
+   - ssh
+
+
+- name: Firewall konfigurieren
+  hosts: eHanse
+  vars:
+    ufw_ipv6: "yes"
+    ufw_default_input_policy: "DROP"
+    ufw_default_output_policy: "ACCEPT"
+    ufw_default_forward_policy: "DROP"
+    ufw_default_application_policy: "SKIP"
+  roles:
+   - firewall
+
+- name: Apache konfigurieren
+  hosts: eHanse
+  roles:
+   - apache
 
 
 
