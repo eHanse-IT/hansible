@@ -1,0 +1,4 @@
+---
+  #handlers
+  - name: reload ufw
+    command: ufw reload

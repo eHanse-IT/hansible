@@ -3,7 +3,7 @@
   apt:
     name: apache2
     update_cache: yes
-    state: latest
+    state: present
 
 - name: Task - Enable Apache mod_rewrite (req for Odoo)
   apache2_module:

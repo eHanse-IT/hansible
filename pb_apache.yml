@@ -1,4 +1,0 @@
----
-- name: Apache installieren und absichern
-  hosts: eHanse
-  roles: apache

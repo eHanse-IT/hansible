@@ -1,0 +1,82 @@
+---
+
+ - name: UFW installieren
+   package:
+     name: ufw
+     state: present
+
+ - name: Configuring firewall
+   template:
+     src: templates/ufw.j2
+     dest: /etc/default/ufw
+     owner: root
+     group: root
+     mode: 0644
+   notify: reload ufw
+
+ - name: UFW generelle policy einstellen
+   ufw:
+     state: enabled
+     policy: deny
+     logging: "medium"
+   notify: reload ufw
+
+ - name: UFW Anzahl Login-Versuche limitieren
+   ufw:
+     rule: limit
+     port: "{{ ansible_port }}"
+     proto: tcp
+   notify: reload ufw
+
+ - name: UFW erlaube SSH ueber port {{ ansible_port }}
+   ufw:
+     rule: allow
+     port: "{{ ansible_port }}"
+   notify: reload ufw
+
+ - name: UFW erlaube HTTP port 80
+   ufw:
+     rule: allow
+     port: "80"
+   notify: reload ufw
+
+ - name: UFW erlaube HTTPS port 443
+   ufw:
+     rule: allow
+     port: "443"
+   notify: reload ufw
+
+ - name: UFW erlaube NAGIOS monitoring von eHanse Server
+   ufw:
+     rule: allow
+     src: "5.45.105.50"
+     dest: "any"
+     to_port: "5666"
+   notify: reload ufw
+
+
+ - name: UFW disable jeden anderen Port EXPLIZIT zusaetzlich zur Policy wg. Idempotzenz Ansible
+   ufw:
+     rule: deny
+     src: any
+     dest: any
+     direction: in
+   notify: reload ufw
+
+# Ports, die hier nicht gemenaged werden:
+# 3306 seafile nur von localhost für Verbindung zu mySQL
+# 10001 seafile server from any
+# 12001 seafile server from any
+# 8082 seafile server
+# mail:
+# 25 fuer smtpd nur von localhost
+# 143 und 993 dovecot
+# 587 fuer submission (mailsystem)
+
+
+
+
+
+
+
+
