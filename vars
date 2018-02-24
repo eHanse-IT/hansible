@@ -1,5 +1,12 @@
- joerg_pwd_cryp: "{{ _vault_joerg_pwd_cryp }}"
- frank_pwd_cryp: "{{ _vault_frank_pwd_cryp }}"
- dominik_pwd_cryp: "{{ _vault_dominik_pwd_cryp }}"
+---
+joerg_pwd_cryp: "{{ _vault_joerg_pwd_cryp }}"
+frank_pwd_cryp: "{{ _vault_frank_pwd_cryp }}"
+dominik_pwd_cryp: "{{ _vault_dominik_pwd_cryp }}"
+
+ehprod_ssh_pass: "{{ _vault_ehprod_ssh_pass }}"
+ehtest_ssh_pass: "{{ _vault_ehtest_ssh_pass }}"
+oaprod_ssh_pass: "{{ _vault_oaprod_ssh_pass }}"
+oatest_ssh_pass: "{{ _vault_oatest_ssh_pass }}"
+
 
 

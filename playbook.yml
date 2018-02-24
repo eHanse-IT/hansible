@@ -1,6 +1,6 @@
 ---
 - name: User konfigurieren
-  hosts: eHanse
+  hosts: ehanse
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
@@ -20,7 +20,7 @@
 
 
 - name: SSH konfigurieren
-  hosts: eHanse
+  hosts: ehanse
   vars:
     ssh_soll_port: "{{ ansible_port }}"
   roles:
@@ -29,7 +29,7 @@
 
 
 - name: Firewall konfigurieren
-  hosts: eHanse
+  hosts: ehanse
   vars:
     ufw_ipv6: "yes"
     ufw_default_input_policy: "DROP"
@@ -39,18 +39,70 @@
   roles:
    - firewall
 
+
+- name: /etc/sysctl.conf konfigurieren fuer security
+  hosts: ehanse
+  vars:
+    sysctl_settings:
+    - name: net.ipv4.conf.all.rp_filter
+      value: 1
+    - name: net.ipv4.conf.default.rp_filter
+      value: 1
+    - name: net.ipv4.icmp_echo_ignore_broadcasts
+      value: 1
+    - name: net.ipv4.conf.all.accept_source_route
+      value: 0
+    - name: net.ipv6.conf.all.accept_source_route
+      value: 0
+    - name: net.ipv4.conf.default.accept_source_route
+      value: 0
+    - name: net.ipv6.conf.default.accept_source_route
+      value: 0
+    - name: net.ipv4.conf.all.send_redirects
+      value: 0
+    - name: net.ipv4.conf.default.send_redirects
+      value: 0
+    - name: net.ipv4.tcp_syncookies
+      value: 1
+    - name: net.ipv4.tcp_max_syn_backlog
+      value: 2048
+    - name: net.ipv4.tcp_synack_retries
+      value: 2
+    - name: net.ipv4.tcp_syn_retries
+      value: 5
+    - name: net.ipv4.conf.all.log_martians
+      value: 1
+    - name: net.ipv4.icmp_ignore_bogus_error_responses
+      value: 1
+    - name: net.ipv4.conf.all.accept_redirects
+      value: 0
+    - name: net.ipv6.conf.all.accept_redirects
+      value: 0
+    - name: net.ipv4.conf.default.accept_redirects
+      value: 0
+    - name: net.ipv6.conf.default.accept_redirects
+      value: 0
+    - name: net.ipv4.icmp_echo_ignore_all # pings aktiv lassen
+      value: 1
+  roles:
+   - sysctl
+
+
+- name: Git installieren # benoetigt fuer certbot
+  hosts: ehanse
+  roles:
+   - git
+
+
 - name: Apache konfigurieren
-  hosts: eHanse
+  hosts: ehanse
   vars:
     apache_listen_port: 80
     apache_listen_ssl: 443
   roles:
    - apache
 
-- name: Git installieren # benoetigt fuer certbot
-  hosts: eHanse
-  roles:
-   - git
+
 
 
 
