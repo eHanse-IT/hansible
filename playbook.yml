@@ -27,6 +27,7 @@
    - ssh
 
 
+
 - name: Firewall konfigurieren
   hosts: eHanse
   vars:
@@ -59,7 +60,7 @@
 
  # timezone
  # hostnbame
- # odoo --> schenkels script
+ # odoo --> OCA odoo ansible script
 
 
   

@@ -25,11 +25,32 @@
     mode: 0644
   notify: restart_apache2_event
 
+- name: Task - Remove default Apache2 virtualhost file.
+  file:
+  path: "/etc/apache2/sites-enabled/000-default.conf"
+  state: absent
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 1 - replace default index.html
+  template:
+    src: templates/index.html.j2
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+    mode: 0644
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 2 - edit
+
+
+
 
 # secure apache according Cookboook
 # remove default virtual hosts
 # --> now apache is prepared and able to receive further vhosts
 
+# Hinzufügen von VHosts: immer die vhost-Datei nach sites-available
+# kopieren UND dann einen Link bei sites-enabled erstellen
 
 #- name: Add Apache virtualhost for Drupal 8 development.
 #template:
@@ -47,10 +68,6 @@
 #state: link
 #notify: restart apache
 
-#- name: Remove default virtualhost file.
-#file:
-#path: "/etc/apache2/sites-enabled/000-default.conf"
-#state: absent
-#notify: restart apache
+
 
 
