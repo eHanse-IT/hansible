@@ -1,0 +1,6 @@
+# Installs git on the destination.
+- name: git installieren
+  apt:
+    name: git
+    update_cache: no
+    state: present
