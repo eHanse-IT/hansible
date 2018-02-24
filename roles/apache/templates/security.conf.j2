@@ -34,6 +34,9 @@ Header set X-Content-Type-Options: "nosniff"
 #
 Header set X-Frame-Options: "sameorigin"
 
+#hansible: misc
+Header always set X-Xss-Protection "1; mode=block"
+
 #hansible:
 #according to apache2 hardening thefanclub.co.za
 Header unset ETag

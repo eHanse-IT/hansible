@@ -23,7 +23,7 @@
 #    notify: restart apache
 #
 # TODO
-# mod_security für Apache mitinstallieren
+# mod_security für Seafile kompatible machen?
 
 
 
@@ -34,6 +34,13 @@
     update_cache: no
     state: present
 
+- name: Task - Install Mod Security
+  apt:
+    name: libapache2-mod-security2
+    update_cache: no
+    state: present
+
+
 - name: Task - Enable Apache modules (partly req for Odoo)
   apache2_module:
     name: "{{ item }}"
@@ -43,6 +50,9 @@
    - ssl
    - proxy
    - filter
+   - security2
+   - proxy_http # req. for Seafile
+   - fastcgi #req. for Seafile
    - headers # req. for Odoo multi DB
 
 - name: Task - Let Apache2 listen on 80 and 443
@@ -108,6 +118,16 @@
   with_items:
    - status
    - autoindex
+
+#- name: Task - Secure Apache2 Step 6 - configure mod_security # not compatible with seafile
+#  template:
+#    src: templates/modsecurity.conf.j2
+#    dest: /etc/modsecurity/modsecurity.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify: restart_apache2_event
+
 
 
 
