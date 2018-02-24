@@ -7,7 +7,7 @@
 
 - name: Task - Enable Apache modules (partly req for Odoo)
   apache2_module:
-    name: {{ item }}
+    name: "{{ item }}"
     state: present
   with_items:
    - rewrite
@@ -27,8 +27,8 @@
 
 - name: Task - Remove default Apache2 virtualhost file.
   file:
-  path: "/etc/apache2/sites-enabled/000-default.conf"
-  state: absent
+    path: "/etc/apache2/sites-enabled/000-default.conf"
+    state: absent
   notify: restart_apache2_event
 
 - name: Task - Secure Apache2 Step 1 - replace default index.html
@@ -40,14 +40,49 @@
     mode: 0644
   notify: restart_apache2_event
 
-- name: Task - Secure Apache2 Step 2 - edit
+- name: Task - Secure Apache2 Step 2 - edit security.conf
+  template:
+    src: templates/security.conf.j2
+    dest: /etc/apache2/conf-available/security.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 2 - enable security.conf
+  file:
+    src: "/etc/apache2/conf-available/security.conf"
+    dest: "/etc/apache2/conf-enabled/security.conf"
+    state: link
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 3 - edit ssl.conf
+  lineinfile:
+    dest: /etc/apache2/mods-available/ssl.conf
+    state: present
+    regexp: '^SSLCipherSuite'
+    line: 'SSLCipherSuite HIGH:!aNULL:!MD5'
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 4 - edit ssl.conf #maybe critical with Android clients
+  lineinfile:
+    dest: /etc/apache2/mods-available/ssl.conf
+    state: present
+    regexp: '^SSLProtocol'
+    line: 'SSLProtocol -ALL +TLSv1 +TLSv1.1 +TLSv1.2'
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 5 - disable modules
+  apache2_module:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+   - status
+   - autoindex
 
 
 
 
-# secure apache according Cookboook
-# remove default virtual hosts
-# --> now apache is prepared and able to receive further vhosts
 
 # Hinzufügen von VHosts: immer die vhost-Datei nach sites-available
 # kopieren UND dann einen Link bei sites-enabled erstellen
@@ -68,6 +103,7 @@
 #state: link
 #notify: restart apache
 
+# eventuell mod_security installieren?
 
 
 

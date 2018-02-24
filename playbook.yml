@@ -41,9 +41,18 @@
 
 - name: Apache konfigurieren
   hosts: eHanse
-  #vars:
-  # apache_listen_port
-  # apache_listen_ssl
+  vars:
+    apache_listen_port: 80
+    apache_listen_ssl: 443
+  roles:
+   - apache
+
+
+ # odoo konfigurieren
+
+ # apache vhost für odoo konfigurieren
+   #vars:
+
   # apache_vhosts:
   #  - vhost_servername: wiki.ehanse.de
   #    vhost_domain: ...
@@ -53,14 +62,14 @@
   #
   #
   #
-  roles:
-   - apache
-
 
 
  # timezone
  # hostnbame
  # odoo --> OCA odoo ansible script
+ # Server Security:
+ # https://www.thefanclub.co.za/how-to/how-secure-ubuntu-1604-lts-server-part-1-basics
+
 
 
   

@@ -1,0 +1,43 @@
+
+# hansible: Zugriff auf andere Stellen des Dateisys verhindern
+<Directory />
+   AllowOverride None
+   Order Deny,Allow
+   Deny from all
+</Directory>
+
+#hansible: ServerTokens auf PROD setzen
+ServerTokens Prod
+
+#hansible: ServerSignature auf OFF setzen
+ServerSignature Off
+
+#hansible: TraceEnable auf OFF setzen
+TraceEnable Off
+
+#hansible: Zugriff auf .git Verzeichnis unterbinden:
+<DirectoryMatch "/\.git">
+   Require all denied
+</DirectoryMatch>
+
+#hansible:
+# Setting this header will prevent MSIE from interpreting files as something
+# else than declared by the content type in the HTTP headers.
+# Requires mod_headers to be enabled.  !!!!!!
+#
+Header set X-Content-Type-Options: "nosniff"
+
+#hansible:
+# Setting this header will prevent other sites from embedding pages from this
+# site as frames. This defends against clickjacking attacks.
+# Requires mod_headers to be enabled.
+#
+Header set X-Frame-Options: "sameorigin"
+
+#hansible:
+#according to apache2 hardening thefanclub.co.za
+Header unset ETag
+FileETag None
+
+
+

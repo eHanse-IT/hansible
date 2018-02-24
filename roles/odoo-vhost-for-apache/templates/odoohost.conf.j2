@@ -32,6 +32,9 @@
    <Proxy *>
      Order deny,allow
      Allow from all
+     #Missbrauch als Mailprxy ueber Port 25 verhindenr:
+     RewriteEngine On
+     RewriteRule "^proxy:[a-z]*://[^/]*:25(/|$)" "-" [F,NC,L]
    </Proxy>
 
    ProxyRequests Off
