@@ -1,3 +1,6 @@
 [submodule "roles/ansible-odoo"]
 	path = roles/ansible-odoo
 	url = https://github.com/OCA/ansible-odoo
+[submodule "roles/certbot"]
+	path = roles/certbot
+	url = https://github.com/geerlingguy/ansible-role-certbot.git
