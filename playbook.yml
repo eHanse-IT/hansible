@@ -104,7 +104,7 @@
    - apache
 
 - name: Certbot fuer LetsEncrypt Zertifikate
-  hosts: oaprod
+  hosts: ehanse
   vars:
     certbot_auto_renew: true
     certbot_auto_renew_user: "{{ ansible_user }}"
