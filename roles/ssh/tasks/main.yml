@@ -1,5 +1,4 @@
 ---
-
 - name: keine Fakten sammeln
   set_fact:
     gather_facts: false
@@ -12,6 +11,7 @@
     connect_timeout: "5"
     timeout: "7"
   register: custom_ssh
+  check_mode: no  #always run active, even if not in check mode
   ignore_errors: yes
 
 - name: Wenn SSH Soll-Port {{ ansible_port }} closed, ueberschreibe ansible_port und setze 22

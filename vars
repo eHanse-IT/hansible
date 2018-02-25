@@ -8,5 +8,7 @@ ehtest_ssh_pass: "{{ _vault_ehtest_ssh_pass }}"
 oaprod_ssh_pass: "{{ _vault_oaprod_ssh_pass }}"
 oatest_ssh_pass: "{{ _vault_oatest_ssh_pass }}"
 
+host_port: "{{ _vault_host_port }}"
+
 
 
