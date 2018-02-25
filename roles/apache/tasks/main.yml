@@ -34,13 +34,6 @@
     update_cache: no
     state: present
 
-- name: Task - Install Mod Security
-  apt:
-    name: libapache2-mod-security2
-    update_cache: no
-    state: present
-
-
 - name: Task - Enable Apache modules (partly req for Odoo)
   apache2_module:
     name: "{{ item }}"
@@ -50,7 +43,6 @@
    - ssl
    - proxy
    - filter
-   - security2
    - proxy_http # req. for Seafile
    - fastcgi #req. for Seafile
    - headers # req. for Odoo multi DB
@@ -119,6 +111,19 @@
    - status
    - autoindex
 
+
+#mod_security Geschichten - NICHT komp mit Seafile etc
+#- name: Task - Install Mod Security
+#  apt:
+#    name: libapache2-mod-security2
+#    update_cache: no
+#    state: present
+
+#- name: Task - Enable Apache modules (partly req for Odoo)
+#  apache2_module:
+#    name: security2
+#    state: present
+
 #- name: Task - Secure Apache2 Step 6 - configure mod_security # not compatible with seafile
 #  template:
 #    src: templates/modsecurity.conf.j2
@@ -127,8 +132,4 @@
 #    group: root
 #    mode: 0644
 #  notify: restart_apache2_event
-
-
-
-
 
