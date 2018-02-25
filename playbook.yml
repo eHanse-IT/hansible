@@ -1,138 +1,10 @@
 ---
-- name: SSH konfigurieren
-  hosts: all
-  vars_files:  # Verweis auf Ziel Ansible Port im Vault
-    - vars
-    - vault
-  roles:
-   - ssh
+- include: play_essentials.yml
 
-- name: User konfigurieren
-  #hosts: ehanse
-  vars_files:  # Verweis auf verschlüsselte Pws
-    - vars
-    - vault
-  hosts: all
-  vars:
-    ehanse_users:
-    - username: joerg
-      pwd_cryp: "{{ joerg_pwd_cryp }}"
-      key: "{{ lookup('file', 'roles/users/authorized_keys/joerg.pub') }}"
-    - username: frank
-      pwd_cryp: "{{ frank_pwd_cryp }}"
-      key: "{{ lookup('file', 'roles/users/authorized_keys/frank.pub') }}"
-    - username: dominik
-      pwd_cryp: "{{ dominik_pwd_cryp }}"
-      key: "{{ lookup('file', 'roles/users/authorized_keys/dominik.pub') }}"
-  roles:
-   - users
+- include: play_apache.yml
 
+-include: play_odoo.yml
 
-- name: /etc/sysctl.conf konfigurieren fuer security
-  hosts: all
-  vars_files:  # Verweis auf verschlüsselte Pws
-    - vars
-    - vault
-  vars:
-    sysctl_settings:
-    - name: net.ipv4.conf.all.rp_filter
-      value: 1
-    - name: net.ipv4.conf.default.rp_filter
-      value: 1
-    - name: net.ipv4.icmp_echo_ignore_broadcasts
-      value: 1
-    - name: net.ipv4.conf.all.accept_source_route
-      value: 0
-    - name: net.ipv6.conf.all.accept_source_route
-      value: 0
-    - name: net.ipv4.conf.default.accept_source_route
-      value: 0
-    - name: net.ipv6.conf.default.accept_source_route
-      value: 0
-    - name: net.ipv4.conf.all.send_redirects
-      value: 0
-    - name: net.ipv4.conf.default.send_redirects
-      value: 0
-    - name: net.ipv4.tcp_syncookies
-      value: 1
-    - name: net.ipv4.tcp_max_syn_backlog
-      value: 2048
-    - name: net.ipv4.tcp_synack_retries
-      value: 2
-    - name: net.ipv4.tcp_syn_retries
-      value: 5
-    - name: net.ipv4.conf.all.log_martians
-      value: 1
-    - name: net.ipv4.icmp_ignore_bogus_error_responses
-      value: 1
-    - name: net.ipv4.conf.all.accept_redirects
-      value: 0
-    - name: net.ipv6.conf.all.accept_redirects
-      value: 0
-    - name: net.ipv4.conf.default.accept_redirects
-      value: 0
-    - name: net.ipv6.conf.default.accept_redirects
-      value: 0
-    - name: net.ipv4.icmp_echo_ignore_all # pings aktiv lassen
-      value: 1
-  roles:
-   - sysctl
-
-
-- name: Git installieren # benoetigt fuer certbot
-  vars_files:  # Verweis auf verschlüsselte Pws
-   - vars
-   - vault
-  hosts: all
-  roles:
-   - git
-
-
-- name: Apache konfigurieren
-  vars_files:  # Verweis auf verschlüsselte Pws
-    - vars
-    - vault
-  hosts: all
-  vars:
-    apache_listen_port: 80
-    apache_listen_ssl: 443
-  roles:
-   - apache
-
-- name: Certbot fuer LetsEncrypt Zertifikate
-  vars_files:  # Verweis auf verschlüsselte Pws
-    - vars
-    - vault
-  hosts: ehanse
-  vars:
-    certbot_auto_renew: true
-    certbot_auto_renew_user: "{{ ansible_user }}"
-    certbot_auto_renew_hour: 3
-    certbot_auto_renew_minute: 30
-    certbot_auto_renew_options: "--quiet --no-self-upgrade"
-    # Parameters used when creating new Certbot certs.
-    certbot_create_if_missing: yes
-    certbot_create_method: standalone
-    certbot_admin_email: info@ehanse.de
-    certbot_certs:
-     - domains:
-        - wiki.ehanse.de
-        - seafile.ehanse.de
-        - www.ehanse.de
-        - erp.ehanse.de
-    certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
-    certbot_create_standalone_stop_services:
-      - apache2
-    # To install from source (on older OSes or if you need a specific or newer
-    # version of Certbot), set this variable to `yes` and configure other options.
-    certbot_install_from_source: yes
-    certbot_repo: https://github.com/certbot/certbot.git
-    certbot_version: master
-    certbot_keep_updated: yes
-    # Where to put Certbot when installing from source.
-    certbot_dir: /opt/certbot
-  roles:
-   - certbot
 
 
 # odoo konfigurieren
@@ -144,20 +16,7 @@
 
 
 
-- name: Zum Schluss die Firewall konfigurieren
-  hosts: all
-  vars_files:  # Verweis auf Ziel Ansible Port im Vault
-    - vars
-    - vault
-  vars:
-    ufw_ipv6: "yes"
-    ufw_default_input_policy: "DROP"
-    ufw_default_output_policy: "ACCEPT"
-    ufw_default_forward_policy: "DROP"
-    ufw_default_application_policy: "SKIP"
-    ufw_ssh_port: "{{ host_port }}"
-  roles:
-   - firewall
+
 
 
 

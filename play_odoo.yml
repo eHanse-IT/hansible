@@ -1,0 +1,31 @@
+# Dieses Playbook MUSS mit Python2 als ansible_interpreter
+# ausgeführt werden! Also den command
+#   ansible_python_interpreter=/usr/bin/python3
+# im Inventory file weglassen! Ansonsten schlägt die Installation
+# von psycopg2 (Python-Postgres-Adapter) fehl.
+
+---
+- name: Odoo installieren,
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: all
+  vars: []
+  pre_tasks:
+    - apt:
+       name: python3-pip #vorab pip3 installieren
+       update_cache: no
+       state: present
+    - apt:
+       name: postgresql
+       update_cache: no
+       state: present
+    - locale_gen:
+       name: de_DE.UTF-8
+       state: present
+    - locale_gen:
+       name: en_US.UTF-8
+       state: present
+  roles:
+   - ansible-odoo
+   - odoo-vhost-for-apache

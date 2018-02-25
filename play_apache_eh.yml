@@ -1,0 +1,46 @@
+---
+- name: Apache konfigurieren
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: all
+  vars:
+    apache_listen_port: 80
+    apache_listen_ssl: 443
+  roles:
+   - apache
+
+- name: Certbot fuer LetsEncrypt Zertifikate
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: ehanse
+  vars:
+    certbot_auto_renew: true
+    certbot_auto_renew_user: "{{ ansible_user }}"
+    certbot_auto_renew_hour: 3
+    certbot_auto_renew_minute: 30
+    certbot_auto_renew_options: "--quiet --no-self-upgrade"
+    # Parameters used when creating new Certbot certs.
+    certbot_create_if_missing: yes
+    certbot_create_method: standalone
+    certbot_admin_email: info@ehanse.de
+    certbot_certs:
+     - domains:
+        - wiki.ehanse.de
+        - seafile.ehanse.de
+        - www.ehanse.de
+        - erp.ehanse.de
+    certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+    certbot_create_standalone_stop_services:
+      - apache2
+    # To install from source (on older OSes or if you need a specific or newer
+    # version of Certbot), set this variable to `yes` and configure other options.
+    certbot_install_from_source: yes
+    certbot_repo: https://github.com/certbot/certbot.git
+    certbot_version: master
+    certbot_keep_updated: yes
+    # Where to put Certbot when installing from source.
+    certbot_dir: /opt/certbot
+  roles:
+   - certbot

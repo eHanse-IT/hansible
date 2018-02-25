@@ -1,0 +1,20 @@
+---
+- name: Kreiere Odoo vHost in Apache.
+  template:
+    src: templates/odoohost.conf.j2
+    dest: "/etc/apache2/sites-available/{{ domain }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_apache2_event
+
+- name: Symlink neuen VHost nach sites-enabled.
+  file:
+    src: "/etc/apache2/sites-available/{{ domain }}.conf"
+    dest: "/etc/apache2/sites-enabled/{{ domain }}.conf"
+    state: link
+  notify: restart_apache2_event
+
+
+
+

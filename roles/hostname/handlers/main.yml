@@ -1,0 +1,6 @@
+---
+- name: restart hostname
+  #service:
+  #  name: hostname
+  #  state: restarted
+  shell: systemctl restart systemd-logind.service

@@ -1,0 +1,135 @@
+#
+# README
+# Diese Rolle initialisiert und härtet Apache.
+# Anschliessend ist Apache vorbereitet, um VHOSTS aufzunehmen.
+# Die VHOSTS werden aber nicht in dieser Rolle gemacht!
+#
+# BEISPIEL
+# Um in anderen roles vhosts zu adden:
+#  - name: Add Apache virtualhost for Drupal 8 development.
+#    template:
+#      src: "templates/drupal.dev.conf.j2"
+#      dest: "/etc/apache2/sites-available/{{ domain }}.dev.conf"
+#      owner: root
+#      group: root
+#    mode: 0644
+#    notify: restart_apache2_event
+#
+#  - name: Symlink Drupal virtualhost to sites-enabled.
+#    file:
+#      src: "/etc/apache2/sites-available/{{ domain }}.dev.conf"
+#      dest: "/etc/apache2/sites-enabled/{{ domain }}.dev.conf"
+#      state: link
+#    notify: restart apache
+#
+# TODO
+# mod_security für Seafile kompatible machen?
+
+
+
+---
+- name: Task - Install Apache Webserver
+  apt:
+    name: apache2
+    update_cache: yes
+    state: present
+
+- name: Task - Enable Apache modules (partly req for Odoo)
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - rewrite
+   - ssl
+   - proxy
+   - filter
+   - proxy_http # req. for Seafile
+   - headers # req. for Odoo multi DB
+
+- name: Task - Let Apache2 listen on 80 and 443
+  template:
+    src: templates/ports.conf.j2
+    dest: /etc/apache2/ports.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_apache2_event
+
+- name: Task - Remove default Apache2 virtualhost file.
+  file:
+    path: "/etc/apache2/sites-enabled/000-default.conf"
+    state: absent
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 1 - replace default index.html
+  template:
+    src: templates/index.html.j2
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+    mode: 0644
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 2 - edit security.conf
+  template:
+    src: templates/security.conf.j2
+    dest: /etc/apache2/conf-available/security.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 2 - enable security.conf
+  file:
+    src: "/etc/apache2/conf-available/security.conf"
+    dest: "/etc/apache2/conf-enabled/security.conf"
+    state: link
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 3 - edit ssl.conf
+  lineinfile:
+    dest: /etc/apache2/mods-available/ssl.conf
+    state: present
+    regexp: '^SSLCipherSuite'
+    line: 'SSLCipherSuite HIGH:!aNULL:!MD5'
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 4 - edit ssl.conf #maybe critical with Android clients
+  lineinfile:
+    dest: /etc/apache2/mods-available/ssl.conf
+    state: present
+    regexp: '^SSLProtocol'
+    line: 'SSLProtocol -ALL +TLSv1 +TLSv1.1 +TLSv1.2'
+  notify: restart_apache2_event
+
+- name: Task - Secure Apache2 Step 5 - disable modules
+  apache2_module:
+    name: "{{ item }}"
+    state: absent
+    force: True
+  with_items:
+   - status
+   - autoindex
+
+
+#mod_security Geschichten - NICHT komp mit Seafile etc
+#- name: Task - Install Mod Security
+#  apt:
+#    name: libapache2-mod-security2
+#    update_cache: no
+#    state: present
+
+#- name: Task - Enable Apache modules (partly req for Odoo)
+#  apache2_module:
+#    name: security2
+#    state: present
+
+#- name: Task - Secure Apache2 Step 6 - configure mod_security # not compatible with seafile
+#  template:
+#    src: templates/modsecurity.conf.j2
+#    dest: /etc/modsecurity/modsecurity.conf
+#    owner: root
+#    group: root
+#    mode: 0644
+#  notify: restart_apache2_event
+
