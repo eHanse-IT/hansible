@@ -2,8 +2,9 @@
 - name: keine Fakten sammeln
   set_fact:
     gather_facts: false
+    ssh_soll_port: "{{ host_port }}"
 
-- name: Test SSH auf Soll-port {{ ansible_port }} erreichbar
+- name: Test SSH auf Port {{ ansible_port }} erreichbar
   wait_for:
     port: "{{ ansible_port }}"
     state: "started"
@@ -14,7 +15,7 @@
   check_mode: no  #always run active, even if not in check mode
   ignore_errors: yes
 
-- name: Wenn SSH Soll-Port {{ ansible_port }} closed, ueberschreibe ansible_port und setze 22
+- name: Wenn SSH Soll-Port {{ host_port }} closed, ueberschreibe ansible_port und setze 22
   set_fact:
     ansible_port: "22"
   when: custom_ssh is defined and
@@ -23,33 +24,11 @@
 - name: Nach Portfindung einen kurzen Ping um zu checken dass die Verbindung funzt
   ping:
 
-- name: sshd_config - SSH port einstellen
-  lineinfile:
-    dest: "/etc/ssh/sshd_config"
-    regexp: "^Port"
-    line: "Port {{ ssh_soll_port }}"
-  notify: restart_ssh_event
-
-- name: sshd_config - SSH nicht für root zulassen
-  lineinfile:
+- name: sshd_config uebernehmen
+  template:
+    src: templates/sshd_config.j2
     dest: /etc/ssh/sshd_config
-    state: present
-    regexp: '^PermitRootLogin'
-    line: 'PermitRootLogin no'
-  notify: restart_ssh_event
-
-- name: sshd_config - SSH nur mit keyfiles und ohne Passwort
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    state: present
-    regexp: '^PasswordAuthentication'
-    line: 'PasswordAuthentication no'
-  notify: restart_ssh_event
-
-- name: sshd_config - SSH nur fuer Gruppen sshlogin und sshusers
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    state: present
-    regexp: '^AllowGroups'
-    line: 'AllowGroups sshusers sshlogin'
+    owner: root
+    group: root
+    mode: 0644
   notify: restart_ssh_event

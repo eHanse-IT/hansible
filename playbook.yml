@@ -1,4 +1,12 @@
 ---
+- name: SSH konfigurieren
+  hosts: all
+  vars_files:  # Verweis auf Ziel Ansible Port im Vault
+    - vars
+    - vault
+  roles:
+   - ssh
+
 - name: User konfigurieren
   #hosts: ehanse
   vars_files:  # Verweis auf verschlüsselte Pws
@@ -20,29 +28,11 @@
    - users
 
 
-- name: SSH konfigurieren
-  hosts: all
-  vars:
-    ssh_soll_port: "{{ ansible_port }}"
-  roles:
-   - ssh
-
-
-
-- name: Firewall konfigurieren
-  hosts: all
-  vars:
-    ufw_ipv6: "yes"
-    ufw_default_input_policy: "DROP"
-    ufw_default_output_policy: "ACCEPT"
-    ufw_default_forward_policy: "DROP"
-    ufw_default_application_policy: "SKIP"
-  roles:
-   - firewall
-
-
 - name: /etc/sysctl.conf konfigurieren fuer security
   hosts: all
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
   vars:
     sysctl_settings:
     - name: net.ipv4.conf.all.rp_filter
@@ -90,12 +80,18 @@
 
 
 - name: Git installieren # benoetigt fuer certbot
+  vars_files:  # Verweis auf verschlüsselte Pws
+   - vars
+   - vault
   hosts: all
   roles:
    - git
 
 
 - name: Apache konfigurieren
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
   hosts: all
   vars:
     apache_listen_port: 80
@@ -104,6 +100,9 @@
    - apache
 
 - name: Certbot fuer LetsEncrypt Zertifikate
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
   hosts: ehanse
   vars:
     certbot_auto_renew: true
@@ -136,16 +135,29 @@
    - certbot
 
 
+# odoo konfigurieren
+# timezone
+# hostnbame
+# odoo --> OCA odoo ansible script
+# Server Security:
+# https://www.thefanclub.co.za/how-to/how-secure-ubuntu-1604-lts-server-part-1-basics
 
- # odoo konfigurieren
 
 
-
- # timezone
- # hostnbame
- # odoo --> OCA odoo ansible script
- # Server Security:
- # https://www.thefanclub.co.za/how-to/how-secure-ubuntu-1604-lts-server-part-1-basics
+- name: Zum Schluss die Firewall konfigurieren
+  hosts: all
+  vars_files:  # Verweis auf Ziel Ansible Port im Vault
+    - vars
+    - vault
+  vars:
+    ufw_ipv6: "yes"
+    ufw_default_input_policy: "DROP"
+    ufw_default_output_policy: "ACCEPT"
+    ufw_default_forward_policy: "DROP"
+    ufw_default_application_policy: "SKIP"
+    ufw_ssh_port: "{{ host_port }}"
+  roles:
+   - firewall
 
 
 

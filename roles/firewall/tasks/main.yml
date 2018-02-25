@@ -24,14 +24,14 @@
  - name: UFW Anzahl Login-Versuche limitieren
    ufw:
      rule: limit
-     port: "{{ ansible_port }}"
+     port: "{{ ufw_ssh_port }}"
      proto: tcp
    notify: reload ufw
 
- - name: UFW erlaube SSH ueber port {{ ansible_port }}
+ - name: UFW erlaube SSH ueber SSH Soll-Port {{ ufw_ssh_port }}
    ufw:
      rule: allow
-     port: "{{ ansible_port }}"
+     port: "{{ ufw_ssh_port }}"
    notify: reload ufw
 
  - name: UFW erlaube HTTP port 80

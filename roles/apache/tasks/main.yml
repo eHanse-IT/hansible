@@ -31,7 +31,7 @@
 - name: Task - Install Apache Webserver
   apt:
     name: apache2
-    update_cache: no
+    update_cache: yes
     state: present
 
 - name: Task - Enable Apache modules (partly req for Odoo)
@@ -44,7 +44,6 @@
    - proxy
    - filter
    - proxy_http # req. for Seafile
-   - fastcgi #req. for Seafile
    - headers # req. for Odoo multi DB
 
 - name: Task - Let Apache2 listen on 80 and 443
@@ -107,6 +106,7 @@
   apache2_module:
     name: "{{ item }}"
     state: absent
+    force: True
   with_items:
    - status
    - autoindex

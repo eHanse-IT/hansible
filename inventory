@@ -9,9 +9,10 @@
 #103.231.254.5    ansible_port=7365    # OAW Test Server new
 
 [oaw:vars]
-ansible_port=22
-ansible_user=root
-ansible_ssh_pass=tempopassword
+ansible_port= {{ host_port }}
+#ansible_port=22
+#ansible_user=root
+#ansible_ssh_pass=tempopassword
 ansible_python_interpreter=/usr/bin/python3
 
 
