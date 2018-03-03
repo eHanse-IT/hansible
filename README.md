@@ -2,18 +2,18 @@
 eHanse's ansible configuration files.
 
 ## General Usage
-Our ansible configurations are supposed to be run via the playbooks "play_apache", "play_odoo" et cetera. They in turn call all the tasks that we find in the 'roles' subfolder. To start with ansible:
+Our ansible configurations are supposed to be run via the playbooks "play_apache", "play_odoo" et cetera. They in turn call all the tasks that we find in the 'roles' subfolder. Before starting with ansible, you need to install it and write the vault password in a file that is accessible to ansible, but will not be synced to git. Here is how to do it: 
 
 1. Install ansible via `apt-get install ansible`.
 2. git-clone this repo and `cd` into the directory.
 3. Save our vault-password into a `.vaultpw`-file (which is git-ignored): `echo <ourvaultpassword> > .vaultpw `
 4. Now your hansible-repo is ready to run. First, perform a a dry run on our servers: ` ansible-playbook playbook.yml -i inventory -u YOURUSER -b -K --vault-password-file=.vaultpw --check `
 5. Perform an actual run using the same command without `--check` command: `
-ansible-playbook playbook.yml -i inventory -u YOURUSER -s -K --vault-password-file=.vaultpw `
+ansible-playbook playbook.yml -i inventory -u YOURUSER -b -K --vault-password-file=.vaultpw `
 
 If you intend to run ansible against a single server, look at the name of the server in the inventory.yml and add the parameter `-l SERVERNAME` at the end of the ansible-playbook command.
 
-## Usage of the vault files
+## Usage of vault files
 * `ansible-vault create <filename>` creates a vault file with <filename> and asks to set a passwd.
 * `ansible-vault edit <filename>` asks for the passwd and opens the vault with your default editor (nano or vi)
 * `ansible-vault view <filename>` asks for the passwd to view the contents
