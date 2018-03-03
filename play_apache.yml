@@ -10,3 +10,11 @@
   roles:
    - apache
 
+- name: Certbot fuer LetsEncrypt Zertifikate
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: ehanse
+
+  roles:
+   - certbot

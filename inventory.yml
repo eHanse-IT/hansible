@@ -1,0 +1,95 @@
+oatrade:
+  hosts:
+    oaprod:
+      ansible_host: 103.231.254.6
+      ansible_port: "{{ host_port }}"
+      fqdn: "oaprod.oa-trade.com"
+      hostname: "oaprod"
+      timezone: "Asia/Hong_Kong"
+      domain: "oa.oa-trade.com"
+      #ansible_user=root  #initial setup
+      #ansible_ssh_pass=tempopassword
+      #ansible_python_interpreter=/usr/bin/python3
+      certbot_auto_renew: true
+      certbot_auto_renew_user: "{{ ansible_user }}"
+      certbot_auto_renew_hour: 3
+      certbot_auto_renew_minute: 30
+      certbot_auto_renew_options: "--quiet --no-self-upgrade"
+      # Parameters used when creating new Certbot certs.
+      certbot_create_if_missing: yes
+      certbot_create_method: standalone
+      certbot_admin_email: info@ehanse.de
+      certbot_certs:
+       - domains:
+          # - wiki.oa-trade.com
+          - oa.oa-trade.com
+      certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+      certbot_create_standalone_stop_services:
+        - apache2
+      # To install from source (on older OSes or if you need a specific or newer
+      # version of Certbot), set this variable to `yes` and configure other options.
+      certbot_install_from_source: yes
+      certbot_repo: https://github.com/certbot/certbot.git
+      certbot_version: master
+      certbot_keep_updated: yes
+      # Where to put Certbot when installing from source.
+      certbot_dir: /opt/certbot
+
+
+    oatest:
+      ansible_host: 103.231.254.5
+      ansible_port: "{{ host_port }}"
+
+ehanse:
+  hosts:
+    ehprod:
+      ansible_host: 5.45.105.50
+      ansible_port: "{{ host_port }}"
+      fqdn: "www.ehanse.de"
+      hostname: "ehanse.de"
+      timezone: "Europe/Berlin"
+      certbot_auto_renew: true
+      certbot_auto_renew_user: "{{ ansible_user }}"
+      certbot_auto_renew_hour: 3
+      certbot_auto_renew_minute: 30
+      certbot_auto_renew_options: "--quiet --no-self-upgrade"
+      # Parameters used when creating new Certbot certs.
+      certbot_create_if_missing: yes
+      certbot_create_method: standalone
+      certbot_admin_email: info@ehanse.de
+      certbot_certs:
+       - domains:
+          - wiki.ehanse.de
+          - seafile.ehanse.de
+          - www.ehanse.de
+          - erp.ehanse.de
+      certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+      certbot_create_standalone_stop_services:
+        - apache2
+      # To install from source (on older OSes or if you need a specific or newer
+      # version of Certbot), set this variable to `yes` and configure other options.
+      certbot_install_from_source: yes
+      certbot_repo: https://github.com/certbot/certbot.git
+      certbot_version: master
+      certbot_keep_updated: yes
+      # Where to put Certbot when installing from source.
+      certbot_dir: /opt/certbot
+
+
+    ehtest:
+      ansible_host: 185.170.113.205
+      ansible_port: "{{ host_port }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
