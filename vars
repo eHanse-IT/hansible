@@ -12,6 +12,16 @@ ehanse_users:
   pwd_cryp: "{{ _vault_dominik_pwd_cryp }}"
   key: "{{ lookup('file', 'roles/users/authorized_keys/dominik.pub') }}"
 
+rfhk_users:
+- username: ytashiro
+  pwd_cryp: "{{ _vault_ytashiro_pwd_cryp }}"
+  key: "{{ lookup('file', 'roles/users/authorized_keys/ytashiro.pub') }}"
+- username: tslai
+  pwd_cryp: "{{ _vault_tslai_pwd_cryp }}"
+  key: "{{ lookup('file', 'roles/users/authorized_keys/tslai.pub') }}"
+
+
+
 # common settings for role "ssh"
 ehprod_ssh_pass: "{{ _vault_ehprod_ssh_pass }}"
 ehtest_ssh_pass: "{{ _vault_ehtest_ssh_pass }}"
