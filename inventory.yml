@@ -7,6 +7,9 @@ oatrade:
       hostname: "oaprod"
       timezone: "Asia/Hong_Kong"
       domain: "oa.oa-trade.com"
+      userlist:
+      - "{{ ehanse_users }}"
+      - "{{ rfhk_users }}"
       #ansible_user=root  #initial setup
       #ansible_ssh_pass=tempopassword
       #ansible_python_interpreter=/usr/bin/python3
@@ -48,6 +51,9 @@ ehanse:
       fqdn: "www.ehanse.de"
       hostname: "ehanse.de"
       timezone: "Europe/Berlin"
+      userlist:
+      - "{{ ehanse_users }}"
+      #- "{{ rfhk_users }}"
       certbot_auto_renew: true
       certbot_auto_renew_user: "{{ ansible_user }}"
       certbot_auto_renew_hour: 3

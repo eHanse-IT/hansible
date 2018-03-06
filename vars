@@ -86,5 +86,4 @@ ufw_ssh_port: "{{ host_port }}"
 
 
 # common settings for the Odoo superuser password
-odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password }}""
-
+odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password }}"

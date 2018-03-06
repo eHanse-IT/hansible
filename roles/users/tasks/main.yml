@@ -14,16 +14,16 @@
     system: no
     groups: sshusers,sudo
     state: present
-  with_items:
-    - "{{ ehanse_users }}"
+  with_flattened:       #squashe die Usergruppenlisten aus dem Inventory zu einer großen userliste
+    - "{{ userlist }}"
     #- "{{ rfhk_users}}"
 
 - name: authorized_keys einrichten
   authorized_key:
     user: "{{ item.username }}"
     key: "{{ item.key }}"
-  with_items:
-    - "{{ ehanse_users }}"
+  with_flattened:
+    - "{{ userlist }}"
 
 - name: User entfernen (Beispiel)
   user:
