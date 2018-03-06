@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="554ef9d8-7186-4c11-8cfb-ff113375d489" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/roles/certbot" afterPath="$PROJECT_DIR$/roles/certbot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inventory.yml" afterPath="$PROJECT_DIR$/inventory.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/roles/users/tasks/main.yml" afterPath="$PROJECT_DIR$/roles/users/tasks/main.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vars" afterPath="$PROJECT_DIR$/vars" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/play_odoo.yml" afterPath="$PROJECT_DIR$/play_odoo.yml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="play_odoo.yml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="play_odoo.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/play_odoo.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="987">
-              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state relative-caret-position="528">
+              <caret line="52" column="14" lean-forward="false" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -36,7 +34,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="inventory.yml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="inventory.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/inventory.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
@@ -180,11 +178,11 @@
         <option value="$PROJECT_DIR$/roles/users/authorized_keys/ytashiro.pub" />
         <option value="$PROJECT_DIR$/roles/users/authorized_keys/tslai.pub" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/play_odoo.yml" />
         <option value="$PROJECT_DIR$/roles/ansible-odoo/defaults/main.yml" />
         <option value="$PROJECT_DIR$/vars" />
         <option value="$PROJECT_DIR$/roles/users/tasks/main.yml" />
         <option value="$PROJECT_DIR$/inventory.yml" />
+        <option value="$PROJECT_DIR$/play_odoo.yml" />
       </list>
     </option>
   </component>
@@ -306,7 +304,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2880" y="-4" width="1922" height="1037" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21878335" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -316,7 +313,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47777778" sideWeight="0.4975" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47777778" sideWeight="0.4975" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -661,14 +658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/play_odoo.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="987">
-          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vars">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1584">
@@ -697,6 +686,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="55" column="7" lean-forward="false" selection-start-line="55" selection-start-column="7" selection-end-line="55" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/play_odoo.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="52" column="14" lean-forward="false" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
           <folding />
         </state>
       </provider>

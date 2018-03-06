@@ -34,22 +34,22 @@
        repo: 'https://github.com/eHanse-IT/OAW_custom.git'
        dest: '/home/odoo/odoo/custom/addons/OAW-custom'
        force: yes
-       umask: '0755'
+       umask: '755'
    - git:
        repo: 'https://github.com/rfhk/awo-custom.git'
        dest: '/home/odoo/odoo/custom/addons/awo-custom'
        force: yes
-       umask: '0755'
+       umask: '755'
    - file:
-       path: '/home/odoo/odoo/custom/OAW-custom'
+       path: '/home/odoo/odoo/custom/addons/OAW-custom'
        owner: "{{ odoo_user }}"
        group: "{{ odoo_user }}"
-       mode: 775
+       mode: 0775
        recurse: yes
    - file:
-       path: '/home/odoo/odoo/custom/awo-custom'
+       path: '/home/odoo/odoo/custom/addons/awo-custom'
        owner: "{{ odoo_user }}"
        group: "{{ odoo_user }}"
-       mode: 775
+       mode: 0775
        recurse: yes
 
