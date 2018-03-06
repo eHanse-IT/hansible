@@ -33,9 +33,13 @@
    - git:
        repo: 'https://github.com/eHanse-IT/OAW_custom.git'
        dest: '/home/odoo/odoo/custom/addons/OAW-custom'
+       force: yes
+       umask: '0755'
    - git:
        repo: 'https://github.com/rfhk/awo-custom.git'
        dest: '/home/odoo/odoo/custom/addons/awo-custom'
+       force: yes
+       umask: '0755'
    - file:
        path: '/home/odoo/odoo/custom/OAW-custom'
        owner: "{{ odoo_user }}"
