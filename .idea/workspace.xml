@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="554ef9d8-7186-4c11-8cfb-ff113375d489" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/roles/certbot" afterPath="$PROJECT_DIR$/roles/certbot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/play_odoo.yml" afterPath="$PROJECT_DIR$/play_odoo.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/roles/ansible-odoo/defaults/main.yml" afterPath="$PROJECT_DIR$/roles/ansible-odoo/defaults/main.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vars" afterPath="$PROJECT_DIR$/vars" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,10 +15,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="play_odoo.yml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="play_odoo.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/play_odoo.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
+            <state relative-caret-position="987">
               <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding />
             </state>
@@ -29,71 +28,18 @@
       <file leaf-file-name="main.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/roles/ansible-odoo/defaults/main.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-              <folding>
-                <marker date="1520367254856" expanded="true" signature="1672:1701" ph="odoo_conf…ddons_path: &lt;2 items&gt;" />
-                <marker date="1520367254856" expanded="true" signature="2467:2468" ph="" />
-                <marker date="1520367254856" expanded="true" signature="2493:2498" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="2539:2543" ph="None" />
-                <marker date="1520367254856" expanded="true" signature="2568:2573" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="2598:2603" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="2632:2664" ph="/usr/shar…teCity.dat" />
-                <marker date="1520367254856" expanded="true" signature="2690:2694" ph="True" />
-                <marker date="1520367254856" expanded="true" signature="2758:2760" ph="" />
-                <marker date="1520367254856" expanded="true" signature="2816:2820" ph="8069" />
-                <marker date="1520367254856" expanded="true" signature="2891:2901" ph="4294967296" />
-                <marker date="1520367254856" expanded="true" signature="2933:2942" ph="671088640" />
-                <marker date="1520367254856" expanded="true" signature="3005:3009" ph="1000" />
-                <marker date="1520367254856" expanded="true" signature="3044:3048" ph="3000" />
-                <marker date="1520367254856" expanded="true" signature="3083:3087" ph="True" />
-                <marker date="1520367254856" expanded="true" signature="3108:3113" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="3137:3141" ph="info" />
-                <marker date="1520367254856" expanded="true" signature="3163:3192" ph="/var/log/…server.log" />
-                <marker date="1520367254856" expanded="true" signature="3216:3220" ph="True" />
-                <marker date="1520367254856" expanded="true" signature="3251:3255" ph="8072" />
-                <marker date="1520367254856" expanded="true" signature="3290:3293" ph="1.0" />
-                <marker date="1520367254856" expanded="true" signature="3330:3335" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="3398:3409" ph="server.cert" />
-                <marker date="1520367254856" expanded="true" signature="3440:3451" ph="server.pkey" />
-                <marker date="1520367254856" expanded="true" signature="3485:3521" ph="web,web_k…om_header," />
-                <marker date="1520367254856" expanded="true" signature="3549:3562" ph="2485dbc0b9##1A" />
-                <marker date="1520367254856" expanded="true" signature="3586:3589" ph="587" />
-                <marker date="1520367254856" expanded="true" signature="3615:3631" ph="s1.hostedmail.cc" />
-                <marker date="1520367254856" expanded="true" signature="3654:3658" ph="True" />
-                <marker date="1520367254856" expanded="true" signature="3720:3725" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="3748:3753" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="3785:3794" ph="['all']" />
-                <marker date="1520367254856" expanded="true" signature="3817:3822" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="3849:3854" ph="False" />
-                <marker date="1520367254856" expanded="true" signature="3898:3902" ph="True" />
-                <marker date="1520367254856" expanded="true" signature="3958:3960" ph="" />
-                <marker date="1520367254856" expanded="true" signature="4003:4007" ph="8069" />
-                <marker date="1520367254856" expanded="true" signature="4049:4053" ph="True" />
-                <marker date="1520367254856" expanded="true" signature="4108:4110" ph="" />
-                <marker date="1520367254856" expanded="true" signature="4152:4156" ph="8071" />
-                <marker date="1520367254856" expanded="true" signature="4206:4228" ph="odoo_config_custom: {0 keys}" />
-                <marker date="1520367254856" expanded="true" signature="4358:4386" ph="{{ odoo_w…}}/sandbox" />
-                <marker date="1520367254856" expanded="true" signature="4449:4496" ph="file:///h…ements.txt" />
-                <marker date="1520367254856" expanded="true" signature="4521:4607" ph="{{ odoo_p… 'odoo' }}" />
-                <marker date="1520367254856" expanded="true" signature="4716:4721" ph="2.9.5" />
-                <marker date="1520367254856" expanded="true" signature="4747:4775" ph="{{ odoo_w…}}/sandbox" />
-                <marker date="1520367254856" expanded="true" signature="4806:4839" ph="{{ odoo_w…otstrap.py" />
-                <marker date="1520367254856" expanded="true" signature="4869:5028" ph="{{ odoo_b…version }}" />
-                <marker date="1520367254856" expanded="true" signature="5053:5086" ph="{{ odoo_w…n/buildout" />
-                <marker date="1520367254856" expanded="true" signature="5114:5147" ph="{{ odoo_w…ildout.cfg" />
-                <marker date="1520367254856" expanded="true" signature="5177:5212" ph="{{ odoo_w…start_odoo" />
-                <marker date="1520367254856" expanded="true" signature="5213:5249" ph="odoo_buil…pendencies: [0 items]" />
-              </folding>
+            <state relative-caret-position="198">
+              <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vars" pinned="false" current-in-tab="false">
+      <file leaf-file-name="vars" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vars">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="389">
+              <caret line="88" column="75" lean-forward="false" selection-start-line="88" selection-start-column="37" selection-end-line="88" selection-end-column="75" />
               <folding />
             </state>
           </provider>
@@ -231,12 +177,13 @@
         <option value="$PROJECT_DIR$/inventory.yml" />
         <option value="$PROJECT_DIR$/.vaultpw" />
         <option value="$PROJECT_DIR$/play_essentials.yml" />
-        <option value="$PROJECT_DIR$/vars" />
         <option value="$PROJECT_DIR$/roles/users/authorized_keys/ytashiro.pub" />
         <option value="$PROJECT_DIR$/roles/users/authorized_keys/tslai.pub" />
         <option value="$PROJECT_DIR$/roles/users/tasks/main.yml" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/play_odoo.yml" />
+        <option value="$PROJECT_DIR$/roles/ansible-odoo/defaults/main.yml" />
+        <option value="$PROJECT_DIR$/vars" />
       </list>
     </option>
   </component>
@@ -672,67 +619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/roles/ansible-odoo/defaults/main.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="23" lean-forward="false" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-          <folding>
-            <marker date="1520367254856" expanded="true" signature="1672:1701" ph="odoo_conf…ddons_path: &lt;2 items&gt;" />
-            <marker date="1520367254856" expanded="true" signature="2467:2468" ph="" />
-            <marker date="1520367254856" expanded="true" signature="2493:2498" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="2539:2543" ph="None" />
-            <marker date="1520367254856" expanded="true" signature="2568:2573" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="2598:2603" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="2632:2664" ph="/usr/shar…teCity.dat" />
-            <marker date="1520367254856" expanded="true" signature="2690:2694" ph="True" />
-            <marker date="1520367254856" expanded="true" signature="2758:2760" ph="" />
-            <marker date="1520367254856" expanded="true" signature="2816:2820" ph="8069" />
-            <marker date="1520367254856" expanded="true" signature="2891:2901" ph="4294967296" />
-            <marker date="1520367254856" expanded="true" signature="2933:2942" ph="671088640" />
-            <marker date="1520367254856" expanded="true" signature="3005:3009" ph="1000" />
-            <marker date="1520367254856" expanded="true" signature="3044:3048" ph="3000" />
-            <marker date="1520367254856" expanded="true" signature="3083:3087" ph="True" />
-            <marker date="1520367254856" expanded="true" signature="3108:3113" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="3137:3141" ph="info" />
-            <marker date="1520367254856" expanded="true" signature="3163:3192" ph="/var/log/…server.log" />
-            <marker date="1520367254856" expanded="true" signature="3216:3220" ph="True" />
-            <marker date="1520367254856" expanded="true" signature="3251:3255" ph="8072" />
-            <marker date="1520367254856" expanded="true" signature="3290:3293" ph="1.0" />
-            <marker date="1520367254856" expanded="true" signature="3330:3335" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="3398:3409" ph="server.cert" />
-            <marker date="1520367254856" expanded="true" signature="3440:3451" ph="server.pkey" />
-            <marker date="1520367254856" expanded="true" signature="3485:3521" ph="web,web_k…om_header," />
-            <marker date="1520367254856" expanded="true" signature="3549:3562" ph="2485dbc0b9##1A" />
-            <marker date="1520367254856" expanded="true" signature="3586:3589" ph="587" />
-            <marker date="1520367254856" expanded="true" signature="3615:3631" ph="s1.hostedmail.cc" />
-            <marker date="1520367254856" expanded="true" signature="3654:3658" ph="True" />
-            <marker date="1520367254856" expanded="true" signature="3720:3725" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="3748:3753" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="3785:3794" ph="['all']" />
-            <marker date="1520367254856" expanded="true" signature="3817:3822" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="3849:3854" ph="False" />
-            <marker date="1520367254856" expanded="true" signature="3898:3902" ph="True" />
-            <marker date="1520367254856" expanded="true" signature="3958:3960" ph="" />
-            <marker date="1520367254856" expanded="true" signature="4003:4007" ph="8069" />
-            <marker date="1520367254856" expanded="true" signature="4049:4053" ph="True" />
-            <marker date="1520367254856" expanded="true" signature="4108:4110" ph="" />
-            <marker date="1520367254856" expanded="true" signature="4152:4156" ph="8071" />
-            <marker date="1520367254856" expanded="true" signature="4206:4228" ph="odoo_config_custom: {0 keys}" />
-            <marker date="1520367254856" expanded="true" signature="4358:4386" ph="{{ odoo_w…}}/sandbox" />
-            <marker date="1520367254856" expanded="true" signature="4449:4496" ph="file:///h…ements.txt" />
-            <marker date="1520367254856" expanded="true" signature="4521:4607" ph="{{ odoo_p… 'odoo' }}" />
-            <marker date="1520367254856" expanded="true" signature="4716:4721" ph="2.9.5" />
-            <marker date="1520367254856" expanded="true" signature="4747:4775" ph="{{ odoo_w…}}/sandbox" />
-            <marker date="1520367254856" expanded="true" signature="4806:4839" ph="{{ odoo_w…otstrap.py" />
-            <marker date="1520367254856" expanded="true" signature="4869:5028" ph="{{ odoo_b…version }}" />
-            <marker date="1520367254856" expanded="true" signature="5053:5086" ph="{{ odoo_w…n/buildout" />
-            <marker date="1520367254856" expanded="true" signature="5114:5147" ph="{{ odoo_w…ildout.cfg" />
-            <marker date="1520367254856" expanded="true" signature="5177:5212" ph="{{ odoo_w…start_odoo" />
-            <marker date="1520367254856" expanded="true" signature="5213:5249" ph="odoo_buil…pendencies: [0 items]" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/roles/users/authorized_keys/joerg.pub">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -753,14 +639,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="394" lean-forward="true" selection-start-line="0" selection-start-column="394" selection-end-line="0" selection-end-column="394" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vars">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -790,6 +668,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/roles/ansible-odoo/defaults/main.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/play_odoo.retry">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -800,8 +686,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/play_odoo.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
+        <state relative-caret-position="987">
           <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vars">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="88" column="75" lean-forward="false" selection-start-line="88" selection-start-column="37" selection-end-line="88" selection-end-column="75" />
           <folding />
         </state>
       </provider>

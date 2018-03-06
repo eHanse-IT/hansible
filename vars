@@ -83,3 +83,8 @@ ufw_default_forward_policy: "DROP"
 ufw_default_application_policy: "SKIP"
 ufw_ssh_port: "{{ host_port }}"
 
+
+
+# common settings for the Odoo superuser password
+odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password }}""
+
