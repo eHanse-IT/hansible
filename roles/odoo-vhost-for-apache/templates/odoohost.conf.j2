@@ -43,8 +43,8 @@
    ProxyPassReverse / http://127.0.0.1:8069
    #RequestHeader set “X-Forwarded-Proto” “https”
    #RequestHeader set "X-Forwarded-Host" "www.ehanse.de"
-   Header add X-ODOO_DBFILTER "ProdDB"
-    RequestHeader add X-ODOO_DBFILTER "ProdDB"
+   Header add X-ODOO-DBFILTER "oa"
+    RequestHeader add X-ODOO-DBFILTER "oa"
    #SetEnv proxy-nokeepalive 1
 
 </virtualhost>

@@ -37,13 +37,13 @@
        repo: 'https://github.com/rfhk/awo-custom.git'
        dest: '/home/odoo/odoo/custom/addons/awo-custom'
    - file:
-       path: '/home/odoo/odoo/custom/addons/OAW-custom'
+       path: '/home/odoo/odoo/custom/OAW-custom'
        owner: "{{ odoo_user }}"
        group: "{{ odoo_user }}"
        mode: 775
        recurse: yes
    - file:
-       path: '/home/odoo/odoo/custom/addons/awo-custom'
+       path: '/home/odoo/odoo/custom/awo-custom'
        owner: "{{ odoo_user }}"
        group: "{{ odoo_user }}"
        mode: 775
