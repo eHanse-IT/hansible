@@ -3,6 +3,7 @@ oatrade:
     oaprod:
       ansible_host: 103.231.254.6
       ansible_port: "{{ host_port }}"
+      pipelining: True  #works with Ubuntu 16+04 because /etc/sudoers does not require tty
       fqdn: "oaprod.oa-trade.com"
       hostname: "oaprod"
       timezone: "Asia/Hong_Kong"

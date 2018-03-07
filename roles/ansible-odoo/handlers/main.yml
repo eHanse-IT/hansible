@@ -5,3 +5,6 @@
     name: "{{ odoo_service }}"
     state: restarted
   when: odoo_init == True
+
+
+#systemctl daemon-reload

@@ -15,6 +15,13 @@
     state: link
   notify: restart_apache2_event
 
+   # finally, make sure Odoo is running fine on the target machine (no "internal web server error")
+- name: Teste ob Odoo ueber den kreierten vHost erreichbar ist
+  uri:
+    url: https://{{ domain}}
+    status_code: 200
+
+
 
 
 
