@@ -2,3 +2,5 @@
 *.vault-password
 *.vaultpw
 *.vaultpwd
+*.retry
+.idea/
