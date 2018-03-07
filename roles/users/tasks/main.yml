@@ -16,7 +16,6 @@
     state: present
   with_flattened:       #squashe die Usergruppenlisten aus dem Inventory zu einer großen userliste
     - "{{ userlist }}"
-    #- "{{ rfhk_users}}"
 
 - name: authorized_keys einrichten
   authorized_key:

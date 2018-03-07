@@ -70,7 +70,7 @@ odoo_config_limit_memory_soft: 671088640
 odoo_config_limit_time_cpu: 8192
 odoo_config_limit_time_real: 1000
 odoo_config_limit_time_real_cron: 3000    # >= 10.0
-odoo_config_list_db: True
+odoo_config_list_db: False       #change by joerg on 07.03.2018
 odoo_config_log_db: False
 odoo_config_log_level: info
 odoo_config_logfile: /var/log/odoo/odoo-server.log
