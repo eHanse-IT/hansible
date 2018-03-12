@@ -1,0 +1,27 @@
+---
+# defaults file for PeterMosmans.dokuwiki
+
+dokuwiki_base: /var/www/html
+dokuwiki_group: www-data
+dokuwiki_name: dokuwiki
+dokuwiki_plugins_remove:
+  - name: authad
+  - name: authldap
+  - name: authmysql
+  - name: authpdo
+  - name: authpgsql
+  - name: info
+  - name: popularity
+dokuwiki_provision: false
+dokuwiki_savedir: /var/www/html/data
+dokuwiki_source: https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz
+dokuwiki_user: root
+
+# Template parameters (will only be used when dokuwiki_provision is true)
+dokuwiki_acl_all: 0
+dokuwiki_acl_user: 8
+dokuwiki_disableactions: "register"
+dokuwiki_local:
+  - name: "['passcrypt']"
+    value: 'bcrypt'
+dokuwiki_title: "default Dokuwiki site"

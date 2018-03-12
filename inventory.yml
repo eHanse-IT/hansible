@@ -87,7 +87,10 @@ ehanse:
       ansible_host: 185.170.113.205
       ansible_port: "{{ host_port }}"
 
-
+    any_localhost:
+      ansible_host: 127.0.0.1
+      connection: local
+      
 
 
 

@@ -4,6 +4,26 @@
   vars_files:  # Verweis auf Ziel Ansible Port im Vault
     - vars
     - vault
+  gather_facts: no #see below when iot comes back on again
+  pre_tasks:
+  - name: update and upgrade apt.
+    apt:
+      update_cache: yes
+      upgrade: full
+      autoclean: yes
+      autoremove: yes
+    when:
+      cache_valid_time: 3600
+
+  - name: Bootstrap Python. Python is rqrd for Ansible, but not installed e.g. on Ubuntu 16.04 Docker Image
+    raw: command -v apt-get >/dev/null 2>&1 && apt-get update && apt-get -y install python-minimal
+    changed_when: false
+    ignore_errors: "yes"
+    tags: python
+  - name: manually set 'gather facts' back 'on' again
+    setup:
+    tags: python
+
   roles:
    - ssh
    - hostname
@@ -11,6 +31,13 @@
    - users
    - sysctl
    - git
+#  post_tasks:
+#   - apt:
+#       repo: 'https://github.com/eHanse-IT/OAW_custom.git'
+#       dest: '/home/odoo/odoo/custom/OAW-custom'
+#       force: yes
+#       umask: '755'
+
 
 - name: Zum Schluss die Firewall konfigurieren
   hosts: all
