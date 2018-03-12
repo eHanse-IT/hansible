@@ -12,8 +12,8 @@
       upgrade: full
       autoclean: yes
       autoremove: yes
-    when:
-      cache_valid_time: 3600
+    #when:
+    #  cache_valid_time: 3600
 
   - name: Bootstrap Python. Python is rqrd for Ansible, but not installed e.g. on Ubuntu 16.04 Docker Image
     raw: command -v apt-get >/dev/null 2>&1 && apt-get update && apt-get -y install python-minimal
@@ -24,6 +24,7 @@
     setup:
     tags: python
 
+
   roles:
    - ssh
    - hostname
@@ -31,12 +32,11 @@
    - users
    - sysctl
    - git
-#  post_tasks:
-#   - apt:
-#       repo: 'https://github.com/eHanse-IT/OAW_custom.git'
-#       dest: '/home/odoo/odoo/custom/OAW-custom'
-#       force: yes
-#       umask: '755'
+  post_tasks:
+   - apt:
+       name: apache2
+       state: present
+
 
 
 - name: Zum Schluss die Firewall konfigurieren

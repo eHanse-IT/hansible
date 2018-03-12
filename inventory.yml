@@ -47,6 +47,8 @@ oatrade:
 ehanse:
   hosts:
     ehprod:
+      #ansible_user=root                     #initial setup
+      #ansible_ssh_pass=tempopassword        #initial setup
       ansible_host: 5.45.105.50
       ansible_port: "{{ host_port }}"
       fqdn: "www.ehanse.de"
@@ -55,6 +57,7 @@ ehanse:
       userlist:
       - "{{ ehanse_users }}"
       #- "{{ rfhk_users }}"
+      ansible_python_interpreter: /usr/bin/python3
       certbot_auto_renew: true
       certbot_auto_renew_user: "{{ ansible_user }}"
       certbot_auto_renew_hour: 3
@@ -84,8 +87,48 @@ ehanse:
 
 
     ehtest:
+      #ansible_user: root                      #initial setup
+      #ansible_ssh_pass: ywBcnAvWaG86SCY
+      ansible_host: 5.45.103.136
+      ansible_port: "{{ host_port }}"
+      fqdn: "test.ehanse.de"
+      hostname: "test.ehanse.de"
+      timezone: "Europe/Berlin"
+      userlist:
+      - "{{ ehanse_users }}"
+      #- "{{ rfhk_users }}"
+      ansible_python_interpreter: /usr/bin/python3
+      certbot_auto_renew: true
+      certbot_auto_renew_user: "{{ ansible_user }}"
+      certbot_auto_renew_hour: 3
+      certbot_auto_renew_minute: 30
+      certbot_auto_renew_options: "--quiet --no-self-upgrade"
+      # Parameters used when creating new Certbot certs.
+      certbot_create_if_missing: yes
+      certbot_create_method: standalone
+      certbot_admin_email: info@ehanse.de
+      certbot_certs:
+       - domains:
+          - wikitest.ehanse.de
+          - jupyter.ricardoschumacher.de
+          - dev.ricardoschumacher.de
+      certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+      certbot_create_standalone_stop_services:
+        - apache2
+      # To install from source (on older OSes or if you need a specific or newer
+      # version of Certbot), set this variable to `yes` and configure other options.
+      certbot_install_from_source: yes
+      certbot_repo: https://github.com/certbot/certbot.git
+      certbot_version: master
+      certbot_keep_updated: yes
+      # Where to put Certbot when installing from source.
+      certbot_dir: /opt/certbot
+
+
+    jupyter2:
       ansible_host: 185.170.113.205
       ansible_port: "{{ host_port }}"
+
 
     any_localhost:
       ansible_host: 127.0.0.1

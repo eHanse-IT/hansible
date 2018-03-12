@@ -14,16 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- hosts: all
+- name: Confluence installieren
+  hosts: all
+  vars_files:  # Verweis auf Ziel Ansible Port im Vault
+    - vars
+    - vault
   roles:
-    - role: ansible-role-java
-
-- hosts: all
-  roles:
+    - role: java
     - role: confluence
       # Owner and group for Confluence.
-      confluence_owner: "conflu"
-      confluence_group: "conflu"
+      confluence_owner: "daemon"
+      confluence_group: "daemon"
       # Location for the $CONFLUENCE_HOME directory.
       confluence_home: "/var/atlassian/application-data/confluence"
       # Location for the $CONFLUENCE_CATALINA directory.
@@ -33,11 +34,17 @@
       confluence_server_port: "8000"
 
 - hosts: all
+  vars_files:  # Verweis auf Ziel Ansible Port im Vault
+    - vars
+    - vault
   roles:
     - role: mariadb-connector-java
       mariadb_connector_java_dest: "/opt/atlassian/confluence/confluence/WEB-INF/lib/mariadb-connector-java.jar"
 
 - hosts: all
+  vars_files:  # Verweis auf Ziel Ansible Port im Vault
+    - vars
+    - vault
   tasks:
     - name: start servicec
       service:

@@ -1,0 +1,31 @@
+# add dokuwiki to your site
+
+# installiere nach var www dokuwiki
+
+# apt-get install php7.0-curl php7.0-json php7.0-cgi php7.0 libapache2-mod-php7.0 php7.0-xml <code>php7.0-mcrypt php7.0-gd
+#
+#    apt-get install php7.0
+#    apt-get install php-mbstring
+#    apt-get install php7.0-xml
+#    apache2 libapache2-mod-php php-xml
+
+# ensure a2enmod rewrite
+
+
+
+# wget http://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz
+
+# tar xvf dokuwiki-stable.tgz
+# mv dokuwiki-*/ /var/www/dokuwiki
+
+# chown www-data:www-data -R /var/www/dokuwiki
+# chmod -R 707 /var/www/dokuwiki
+#
+
+# sudo a2enmod rewrite
+# touch /etc/apache2/sites-available/dokuwiki.conf
+# ln -s /etc/apache2/sites-available/dokuwiki.conf /etc/apache2/sites-enabled/dokuwiki.conf
+# nano /etc/apache2/sites-available/dokuwiki.conf
+
+# restart apache
+

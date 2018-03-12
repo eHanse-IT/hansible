@@ -18,7 +18,7 @@
 - name: Wenn SSH Soll-Port {{ host_port }} closed, ueberschreibe ansible_port und setze 22
   set_fact:
     ansible_port: "22"
-  when: custom_ssh is defined and
+  when: custom_ssh.state is defined and
         custom_ssh.state != "started"
 
 - name: Nach Portfindung einen kurzen Ping um zu checken dass die Verbindung funzt
