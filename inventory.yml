@@ -1,9 +1,30 @@
-oatrade:
+---
+# The following inventory file contains three groups:
+# 1. bootstrap group: small server configs for the initial server setup with play_essentials.yml
+#    - oaprod_bootstrap
+#    - oatest_bootstrap
+#    - ehprod_bootstrap
+#    - ehtest_bootstrap
+#    - jupyter2_bootstrap
+# 2. oatrade group:
+#    - oaprod
+#    - oatest
+# 3. eHanse group:
+#    - ehprod
+#    - ehtest
+#    - jupyter2
+
+
+
+bootstrap:
   hosts:
-    oaprod:
+    oaprod_bootstrap:
       ansible_host: 103.231.254.6
-      ansible_port: "{{ host_port }}"
-      pipelining: True  #works with Ubuntu 16+04 because /etc/sudoers does not require tty
+      ansible_port: 22
+      ansible_user: root
+      ansible_ssh_pass: somecrazypassword
+      ansible_python_interpreter: /usr/bin/python3
+      pipelining: False                #works with Ubuntu 16+04 because /etc/sudoers does not require tty
       fqdn: "oaprod.oa-trade.com"
       hostname: "oaprod"
       timezone: "Asia/Hong_Kong"
@@ -11,15 +32,77 @@ oatrade:
       userlist:
       - "{{ ehanse_users }}"
       - "{{ rfhk_users }}"
-      #ansible_user=root  #initial setup
-      #ansible_ssh_pass=tempopassword
-      #ansible_python_interpreter=/usr/bin/python3
+
+    oatest_bootstrap:
+      ansible_host: 103.231.254.5
+      ansible_port: 22
+      ansible_user: root
+      ansible_ssh_pass: somecrazypassword
+      ansible_python_interpreter: /usr/bin/python3
+      pipelining: False                #works with Ubuntu 16+04 because /etc/sudoers does not require tty
+      fqdn: "test.oa-trade.com"
+      hostname: "oatest"
+      timezone: "Asia/Hong_Kong"
+      domain: "test.oa-trade.com"
+      userlist:
+      - "{{ ehanse_users }}"
+      - "{{ rfhk_users }}"
+
+    ehprod_bootstrap:
+      ansible_user: root
+      ansible_ssh_pass: tempopassword
+      ansible_host: 5.45.105.50
+      ansible_port: 22
+      ansible_python_interpreter: /usr/bin/python3
+      pipelining: False
+      fqdn: "www.ehanse.de"
+      hostname: "ehanse.de"
+      timezone: "Europe/Berlin"
+      domain: "www.ehanse.de"
+      userlist:
+      - "{{ ehanse_users }}"
+
+    ehtest_bootstrap:
+      ansible_user: root
+      ansible_ssh_pass: tempopassword
+      ansible_host: 5.45.103.136
+      ansible_port: 22
+      ansible_python_interpreter: /usr/bin/python3
+      pipelining: False
+      fqdn: "ehtest.ehanse.de"
+      hostname: "ehanse.de"
+      timezone: "Europe/Berlin"
+      domain: "www.ehanse.de"
+      userlist:
+      - "{{ ehanse_users }}"
+
+    jupyter2_bootstrap:
+      ansible_user: root
+      ansible_ssh_pass: tempopassword
+      ansible_host: 185.170.113.205
+      ansible_port: 22
+      ansible_python_interpreter: /usr/bin/python3
+      pipelining: False
+      fqdn: "ehtest.ehanse.de"
+      hostname: "ehanse.de"
+      timezone: "Europe/Berlin"
+      domain: "www.ehanse.de"
+      userlist:
+      - "{{ ehanse_users }}"
+
+
+
+oatrade:
+  hosts:
+    oaprod:
+      ansible_host: 103.231.254.6
+      ansible_port: "{{ host_port }}"
+      # role certbot
       certbot_auto_renew: true
       certbot_auto_renew_user: "{{ ansible_user }}"
       certbot_auto_renew_hour: 3
       certbot_auto_renew_minute: 30
       certbot_auto_renew_options: "--quiet --no-self-upgrade"
-      # Parameters used when creating new Certbot certs.
       certbot_create_if_missing: yes
       certbot_create_method: standalone
       certbot_admin_email: info@ehanse.de
@@ -30,15 +113,11 @@ oatrade:
       certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
       certbot_create_standalone_stop_services:
         - apache2
-      # To install from source (on older OSes or if you need a specific or newer
-      # version of Certbot), set this variable to `yes` and configure other options.
       certbot_install_from_source: yes
       certbot_repo: https://github.com/certbot/certbot.git
       certbot_version: master
       certbot_keep_updated: yes
-      # Where to put Certbot when installing from source.
       certbot_dir: /opt/certbot
-
 
     oatest:
       ansible_host: 103.231.254.5
@@ -47,23 +126,14 @@ oatrade:
 ehanse:
   hosts:
     ehprod:
-      #ansible_user=root                     #initial setup
-      #ansible_ssh_pass=tempopassword        #initial setup
       ansible_host: 5.45.105.50
       ansible_port: "{{ host_port }}"
-      fqdn: "www.ehanse.de"
-      hostname: "ehanse.de"
-      timezone: "Europe/Berlin"
-      userlist:
-      - "{{ ehanse_users }}"
-      #- "{{ rfhk_users }}"
-      ansible_python_interpreter: /usr/bin/python3
+      #role certbot
       certbot_auto_renew: true
       certbot_auto_renew_user: "{{ ansible_user }}"
       certbot_auto_renew_hour: 3
       certbot_auto_renew_minute: 30
       certbot_auto_renew_options: "--quiet --no-self-upgrade"
-      # Parameters used when creating new Certbot certs.
       certbot_create_if_missing: yes
       certbot_create_method: standalone
       certbot_admin_email: info@ehanse.de
@@ -76,34 +146,21 @@ ehanse:
       certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
       certbot_create_standalone_stop_services:
         - apache2
-      # To install from source (on older OSes or if you need a specific or newer
-      # version of Certbot), set this variable to `yes` and configure other options.
       certbot_install_from_source: yes
       certbot_repo: https://github.com/certbot/certbot.git
       certbot_version: master
       certbot_keep_updated: yes
-      # Where to put Certbot when installing from source.
       certbot_dir: /opt/certbot
 
 
     ehtest:
-      ansible_user: root
-      ansible_ssh_pass: MtGRwWBrta172r2    #initial setup
       ansible_host: 5.45.103.136
       ansible_port: "{{ host_port }}"
-      fqdn: "test.ehanse.de"
-      hostname: "test.ehanse.de"
-      timezone: "Europe/Berlin"
-      userlist:
-      - "{{ ehanse_users }}"
-      #- "{{ rfhk_users }}"
-      ansible_python_interpreter: /usr/bin/python3
       certbot_auto_renew: true
       certbot_auto_renew_user: "{{ ansible_user }}"
       certbot_auto_renew_hour: 3
       certbot_auto_renew_minute: 30
       certbot_auto_renew_options: "--quiet --no-self-upgrade"
-      # Parameters used when creating new Certbot certs.
       certbot_create_if_missing: yes
       certbot_create_method: standalone
       certbot_admin_email: info@ehanse.de
@@ -115,13 +172,10 @@ ehanse:
       certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
       certbot_create_standalone_stop_services:
         - apache2
-      # To install from source (on older OSes or if you need a specific or newer
-      # version of Certbot), set this variable to `yes` and configure other options.
       certbot_install_from_source: yes
       certbot_repo: https://github.com/certbot/certbot.git
       certbot_version: master
       certbot_keep_updated: yes
-      # Where to put Certbot when installing from source.
       certbot_dir: /opt/certbot
 
 

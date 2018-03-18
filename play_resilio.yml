@@ -7,6 +7,5 @@
   vars:
     resilio_folders:
     - "/opt/resilio/"
-    
   roles:
    - ansible-role-install-resilio
