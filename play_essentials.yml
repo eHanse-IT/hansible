@@ -1,48 +1,73 @@
 ---
-- name: SSH, Users, sysctl.conf, git konfigurieren, Sys updaten
+
+# Das Play-Essentials besteht aus zwei Teilen. Im ersten Teil machen wir den absoluten bootstrap-Part:
+# wir loggen uns als user 'root' mittels Password auf Port 22 ein und richten Users, SSH, PubKeys ein.
+#
+# Im zweiten Teil loggen wir uns als Ziel-User ein und auf unserem Standard-Port und führen die
+# essentiellen Server-Updates, Packages und Absicherungen aus.
+#
+
+
+# Essentials Teil 1 müssen noch überarbeitet werden
+- name: Essentials Teil 1 - Server Bootstrapping, Users und SSH einrichten
+  hosts: all
+  vars_files:
+   - vars
+   - vault
+  gather_facts: no
+  pre_tasks:
+  - name: Teste, ob SSH auf Port ansible_port == host_port == {{ ansible_port }}  erreichbar
+    wait_for:
+      port: "{{ ansible_port }}"
+      state: "started"
+      host: "{{ inventory_hostname }}"
+      connect_timeout: "5"
+      timeout: "7"
+    register: custom_ssh
+    #check_mode: no  #always run active, even if not in check mode
+    ignore_errors: yes
+  - name: Wenn SSH Soll-Port {{ host_port }} closed, ueberschreibe ansible_port und setze 22
+    set_fact:
+      ansible_port: "22"
+      ansible_user: "root"
+
+    when: custom_ssh.state is defined and
+          custom_ssh.state != "started"
+  roles:
+  - users
+  - ssh
+  post_tasks:
+  - name: manually set 'gather facts' back 'on' again
+    setup:
+    tags: python
+
+
+- name: Essentials Teil 2 - Sysctl.conf, Firewall, Git, Python, Apt-Update
   hosts: all
   vars_files:  # Verweis auf Ziel Ansible Port im Vault
     - vars
     - vault
-  gather_facts: no #see below when iot comes back on again
   pre_tasks:
+  - name: Ensure Python is installed to run ansible tasks
+    raw: command -v apt-get >/dev/null 2>&1 && apt-get update && apt-get -y install python-minimal
+    changed_when: false
+    ignore_errors: "yes"
+    tags: python
   - name: update and upgrade apt.
     apt:
       update_cache: yes
       upgrade: full
       autoclean: yes
       autoremove: yes
-    #when:
-    #  cache_valid_time: 3600
-
-  - name: Bootstrap Python. Python is rqrd for Ansible, but not installed e.g. on Ubuntu 16.04 Docker Image
-    raw: command -v apt-get >/dev/null 2>&1 && apt-get update && apt-get -y install python-minimal
-    changed_when: false
-    ignore_errors: "yes"
-    tags: python
   - name: manually set 'gather facts' back 'on' again
     setup:
     tags: python
-
-
   roles:
-   - ssh
    - hostname
    - timezone
-   - users
    - sysctl
    - git
-  post_tasks:
-   - apt:
-       name: apache2
-       state: present
-
-
-
-- name: Zum Schluss die Firewall konfigurieren
-  hosts: all
-  vars_files:  # Verweis auf Ziel Ansible Port im Vault
-    - vars
-    - vault
-  roles:
    - firewall
+   # enable pipelining
+
+

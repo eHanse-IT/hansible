@@ -87,8 +87,8 @@ ehanse:
 
 
     ehtest:
-      #ansible_user: root                      #initial setup
-      #ansible_ssh_pass: ywBcnAvWaG86SCY
+      ansible_user: root
+      ansible_ssh_pass: MtGRwWBrta172r2    #initial setup
       ansible_host: 5.45.103.136
       ansible_port: "{{ host_port }}"
       fqdn: "test.ehanse.de"
