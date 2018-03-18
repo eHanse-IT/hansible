@@ -13,13 +13,14 @@
   vars: []
   pre_tasks:
     - apt:
-       name: python3-pip #vorab pip3 installieren
+       name: "{{ item }}"
        update_cache: no
        state: present
-    - apt:
-       name: postgresql
-       update_cache: no
-       state: present
+       with_items:
+        - python3-pip            #vorab pip3 installieren
+        - postgresql             #vorab postgreql installieren
+        - ttf-wqy-zenhei         #chinesische Schrit
+        - ttf-wqy-microhei       #chinesische Schrit
     - locale_gen:
        name: de_DE.UTF-8
        state: present
