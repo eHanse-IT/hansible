@@ -1,0 +1,12 @@
+---
+- name: Resilio installieren
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: all
+  vars:
+    resilio_folders:
+    - "/opt/resilio/"
+    
+  roles:
+   - ansible-role-install-resilio

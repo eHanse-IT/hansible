@@ -1,3 +1,6 @@
 [submodule "roles/certbot"]
 	path = roles/certbot
 	url = https://github.com/geerlingguy/ansible-role-certbot.git
+[submodule "roles/ansible-role-install-resilio"]
+	path = roles/ansible-role-install-resilio
+	url = https://github.com/eHanse-IT/ansible-role-install-resilio.git
