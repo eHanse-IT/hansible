@@ -1,16 +1,12 @@
 ---
 - include: play_essentials.yml
-
 - include: play_apache.yml
-
--include: play_odoo.yml
-
-
+- include: play_odoo.yml
 
 # odoo konfigurieren
 # timezone
 # hostnbame
-# odoo --> OCA odoo ansible script
+# odoo --> OCA odoo ansible role
 # Server Security:
 # https://www.thefanclub.co.za/how-to/how-secure-ubuntu-1604-lts-server-part-1-basics
 

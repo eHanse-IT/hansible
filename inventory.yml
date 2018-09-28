@@ -2,8 +2,6 @@
 # This file manages our servers and their variables.
 # For each server, we declare the server-dependent variables that are required for the roles.
 #
-
-
 # The following inventory file contains three groups:
 # 1. bootstrap group: small server configs for the initial server setup with play_essentials.yml
 #    - oaprod_bootstrap
