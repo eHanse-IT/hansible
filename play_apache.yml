@@ -14,7 +14,7 @@
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
-  hosts: ehanse
+  hosts: ehprod
 
   roles:
    - certbot
