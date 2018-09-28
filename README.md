@@ -18,11 +18,11 @@ accessible to ansible, but will not be synced to git. Here is how to do it.
 2. git-clone this repo and `cd` into the directory.
 3. Save our vault-password into a `.vaultpw`-file (which is git-ignored) by pasting it into that file or by 
 `echo <ourvaultpassword> > .vaultpw `
-4. Now your hansible-repo is ready to run. First, perform a a dry run on our servers using hte --check parameter: ` ansible-playbook playbook.yml -i inventory -u YOURUSER -b -K --vault-password-file=.vaultpw --check -l oaprod`
+4. Now your hansible-repo is ready to run. First, perform a a dry run on our servers using hte --check parameter: ` ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw --check -l oaprod`
 5. Perform an actual run using the same command without `--check` command: `
-ansible-playbook playbook.yml -i inventory -u YOURUSER -b -K --vault-password-file=.vaultpw -l oaprod`
+ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw -l oaprod`
 
-ALWAYS use the -l parameter to define the host! Otherwise, ALL hosts will be changed!
+Obviously, you need to replace YOURUSER with your linux admin username. ALWAYS use the -l parameter to define the host! Otherwise, ALL hosts will be changed!
 
 
 ## Usage of vault files
