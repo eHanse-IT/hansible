@@ -121,10 +121,18 @@ oatrade:
       certbot_version: master
       certbot_keep_updated: yes
       certbot_dir: /opt/certbot
+      userlist:
+      - "{{ ehanse_users }}"
+      - "{{ rfhk_users }}"
 
     oatest:
       ansible_host: 103.231.254.5
       ansible_port: "{{ host_port }}"
+      userlist:
+      - "{{ ehanse_users }}"
+      - "{{ rfhk_users }}"
+
+
 
 ehanse:
   hosts:
@@ -154,6 +162,8 @@ ehanse:
       certbot_version: master
       certbot_keep_updated: yes
       certbot_dir: /opt/certbot
+      userlist:
+      - "{{ ehanse_users }}"
 
 
     ehtest:
@@ -180,11 +190,15 @@ ehanse:
       certbot_version: master
       certbot_keep_updated: yes
       certbot_dir: /opt/certbot
+      userlist:
+      - "{{ ehanse_users }}"
 
 
     jupyter2:
       ansible_host: 185.170.113.205
       ansible_port: "{{ host_port }}"
+      userlist:
+      - "{{ ehanse_users }}"
 
 
     any_localhost:

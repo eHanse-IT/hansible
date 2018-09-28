@@ -8,7 +8,7 @@
 #
 
 
-# Essentials Teil 1 müssen noch überarbeitet werden
+# Essentials Teil 1: Teste, ob Port 22 offen, wenn ja, richte Users und SSH Konfiguration ein
 - name: Essentials Teil 1 - Server Bootstrapping, Users und SSH einrichten
   hosts: all
   vars_files:
@@ -23,8 +23,8 @@
       host: "{{ inventory_hostname }}"
       connect_timeout: "5"
       timeout: "7"
-    register: custom_ssh
-    #check_mode: no  #always run active, even if not in check mode
+    register: custom_ssh        # custom_ssh ist die variable, die gesetzt wird, wenn unser custom port zu ist. 
+    check_mode: no              # immer aktiv laufen lassen, auch wenn --check flag gesetzt. Sonst wird variable nicht gesetzt!
     ignore_errors: yes
   - name: Wenn SSH Soll-Port {{ host_port }} closed, ueberschreibe ansible_port und setze 22
     set_fact:
@@ -44,7 +44,7 @@
 
 - name: Essentials Teil 2 - Sysctl.conf, Firewall, Git, Python, Apt-Update
   hosts: all
-  vars_files:  # Verweis auf Ziel Ansible Port im Vault
+  vars_files:  # Verweis auf Ziel Ansible Port befindet sich im Vault
     - vars
     - vault
   pre_tasks:
