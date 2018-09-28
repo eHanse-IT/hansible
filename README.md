@@ -22,7 +22,7 @@ accessible to ansible, but will not be synced to git. Here is how to do it.
 5. Perform an actual run using the same command without `--check` command: `
 ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw -l oaprod`
 
-ALWAYS use the -l parameter to define the host! Otherwise, ALL hosts will be changed!
+Obviously, you need to replace YOURUSER with your linux admin username. ALWAYS use the -l parameter to define the host! Otherwise, ALL hosts will be changed!
 
 
 ## Usage of vault files
