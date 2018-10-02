@@ -14,7 +14,7 @@ accessible to ansible, but will not be synced to git. Here is how to do it.
 
 ## Installation 
 
-1. Install ansible via `apt-get install ansible`.
+1. Install ansible via `apt-get install ansible`, after adding PPA: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-ubuntu
 2. git-clone this repo and `cd` into the directory.
 3. Save our vault-password into a `.vaultpw`-file (which is git-ignored) by pasting it into that file or by 
 `echo <ourvaultpassword> > .vaultpw `
