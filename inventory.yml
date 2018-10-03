@@ -93,6 +93,21 @@ bootstrap:
       userlist:
       - "{{ ehanse_users }}"
 
+    godalko_bootstrap:
+      ansible_host: 103.254.208.197
+      ansible_port: 22
+      ansible_user: root
+      ansible_ssh_pass: somecrazypassword
+      ansible_python_interpreter: /usr/bin/python3
+      pipelining: True                #works with Ubuntu 16+04 because /etc/sudoers does not require tty
+      fqdn: "godalko.com"
+      hostname: "godalko.com"
+      timezone: "Asia/Hong_Kong"
+      domain: "godalko.com"
+      userlist:
+      - "{{ ehanse_users }}"
+      - "{{ rfhk_users }}"
+
 
 
 oatrade:
