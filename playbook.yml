@@ -1,5 +1,4 @@
 ---
-- include: play_essentials.yml
 - include: play_apache.yml
 - include: play_odoo.yml
 
