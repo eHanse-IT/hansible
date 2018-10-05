@@ -14,12 +14,6 @@
    ErrorLog ${APACHE_LOG_DIR}/error.log
    CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-   #SSLEngine On
-   #SSLCertificateFile /etc/ssl/ehanse2.crt
-   #SSLCertificateKeyFile /etc/ssl/private/ehanse2.key
-   #SSLCertificateChainFile /etc/ssl/intermediate2.crt
-   #Content Sec Policy aktivieren
-   #Header set Content-Security-Policy "default-src 'ehanse.de'"
 
    #Verhindere Man-In-The-Middle-Attacks mit Strict Transp Sec
     <IfModule mod_headers.c>
@@ -32,7 +26,7 @@
    <Proxy *>
      Order deny,allow
      Allow from all
-     #Missbrauch als Mailprxy ueber Port 25 verhindenr:
+     #Missbrauch als Mailproxy ueber Port 25 verhindenr:
      RewriteEngine On
      RewriteRule "^proxy:[a-z]*://[^/]*:25(/|$)" "-" [F,NC,L]
    </Proxy>
@@ -41,10 +35,7 @@
    #ProxyVia On
    ProxyPass / http://127.0.0.1:8069/
    ProxyPassReverse / http://127.0.0.1:8069
-   #RequestHeader set “X-Forwarded-Proto” “https”
-   #RequestHeader set "X-Forwarded-Host" "www.ehanse.de"
-   Header add X-ODOO-DBFILTER "oa"
-    RequestHeader add X-ODOO-DBFILTER "oa"
-   #SetEnv proxy-nokeepalive 1
+   #Header add X-ODOO-DBFILTER "oa"
+   # RequestHeader add X-ODOO-DBFILTER "oa"
 
 </virtualhost>
