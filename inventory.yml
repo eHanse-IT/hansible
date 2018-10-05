@@ -6,12 +6,14 @@
 # 1. bootstrap group: small server configs for the initial server setup with play_essentials.yml
 #    - oaprod_bootstrap
 #    - oatest_bootstrap
+#    - godalko bootstrap
 #    - ehprod_bootstrap
 #    - ehtest_bootstrap
 #    - jupyter2_bootstrap
 # 2. oatrade group:
 #    - oaprod
 #    - oatest
+#    - godalko
 # 3. eHanse group:
 #    - ehprod
 #    - ehtest
