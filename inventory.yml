@@ -141,6 +141,18 @@ oatrade:
       userlist:
       - "{{ ehanse_users }}"
       - "{{ rfhk_users }}"
+      domain: "oa.oa-trade.com"
+      odoo_version: 8.0
+      odoo_config_addons_path:
+      - "/home/{{ odoo_user }}/odoo/server/addons"
+      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
+      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+      odoo_config_smtp_password: "{{ _vault_oatrade_odoo_config_smtp_password }}"
+      odoo_config_smtp_port: 587
+      odoo_config_smtp_server: s1.hostedmail.cc
+      odoo_config_smtp_ssl: True
+      odoo_config_smtp_user: erp@oawatches.net
+
 
     godalko:
       ansible_host: 103.254.208.197
@@ -170,6 +182,16 @@ oatrade:
       - "{{ ehanse_users }}"
       - "{{ rfhk_users }}"
       domain: "go.godalko.com"   #für Odoo
+      odoo_version: 8.0
+      odoo_config_addons_path:
+      - "/home/{{ odoo_user }}/odoo/server/addons"
+      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
+      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+      odoo_config_smtp_password: somepassword                       #TODO
+      odoo_config_smtp_port: 587
+      odoo_config_smtp_server: somesmtpserver.com                   #TODO
+      odoo_config_smtp_ssl: True                                    #TODO
+      odoo_config_smtp_user: erp@oawatches.net                      #TODO
 
     oatest:
       ansible_host: 103.231.254.5
@@ -177,7 +199,17 @@ oatrade:
       userlist:
       - "{{ ehanse_users }}"
       - "{{ rfhk_users }}"
-
+      domain: "oatest.oa-trade.com"
+      odoo_version: 8.0
+      odoo_config_addons_path:
+      - "/home/{{ odoo_user }}/odoo/server/addons"
+      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
+      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+      odoo_config_smtp_password: somepassword                       #TODO
+      odoo_config_smtp_port: 587
+      odoo_config_smtp_server: somesmtpserver.com                   #TODO
+      odoo_config_smtp_ssl: True                                    #TODO
+      odoo_config_smtp_user: erp@oawatches.net                      #TODO
 
 
 ehanse:
@@ -210,6 +242,17 @@ ehanse:
       certbot_dir: /opt/certbot
       userlist:
       - "{{ ehanse_users }}"
+      domain: "erp.ehanse.de"  #für Odoo
+      odoo_version: 8.0
+      odoo_config_addons_path:
+      - "/home/{{ odoo_user }}/odoo/server/addons"
+      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
+      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+      odoo_config_smtp_password: somepassword                       #TODO
+      odoo_config_smtp_port: 587
+      odoo_config_smtp_server: somesmtpserver.com                   #TODO
+      odoo_config_smtp_ssl: True                                    #TODO
+      odoo_config_smtp_user: erp@oawatches.net                      #TODO
 
 
     ehtest:
@@ -238,6 +281,17 @@ ehanse:
       certbot_dir: /opt/certbot
       userlist:
       - "{{ ehanse_users }}"
+      domain: "erptest.ehanse.de" #für Odoo
+      odoo_version: 8.0
+      odoo_config_addons_path:
+      - "/home/{{ odoo_user }}/odoo/server/addons"
+      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
+      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+      odoo_config_smtp_password: somepassword                       #TODO
+      odoo_config_smtp_port: 587
+      odoo_config_smtp_server: somesmtpserver.com                   #TODO
+      odoo_config_smtp_ssl: True                                    #TODO
+      odoo_config_smtp_user: erp@oawatches.net                      #TODO
 
 
     jupyter2:
