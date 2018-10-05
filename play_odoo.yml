@@ -16,11 +16,12 @@
        name: "{{ item }}"
        update_cache: no
        state: present
-       with_items:
-        - python3-pip            #vorab pip3 installieren
-        - postgresql             #vorab postgreql installieren
-        - ttf-wqy-zenhei         #chinesische Schrit
-        - ttf-wqy-microhei       #chinesische Schrit
+      loop:
+       - python3-pip            #vorab pip3 installieren
+       - postgresql             #vorab postgreql installieren
+       - ttf-wqy-zenhei         #vorab chinesische Schrift installieren
+       - ttf-wqy-microhei       #vorab chinesische Schrift installieren
+
     - locale_gen:
        name: de_DE.UTF-8
        state: present
@@ -42,16 +43,10 @@
        force: yes
        umask: '755'
    - file:
-       path: '/home/odoo/odoo/custom/OAW-custom'
+       path: '/home/odoo/odoo/custom/'
        owner: "{{ odoo_user }}"
        group: "{{ odoo_user }}"
-       mode: 0775
-       recurse: yes
-   - file:
-       path: '/home/odoo/odoo/custom/awo-custom'
-       owner: "{{ odoo_user }}"
-       group: "{{ odoo_user }}"
-       mode: 0775
+       mode: 0755
        recurse: yes
 
 
