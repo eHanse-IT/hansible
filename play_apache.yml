@@ -1,9 +1,9 @@
 ---
 - name: Apache konfigurieren
+  hosts: all
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
-  hosts: all
   vars:
     apache_listen_port: 80
     apache_listen_ssl: 443
@@ -11,10 +11,12 @@
    - apache
 
 - name: Certbot fuer LetsEncrypt Zertifikate
+  hosts: all
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
-  hosts: ehprod
-
   roles:
    - certbot
+
+   ## TODO:
+   #folgende Fehlermeldung auf frischen Servern im check mode muss gehandelt werden: python-apt must be installed to use check mode. If run normally this module can auto-install it."}
