@@ -14,9 +14,9 @@
   vars_files:
    - vars
    - vault
-  gather_facts: no
+  gather_facts: false
   pre_tasks:
-  - name: Teste, ob SSH auf Port ansible_port == host_port == {{ ansible_port }}  erreichbar
+  - name: Teste, ob SSH auf Port {{ ansible_port }}  erreichbar
     wait_for:
       port: "{{ ansible_port }}"
       state: "started"
@@ -37,7 +37,7 @@
   - users
   - ssh
   post_tasks:
-  - name: manually set 'gather facts' back 'on' again
+  - name: manually set 'gather facts' back 'on' again by calling 'setup:'
     setup:
     tags: python
 
