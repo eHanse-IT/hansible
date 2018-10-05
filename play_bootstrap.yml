@@ -33,9 +33,12 @@
 
     when: custom_ssh.state is defined and
           custom_ssh.state != "started"
+
+
   roles:
   - users
   - ssh
+
   post_tasks:
   - name: manually set 'gather facts' back 'on' again by calling 'setup:'
     setup:
@@ -62,6 +65,13 @@
   - name: manually set 'gather facts' back 'on' again
     setup:
     tags: python
+  - name: Locales installieren (de_DE und en_US)
+    locale_gen:
+      name: "{{ item }}"
+      state: present
+    loop:
+    - de_DE.UTF-8
+    - en_US.UTF-8
   roles:
    - hostname
    - timezone
