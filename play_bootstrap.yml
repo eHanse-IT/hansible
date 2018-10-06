@@ -16,23 +16,26 @@
    - vault
   gather_facts: false
   pre_tasks:
-  - name: Teste, ob SSH auf Port {{ ansible_port }}  erreichbar
-    wait_for:
-      port: "{{ ansible_port }}"
-      state: "started"
-      host: "{{ inventory_hostname }}"
-      connect_timeout: "5"
-      timeout: "7"
-    register: custom_ssh        # custom_ssh ist die variable, die gesetzt wird, wenn unser custom port zu ist. 
-    check_mode: no              # immer aktiv laufen lassen, auch wenn --check flag gesetzt. Sonst wird variable nicht gesetzt!
-    ignore_errors: yes
-  - name: Wenn SSH Soll-Port {{ host_port }} closed, ueberschreibe ansible_port und setze 22
+  - name: setze ansible port auf 22
     set_fact:
       ansible_port: "22"
-      ansible_user: "root"
-
-    when: custom_ssh.state is defined and
-          custom_ssh.state != "started"
+#  - name: Teste, ob SSH auf Port {{ ansible_port }}  erreichbar
+#    wait_for:
+#      port: "{{ host_port }}"
+#      state: "started"
+#      host: "{{ inventory_hostname }}"
+#      connect_timeout: "5"
+#      timeout: "7"
+#    register: custom_ssh        # custom_ssh ist die variable, die gesetzt wird, wenn unser custom port zu ist.
+#    check_mode: no              # immer aktiv laufen lassen, auch wenn --check flag gesetzt. Sonst wird variable nicht gesetzt!
+#    ignore_errors: yes
+#  - name: Wenn SSH Soll-Port {{ host_port }} closed, ueberschreibe ansible_port und setze 22
+#    set_fact:
+#      ansible_port: "22"
+#      ansible_user: "root"
+#
+#    when: custom_ssh.state is defined and
+#          custom_ssh.state != "started"
 
 
   roles:

@@ -97,7 +97,7 @@ bootstrap:
 
     godalko_bootstrap:
       ansible_host: 103.254.208.197
-      ansible_port: 22
+      host_port: 22
       ansible_user: root
       ansible_ssh_pass: somecrazypassword
       ansible_python_interpreter: /usr/bin/python3
