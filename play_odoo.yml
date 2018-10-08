@@ -21,6 +21,9 @@
        - postgresql             #vorab postgreql installieren
        - ttf-wqy-zenhei         #vorab chinesische Schrift installieren
        - ttf-wqy-microhei       #vorab chinesische Schrift installieren
+    - pip:
+       name: XlsxWriter         # as per request by Manfred
+       state: latest
 
     - locale_gen:
        name: de_DE.UTF-8
