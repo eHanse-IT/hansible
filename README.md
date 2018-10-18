@@ -15,11 +15,13 @@ accessible to ansible, but will not be synced to git. Here is how to do it.
 ## Installation 
 
 1. Install ansible via `apt-get install ansible`, after adding PPA: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-ubuntu
-2. git-clone this repo and `cd` into the directory.
-3. Save our vault-password into a `.vaultpw`-file (which is git-ignored) by pasting it into that file or by 
+2. git-clone this repository.
+3. This repository contains submodules. Run `git submodule update --init` to clone them too.
+4. `cd` into the cloned directory `hansible`.
+5. Save our vault-password into a `.vaultpw`-file (which is git-ignored) by pasting it into that file or by 
 `echo <ourvaultpassword> > .vaultpw `
-4. Now your hansible-repo is ready to run. First, perform a a dry run on our servers using hte --check parameter: ` ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw --check -l oaprod`
-5. Perform an actual run using the same command without `--check` command: `
+6. Now your hansible-repo is ready to run. First, perform a a dry run on our servers using hte --check parameter: ` ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw --check -l oaprod`
+7. Perform an actual run using the same command without `--check` command: `
 ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw -l oaprod`
 
 Obviously, you need to replace YOURUSER with your linux admin username. ALWAYS use the -l parameter to define the host! Otherwise, ALL hosts will be changed!
