@@ -1,0 +1,12 @@
+---
+- name: Odoo VHost installieren,
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: all
+  vars: []
+  roles:
+   - odoo-vhost-for-apache
+
+
+
