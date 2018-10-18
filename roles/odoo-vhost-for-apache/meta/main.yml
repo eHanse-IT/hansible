@@ -1,4 +1,4 @@
----
-dependencies:
- - { role: apache }
- - { role: ansible-odoo }
+#---
+#dependencies:
+# - { role: apache }
+# - { role: ansible-odoo }
