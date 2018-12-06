@@ -1,0 +1,14 @@
+---
+
+- name: Unattended Upgrades installieren
+  package:
+    name: unattended-upgrades
+    state: present
+
+- name: Unattended Upgrades Config uebernehmen
+  template:
+    src: templates/apt_periodic.j2
+    dest: /etc/apt/apt.conf.d/10periodic
+    owner: root
+    group: root
+    mode: 0644
