@@ -9,14 +9,3 @@
     apache_listen_ssl: 443
   roles:
    - apache
-
-- name: Certbot fuer LetsEncrypt Zertifikate
-  hosts: all
-  vars_files:  # Verweis auf verschlüsselte Pws
-    - vars
-    - vault
-  roles:
-   - certbot
-
-   ## TODO:
-   #folgende Fehlermeldung auf frischen Servern im check mode muss gehandelt werden: python-apt must be installed to use check mode. If run normally this module can auto-install it."}

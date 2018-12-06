@@ -1,7 +1,6 @@
 <VirtualHost *:80>
         ServerName {{ domain }}
-        ServerAlias www.{{ domain }}
-        # Das folgende erzwingt SSL
+        ServerAlias {{ domainAliases }}
         RewriteEngine On
         RewriteCond %{HTTPS} off
         RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
@@ -9,14 +8,18 @@
 
 <virtualhost *:443>
    ServerName {{ domain }}
-   ServerAlias www.{{ domain }}
+   ServerAlias {{ domainAliases }}
    ServerAdmin info@ehanse.de
    ErrorLog ${APACHE_LOG_DIR}/error.log
    CustomLog ${APACHE_LOG_DIR}/access.log combined
 
+   SSLEngine On
+   SSLCertificateFile /etc/letsencrypt/live/{{ domain }}/fullchain.pem
+   SSLCertificateKeyFile /etc/letsencrypt/live/{{ domain }}/privkey.pem
 
-   #Verhindere Man-In-The-Middle-Attacks mit Strict Transp Sec
+
     <IfModule mod_headers.c>
+      #Verhindere Man in the Middle Attacks
       Header always set Strict-Transport-Security "max-age=15768000; includeSubDomains; preload"
       KeepAlive On
       KeepAliveTimeout 100
@@ -26,16 +29,13 @@
    <Proxy *>
      Order deny,allow
      Allow from all
-     #Missbrauch als Mailproxy ueber Port 25 verhindenr:
      RewriteEngine On
-     RewriteRule "^proxy:[a-z]*://[^/]*:25(/|$)" "-" [F,NC,L]
+     RewriteRule "^proxy:[a-z]*://[^/]*:25(/|$)" "-" [F,NC,L]      #Missbrauch als Mailproxy ueber Port 25 verh.:
    </Proxy>
 
    ProxyRequests Off
-   #ProxyVia On
    ProxyPass / http://127.0.0.1:8069/
    ProxyPassReverse / http://127.0.0.1:8069
-   #Header add X-ODOO-DBFILTER "oa"
+   # Header add X-ODOO-DBFILTER "oa"
    # RequestHeader add X-ODOO-DBFILTER "oa"
-
 </virtualhost>

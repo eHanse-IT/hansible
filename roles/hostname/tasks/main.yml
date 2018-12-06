@@ -18,3 +18,11 @@
     regexp: '^127\.0\.1\.1'
     state: absent
   #notify: restart hostname
+
+- name: Replace default host.conf to prevent IP spoofing
+  template:
+    src: templates/etc/host.conf.j2
+    dest: /etc/host.conf
+    owner: root
+    group: root
+    mode: 0644
