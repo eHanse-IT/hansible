@@ -1,0 +1,7 @@
+- name: Unattended Upgrades installieren
+  hosts: all
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  roles:
+   - unattended-upgrades
