@@ -18,9 +18,12 @@
        state: present
       loop:
        - python3-pip            #vorab pip3 installieren
+       - python-pip
        - postgresql             #vorab postgreql installieren
        - ttf-wqy-zenhei         #vorab chinesische Schrift installieren
        - ttf-wqy-microhei       #vorab chinesische Schrift installieren
+       - python-setuptools
+       - python3-setuptools
     - pip:
        name: XlsxWriter         # as per request by Manfred
        state: latest
@@ -33,7 +36,6 @@
        state: present
   roles:
    - ansible-odoo
-   - odoo-vhost-for-apache
   post_tasks:
    - git:
        repo: 'https://github.com/eHanse-IT/OAW_custom.git'
