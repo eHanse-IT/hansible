@@ -1,87 +1,43 @@
 ---
 
-# Das Play-Essentials besteht aus zwei Teilen. Im ersten Teil machen wir den absoluten bootstrap-Part:
-# wir loggen uns als user 'root' mittels Password auf Port 22 ein und richten Users, SSH, PubKeys ein.
+# Dieses Playbook dient dazu, einen erstmaligen Login mit dem User 'root'
+# durchzuführen, um genau einen Task auszuführen: unsere SSH User einzurichten.
+# Alle weiteren Konfigschritte werden dann in den restlichen Playbooks gemacht.
 #
-# Im zweiten Teil loggen wir uns als Ziel-User ein und auf unserem Standard-Port und führen die
-# essentiellen Server-Updates, Packages und Absicherungen aus.
+# Nutzung (am Beispiel des Servers ehtest):
 #
+# 1. SSH Key entfernen:
+#    ssh-keygen -f "/home/joerg/.ssh/known_hosts" -R 185.170.113.205
+# 2. Einmal via Terminal als SSH einen Loginversuch machen:
+#    ssh root@185.170.113.205
+# 3. Bootstrap Playbook ausführen mit --ask-pass ausführen:
+#    ansible-playbook play_0_bootstrap.yml -i inventory.yml -u root -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
 
-
-# Essentials Teil 1: Teste, ob Port 22 offen, wenn ja, richte Users und SSH Konfiguration ein
-- name: Essentials Teil 1 - Server Bootstrapping, Users und SSH einrichten
+- name: play_0_bootstrap - Users und SSH einrichten
   hosts: all
   vars_files:
    - vars
    - vault
-  gather_facts: false
+  gather_facts: false # verhindert error auf uninitialisierten Servern
   pre_tasks:
   - name: setze ansible port auf 22
     set_fact:
       ansible_port: "22"
-#  - name: Teste, ob SSH auf Port {{ ansible_port }}  erreichbar
-#    wait_for:
-#      port: "{{ host_port }}"
-#      state: "started"
-#      host: "{{ inventory_hostname }}"
-#      connect_timeout: "5"
-#      timeout: "7"
-#    register: custom_ssh        # custom_ssh ist die variable, die gesetzt wird, wenn unser custom port zu ist.
-#    check_mode: no              # immer aktiv laufen lassen, auch wenn --check flag gesetzt. Sonst wird variable nicht gesetzt!
-#    ignore_errors: yes
-#  - name: Wenn SSH Soll-Port {{ host_port }} closed, ueberschreibe ansible_port und setze 22
-#    set_fact:
-#      ansible_port: "22"
-#      ansible_user: "root"
-#
-#    when: custom_ssh.state is defined and
-#          custom_ssh.state != "started"
-
-
-  roles:
-  - users
-  - ssh
-
-  post_tasks:
-  - name: manually set 'gather facts' back 'on' again by calling 'setup:'
-    setup:
-    tags: python
-
-
-- name: Essentials Teil 2 - Sysctl.conf, Firewall, Git, Python, Apt-Update
-  hosts: all
-  vars_files:  # Verweis auf Ziel Ansible Port befindet sich im Vault
-    - vars
-    - vault
-  pre_tasks:
+  - name: setze ansible user auf root
+    set_fact:
+      ansible_user: "root"
   - name: Ensure Python is installed to run ansible tasks
     raw: command -v apt-get >/dev/null 2>&1 && apt-get update && apt-get -y install python-minimal
     changed_when: false
     ignore_errors: "yes"
     tags: python
-  - name: update and upgrade apt.
-    apt:
-      update_cache: yes
-      upgrade: full
-      autoclean: yes
-      autoremove: yes
-  - name: manually set 'gather facts' back 'on' again
+  roles:
+  - users
+  - ssh
+
+  post_tasks:
+  - name: setze gather facts wieder auf 'on' setzen durch das aufrufen von 'setup:'
     setup:
     tags: python
-  - name: Locales installieren (de_DE und en_US)
-    locale_gen:
-      name: "{{ item }}"
-      state: present
-    loop:
-    - de_DE.UTF-8
-    - en_US.UTF-8
-  roles:
-   - hostname
-   - timezone
-   - sysctl
-   - git
-   - firewall
-   - unattended-upgrades
-   # enable pipelining
 
 
