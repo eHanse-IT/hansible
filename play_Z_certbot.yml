@@ -1,3 +1,9 @@
+# Dieses Playbook installiert Lets Encrypt Zertifikate auf allen übergebenen Domains.
+# Es sollte als letztes ausgeführt werden, damit alle Services, die vom Web aus
+# erreicht werden sollen, bereits einen VHost im Apache haben.
+#
+
+
 - name: Certbot fuer LetsEncrypt Zertifikate
   hosts: all
   vars_files:  # Verweis auf verschlüsselte Pws

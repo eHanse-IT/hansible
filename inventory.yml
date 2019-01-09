@@ -3,13 +3,12 @@
 # For each server, we declare the server-dependent variables that are required for the roles.
 #
 # The following inventory file contains three groups:
-# 1. bootstrap group: small server configs for the initial server setup with play_essentials.yml
+# 1. bootstrap group: small server configs for the initial server setup with play_0_bootstrap.yml
 #    - oaprod_bootstrap
 #    - oatest_bootstrap
 #    - godalko bootstrap
 #    - ehprod_bootstrap
 #    - ehtest_bootstrap
-#    - jupyter2_bootstrap
 # 2. oatrade group:
 #    - oaprod
 #    - oatest
@@ -17,132 +16,30 @@
 # 3. eHanse group:
 #    - ehprod
 #    - ehtest
-#    - jupyter2
-
-
-
-bootstrap:
-  hosts:
-    oaprod_bootstrap:
-      ansible_host: 103.231.254.6
-      ansible_port: 22
-      ansible_user: root
-      ansible_ssh_pass: somecrazypassword
-      ansible_python_interpreter: /usr/bin/python3
-      pipelining: False                #works with Ubuntu 16+04 because /etc/sudoers does not require tty
-      fqdn: "oaprod.oa-trade.com"
-      hostname: "oaprod"
-      timezone: "Asia/Hong_Kong"
-      domain: "oa.oa-trade.com"
-      userlist:
-      - "{{ ehanse_users }}"
-      - "{{ rfhk_users }}"
-
-    oatest_bootstrap:
-      ansible_host: 103.231.254.5
-      ansible_port: 22
-      ansible_user: root
-      ansible_ssh_pass: somecrazypassword
-      ansible_python_interpreter: /usr/bin/python3
-      pipelining: False                #works with Ubuntu 16+04 because /etc/sudoers does not require tty
-      fqdn: "test.oa-trade.com"
-      hostname: "oatest"
-      timezone: "Asia/Hong_Kong"
-      domain: "test.oa-trade.com"
-      userlist:
-      - "{{ ehanse_users }}"
-      - "{{ rfhk_users }}"
-
-    ehprod_bootstrap:
-      ansible_user: root
-      ansible_ssh_pass: tempopassword
-      ansible_host: 5.45.105.50
-      ansible_port: 22
-      ansible_python_interpreter: /usr/bin/python3
-      pipelining: False
-      fqdn: "www.ehanse.de"
-      hostname: "ehanse.de"
-      timezone: "Europe/Berlin"
-      domain: "www.ehanse.de"
-      userlist:
-      - "{{ ehanse_users }}"
-
-    ehtest_bootstrap:
-      ansible_user: root
-      ansible_ssh_pass: tempopassword
-      ansible_host: 5.45.103.136
-      ansible_port: 22
-      ansible_python_interpreter: /usr/bin/python3
-      pipelining: False
-      fqdn: "ehtest.ehanse.de"
-      hostname: "ehanse.de"
-      timezone: "Europe/Berlin"
-      domain: "www.ehanse.de"
-      userlist:
-      - "{{ ehanse_users }}"
-
-    jupyter2_bootstrap:
-      ansible_user: root
-      ansible_ssh_pass: tempopassword
-      ansible_host: 185.170.113.205
-      ansible_port: 22
-      ansible_python_interpreter: /usr/bin/python3
-      pipelining: False
-      fqdn: "ehtest.ehanse.de"
-      hostname: "ehanse.de"
-      timezone: "Europe/Berlin"
-      domain: "www.ehanse.de"
-      userlist:
-      - "{{ ehanse_users }}"
-
-    godalko_bootstrap:
-      ansible_host: 103.254.208.197
-      host_port: 22
-      ansible_user: root
-      ansible_ssh_pass: somecrazypassword
-      ansible_python_interpreter: /usr/bin/python3
-      pipelining: True                #pipelining TRUE works with Ubuntu 16+04 and later (/etc/sudoers tty not rqrd)
-      fqdn: "godalko.com"
-      hostname: "godalko.com"
-      timezone: "Asia/Hong_Kong"
-      domain: "godalko.com"
-      userlist:
-      - "{{ ehanse_users }}"
-      - "{{ rfhk_users }}"
-
+#    - jupyter
 
 
 oatrade:
   hosts:
     oaprod:
+      pipelining: False              # TODO kann auf TRUE gesetzt werden wenn Ubuntu 16+04 oder neuer installiert
       ansible_host: 103.231.254.6
       ansible_port: "{{ host_port }}"
-      # role certbot
-      certbot_auto_renew: true
-      certbot_auto_renew_user: "{{ ansible_user }}"
-      certbot_auto_renew_hour: 3
-      certbot_auto_renew_minute: 30
-      certbot_auto_renew_options: "--quiet --no-self-upgrade"
-      certbot_create_if_missing: yes
-      certbot_create_method: standalone
+      fqdn: "oaprod.oa-trade.com"
+      hostname: "oaprod"
+      timezone: "Asia/Hong_Kong"
+      domain: "oa.oa-trade.com"
+      domainAliases: "erp.oa-trade.com"
       certbot_admin_email: info@ehanse.de
       certbot_certs:
        - domains:
           # - wiki.oa-trade.com
           - oa.oa-trade.com
-      certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
       certbot_create_standalone_stop_services:
         - apache2
-      certbot_install_from_source: yes
-      certbot_repo: https://github.com/certbot/certbot.git
-      certbot_version: master
-      certbot_keep_updated: yes
-      certbot_dir: /opt/certbot
       userlist:
       - "{{ ehanse_users }}"
       - "{{ rfhk_users }}"
-      domain: "oa.oa-trade.com"
-      domainAliases: "erp.oa-trade.com"
       odoo_version: 8.0
       odoo_config_addons_path:
       - "/home/{{ odoo_user }}/odoo/server/addons"
@@ -158,33 +55,22 @@ oatrade:
     godalko:
       ansible_host: 103.254.208.197
       ansible_port: "{{ host_port }}"
-      # role certbot
-      certbot_auto_renew: true
-      certbot_auto_renew_user: "{{ ansible_user }}"
-      certbot_auto_renew_hour: 22
-      certbot_auto_renew_minute: 30
-      certbot_auto_renew_options: "--quiet --no-self-upgrade"
-      certbot_create_if_missing: yes
-      certbot_create_method: standalone
+      fqdn: "godalko.com"
+      hostname: "godalko.com"
+      timezone: "Asia/Hong_Kong"
+      domain: "go.godalko.com"   #für Odoo VHost
+      domainAliases: "godalko.com www.godalko.com"
       certbot_admin_email: info@godalko.com
       certbot_certs:
        - domains:
           - go.godalko.com
           - godalko.com
           - www.godalko.com
-      certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
       certbot_create_standalone_stop_services:
         - apache2
-      certbot_install_from_source: yes
-      certbot_repo: https://github.com/certbot/certbot.git
-      certbot_version: master
-      certbot_keep_updated: yes
-      certbot_dir: /opt/certbot
       userlist:
       - "{{ ehanse_users }}"
       - "{{ rfhk_users }}"
-      domain: "go.godalko.com"   #für Odoo VHost
-      domainAliases: "godalko.com www.godalko.com"
       odoo_version: 8.0
       odoo_config_addons_path:
       - "/home/{{ odoo_user }}/odoo/server/addons"
@@ -199,10 +85,21 @@ oatrade:
     oatest:
       ansible_host: 103.231.254.5
       ansible_port: "{{ host_port }}"
+      fqdn: "test.oa-trade.com"
+      hostname: "oatest"
+      timezone: "Asia/Hong_Kong"
+      domain: "test.oa-trade.com"
+      certbot_admin_email: info@godalko.com
+      certbot_certs:
+       - domains:
+          - go.godalko.com
+          - godalko.com
+          - www.godalko.com
+      certbot_create_standalone_stop_services:
+        - apache2
       userlist:
       - "{{ ehanse_users }}"
       - "{{ rfhk_users }}"
-      domain: "oatest.oa-trade.com"
       odoo_version: 8.0
       odoo_config_addons_path:
       - "/home/{{ odoo_user }}/odoo/server/addons"
@@ -220,14 +117,11 @@ ehanse:
     ehprod:
       ansible_host: 5.45.105.50
       ansible_port: "{{ host_port }}"
-      #role certbot
-      certbot_auto_renew: true
-      certbot_auto_renew_user: "{{ ansible_user }}"
-      certbot_auto_renew_hour: 3
-      certbot_auto_renew_minute: 30
-      certbot_auto_renew_options: "--quiet --no-self-upgrade"
-      certbot_create_if_missing: yes
-      certbot_create_method: standalone
+      fqdn: "www.ehanse.de"
+      hostname: "ehanse.de"
+      timezone: "Europe/Berlin"
+      domain: "erp.ehanse.de"  #für Odoo
+      domainAliases: "www.ehanse.de"
       certbot_admin_email: info@ehanse.de
       certbot_certs:
        - domains:
@@ -235,18 +129,10 @@ ehanse:
           - seafile.ehanse.de
           - www.ehanse.de
           - erp.ehanse.de
-      certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
       certbot_create_standalone_stop_services:
         - apache2
-      certbot_install_from_source: yes
-      certbot_repo: https://github.com/certbot/certbot.git
-      certbot_version: master
-      certbot_keep_updated: yes
-      certbot_dir: /opt/certbot
       userlist:
       - "{{ ehanse_users }}"
-      domain: "erp.ehanse.de"  #für Odoo
-      domainAliases: "www.ehanse.de"
       odoo_version: 8.0
       odoo_config_addons_path:
       - "/home/{{ odoo_user }}/odoo/server/addons"
@@ -260,33 +146,23 @@ ehanse:
 
 
     ehtest:
-      ansible_host: 5.45.103.136
+      pipelining: true
+      ansible_host: 185.170.113.205
       ansible_port: "{{ host_port }}"
-      certbot_auto_renew: true
-      certbot_auto_renew_user: "{{ ansible_user }}"
-      certbot_auto_renew_hour: 3
-      certbot_auto_renew_minute: 30
-      certbot_auto_renew_options: "--quiet --no-self-upgrade"
-      certbot_create_if_missing: yes
-      certbot_create_method: standalone
+      fqdn: "ehtest.ehanse.de"
+      hostname: "ehanse.de"
+      timezone: "Europe/Berlin"
+      domain: "erptest.ehanse.de" #für Odoo
+      domainAliases: "wwwtest.ehanse.de"
       certbot_admin_email: info@ehanse.de
       certbot_certs:
        - domains:
-          - wikitest.ehanse.de
-          - jupyter.ricardoschumacher.de
-          - dev.ricardoschumacher.de
-      certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+          - erptest.ehanse.de
+          - wwwtest.ehanse.de
       certbot_create_standalone_stop_services:
         - apache2
-      certbot_install_from_source: yes
-      certbot_repo: https://github.com/certbot/certbot.git
-      certbot_version: master
-      certbot_keep_updated: yes
-      certbot_dir: /opt/certbot
       userlist:
       - "{{ ehanse_users }}"
-      domain: "erptest.ehanse.de" #für Odoo
-      domainAliases: "wwwtest.ehanse.de"
       odoo_version: 8.0
       odoo_config_addons_path:
       - "/home/{{ odoo_user }}/odoo/server/addons"
@@ -297,13 +173,6 @@ ehanse:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
-
-
-    jupyter2:
-      ansible_host: 185.170.113.205
-      ansible_port: "{{ host_port }}"
-      userlist:
-      - "{{ ehanse_users }}"
 
 
     any_localhost:
