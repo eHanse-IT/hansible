@@ -55,4 +55,4 @@ is the same as the root password in your clipboard). Observe that you
 need to replace the _ehtes_ variable with the name of your server.
 ansible-playbook play_0_bootstrap.yml -i inventory.yml -u root -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
 - Run all other playbooks to your liking:
-ansible-playbook play_1_essentials.yml -i inventory.yml -u joerg -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
+ansible-playbook play_1_essentials.yml -i inventory.yml -u joerg -b -K --vault-password-file=.vaultpw -l ehtest
