@@ -7,16 +7,14 @@
 </VirtualHost>
 
 <virtualhost *:443>
+
+   # SSL Engine und Einträge werden durch CERTBOT am Ende automatisch eingetragen.
+
    ServerName {{ domain }}
    ServerAlias {{ domainAliases }}
    ServerAdmin info@ehanse.de
    ErrorLog ${APACHE_LOG_DIR}/error.log
    CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-   SSLEngine On
-   SSLCertificateFile /etc/letsencrypt/live/{{ domain }}/fullchain.pem
-   SSLCertificateKeyFile /etc/letsencrypt/live/{{ domain }}/privkey.pem
-
 
     <IfModule mod_headers.c>
       #Verhindere Man in the Middle Attacks
@@ -38,4 +36,5 @@
    ProxyPassReverse / http://127.0.0.1:8069
    # Header add X-ODOO-DBFILTER "oa"
    # RequestHeader add X-ODOO-DBFILTER "oa"
+
 </virtualhost>
