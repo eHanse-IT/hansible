@@ -92,9 +92,7 @@ oatrade:
       certbot_admin_email: info@godalko.com
       certbot_certs:
        - domains:
-          - go.godalko.com
-          - godalko.com
-          - www.godalko.com
+          - oatest.oa-trade.com
       certbot_create_standalone_stop_services:
         - apache2
       userlist:

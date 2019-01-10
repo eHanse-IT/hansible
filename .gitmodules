@@ -4,3 +4,9 @@
 [submodule "roles/ansible-role-install-resilio"]
 	path = roles/ansible-role-install-resilio
 	url = https://github.com/eHanse-IT/ansible-role-install-resilio.git
+[submodule "ansible-fail2ban"]
+	path = ansible-fail2ban
+	url = https://github.com/Oefenweb/ansible-fail2ban.git
+[submodule "roles/ansible-fail2ban"]
+	path = roles/ansible-fail2ban
+	url = https://github.com/Oefenweb/ansible-fail2ban.git
