@@ -1,0 +1,20 @@
+# odoo (Open Source ERP) daemon filter
+# We are using the apache access.log as a filter because Odoo sits behind the apache proxy.
+
+[INCLUDES]
+# Read common prefixes. If any customizations available -- read them from
+# common.local
+before = common.conf
+
+[Definition]
+
+failregex = <HOST> .* /web/login .*
+
+ignoreregex =
+
+[Init]
+
+# "maxlines" is number of log lines to buffer for multi-line regex searches
+maxlines = 5
+
+# Author: Jörg Ricardo Schumacher

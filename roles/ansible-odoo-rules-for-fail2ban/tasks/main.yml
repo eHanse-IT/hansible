@@ -1,0 +1,18 @@
+
+- name: copy filter for Odoo
+  template:
+    src: templates/etc/fail2ban/filter.d/odoo.conf.j2
+    dest: /etc/fail2ban/filter.d/odoo.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: copy jail for Odoo
+  template:
+    src: templates/etc/fail2ban/jail.d/odoo.conf.j2
+    dest: /etc/fail2ban/jail.d/odoo.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban

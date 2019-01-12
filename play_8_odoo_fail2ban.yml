@@ -1,0 +1,14 @@
+# Dieses Playbook installiert Odoo Regeln für fail2ban.
+#
+# Warte ca. 3 minuten nach der Erstinstallation von fail2ban, da man sonst an das start_limit kommt!
+
+---
+- name: Installiere Odoo Regeln für fail2ban
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: all
+
+  roles:
+   - ansible-odoo-rules-for-fail2ban
+

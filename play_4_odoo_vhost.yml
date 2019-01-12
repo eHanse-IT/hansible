@@ -10,7 +10,7 @@
   #    restart_apache2_event
 
   roles:
-   - odoo-vhost-for-apache
+   - ansible-odoo-vhost-for-apache
    - certbot
 
 

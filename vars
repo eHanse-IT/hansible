@@ -85,8 +85,11 @@ ufw_ssh_port: "{{ host_port }}"
 
 
 
-# common settings for the Odoo superuser password
+# common settings for Odoo
 odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password }}"
+odoo_config_proxy_mode: True
+
+
 
 # common settings for Certbot role
 certbot_auto_renew: true

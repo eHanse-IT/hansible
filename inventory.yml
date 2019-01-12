@@ -81,6 +81,7 @@ oatrade:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
+      odoo_config_logfile: /var/log/odoo/odoo.log
 
     oatest:
       ansible_host: 103.231.254.5
@@ -108,6 +109,7 @@ oatrade:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
+      odoo_config_logfile: /var/log/odoo/odoo.log
 
 
 ehanse:
@@ -141,6 +143,7 @@ ehanse:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
+      odoo_config_logfile: /var/log/odoo/odoo-server.log
 
 
     ehtest:
@@ -161,7 +164,7 @@ ehanse:
         - apache2
       userlist:
       - "{{ ehanse_users }}"
-      odoo_version: 11.0
+      odoo_version: 8.0
       odoo_config_addons_path:
       - "/home/{{ odoo_user }}/odoo/server/addons"
       - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
@@ -171,6 +174,7 @@ ehanse:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
+      odoo_config_logfile: /var/log/odoo/odoo.log                   #TODO ein anderer Wert wird nicht übernommen
 
       #fail2ban für die Serverdienste einrichen. Nur die Dienste aktivieren, die auch installiert sind!
       fail2ban_services:
