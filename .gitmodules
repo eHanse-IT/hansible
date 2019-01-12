@@ -10,3 +10,6 @@
 [submodule "roles/ansible-fail2ban"]
 	path = roles/ansible-fail2ban
 	url = https://github.com/Oefenweb/ansible-fail2ban.git
+[submodule "roles/ansible-role-postfix"]
+	path = roles/ansible-role-postfix
+	url = https://github.com/geerlingguy/ansible-role-postfix.git
