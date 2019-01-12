@@ -1,29 +1,21 @@
 ---
-- name: Installiere Sendmail auf dem System.
+- name: Installiere sSMTP auf dem System.
   apt:
     name: sendmail
     state: present
+  apt:
+    name: ssmtp
+    state: present
 
-- name: Kreiere Odoo vHost in Apache.
+- name: Editiere die ssmtp.conf.
   template:
-    src: templates/odoohost.conf.j2
-    dest: "/etc/apache2/sites-available/{{ domain }}.conf"
+    src: templates/ssmtp.conf.j2
+    dest: "/etc/ssmtp/ssmtp.conf"
     owner: root
-    group: root
+    group: mail
     mode: 0644
+  notify: restart_SSMTP   # TODO brauchen wir den Handler wirklich?
 
-- name: Symlink neuen VHost nach sites-enabled.
-  file:
-    src: "/etc/apache2/sites-available/{{ domain }}.conf"
-    dest: "/etc/apache2/sites-enabled/{{ domain }}.conf"
-    state: link
-
-#   # finally, make sure Odoo is running fine on the target machine (no "internal web server error")
-#- name: Teste ob Odoo ueber den kreierten vHost erreichbar ist
-#  uri:
-#    url: https://{{ domain }}
-#    status_code: 200
-#    ignore_errors: yes
 
 
 

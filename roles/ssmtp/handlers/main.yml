@@ -1,0 +1,5 @@
+---
+- name: restart_SSMTP
+  service:
+    name: sendmail
+    state: restarted

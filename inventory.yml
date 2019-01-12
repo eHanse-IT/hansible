@@ -147,11 +147,11 @@ ehanse:
       pipelining: true
       ansible_host: 185.170.113.205
       ansible_port: "{{ host_port }}"
-      fqdn: "ehtest.ehanse.de"
-      hostname: "ehanse.de"
       timezone: "Europe/Berlin"
       domain: "erptest.ehanse.de" #für Odoo
       domainAliases: "wwwtest.ehanse.de"
+      fqdn: "erptest.ehanse.de"
+      hostname: "erptest.ehanse.de"
       certbot_admin_email: info@ehanse.de
       certbot_certs:
        - domains:
@@ -171,6 +171,35 @@ ehanse:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
+
+      #fail2ban für die Serverdienste einrichen. Nur die Dienste aktivieren, die auch installiert sind!
+      fail2ban_services:
+      - name: sshd
+        port: 7365
+      - name: apache-auth
+        port: http, https
+      - name: apache-overflows
+        port: http, https
+      - name: apache-badbots
+        port: http, https
+      #- name: dovecot
+      #  port: 143,993
+      #- name: nagios
+      #  port: 5666
+      #- name: postfix
+      #  port: 587
+      #
+      # weitere services von fail2ban:
+      # mysqld-auth
+      # nagios
+      # postfix
+      # proftpd
+      # sieve
+      # vsftpd
+      # xinetd-fail    <--- this is the NAGIOS server
+
+
+
 
 
     any_localhost:

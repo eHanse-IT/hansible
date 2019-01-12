@@ -17,8 +17,8 @@
     fail2ban_banaction: iptables-multiport         # Ban Definition: add a rule to iptables
     fail2ban_action: '%(action_mwl)s'              # Ban + lookup WhoIs + send Logs and GeoIP Info via mail
     fail2ban_dbpurgeage: 86400                     # remove record of modified rules after 24 hours
-    fail2ban_bantime: 3600                           # TODO Block for one hour
-    fail2ban_maxretry: 10                           # TODO Block after 12 retries
+    fail2ban_bantime: 3600                         # TODO Block for one hour
+    fail2ban_maxretry: 10                          # TODO Block after 12 retries
     fail2ban_findtime: 600                         # Block if 12 retries within 600 seconds
     fail2ban_ignoreips:                            # ignore local ip
      - 127.0.0.1/8
