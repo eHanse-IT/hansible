@@ -1,10 +1,9 @@
 #
 # README
-# Diese Rolle initialisiert und härtet Apache.
-# Anschliessend ist Apache vorbereitet, um VHOSTS aufzunehmen.
+# Diese Rolle initialisiert und härtet Apache. Anschliessend ist Apache vorbereitet, um VHOSTS aufzunehmen.
 # Die VHOSTS werden aber nicht in dieser Rolle gemacht!
 #
-# BEISPIEL
+# BEISPIEL, um nach dieser Rolle einen vhost zu adden:
 # Um in anderen roles vhosts zu adden:
 #  - name: Add Apache virtualhost for Drupal 8 development.
 #    template:
@@ -22,8 +21,8 @@
 #      state: link
 #    notify: restart apache
 #
-# TODO
-# mod_security für Seafile kompatible machen?
+# TODO mod_security für Seafile kompatible machen?
+# TODO loglevel auf info stellen da sonst für Odoo keine accesse geloggt werden!
 
 
 
@@ -70,7 +69,7 @@
     mode: 0644
   notify: restart_apache2_event
 
-- name: Task - Secure Apache2 Step 2 - edit security.conf
+- name: Task - Secure Apache2 Step 2.1 - edit security.conf
   template:
     src: templates/security.conf.j2
     dest: /etc/apache2/conf-available/security.conf
@@ -79,7 +78,7 @@
     mode: 0644
   notify: restart_apache2_event
 
-- name: Task - Secure Apache2 Step 2 - enable security.conf
+- name: Task - Secure Apache2 Step 2.2 - enable security.conf
   file:
     src: "/etc/apache2/conf-available/security.conf"
     dest: "/etc/apache2/conf-enabled/security.conf"

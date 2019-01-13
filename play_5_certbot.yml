@@ -1,0 +1,22 @@
+---
+- name: Certbot Zertifikate installieren,
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts: all
+  vars: []
+  #pre_tasks:
+  # - notify:
+  #    restart_apache2_event
+
+  roles:
+#   - ansible-odoo-vhost-for-apache
+   - certbot
+
+
+   # Anmerkung: checke dass certbot ein cron entry gemacht hat mit crontab -l als der user, mit dem das ansible ausgeführt wurde.
+   ## TODO:
+   #folgende Fehlermeldung auf frischen Servern im check mode muss gehandelt werden: python-apt must be installed to use check mode. If run normally this module can auto-install it."}
+
+
+

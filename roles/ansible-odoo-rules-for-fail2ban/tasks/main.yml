@@ -1,4 +1,22 @@
 
+- name: make sure the Apache vhost is logging to the specified file
+  lineinfile:
+    path: "{{ apache_odoo_vhost_file }}"
+    regexp: '^CustomLog.*'
+    insertafter: '<VirtualHost \*:443>'
+    line: 'CustomLog {{ apache_odoo_vhost_log_path }} combined'
+    state: present
+  notify: restart apache2
+
+- name: make sure logfile exists, otherwise fail2ban will not be able to start
+  file:
+    path: "{{ apache_odoo_vhost_log_path }}"
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart apache2
+
 - name: copy filter for Odoo
   template:
     src: templates/etc/fail2ban/filter.d/odoo.conf.j2

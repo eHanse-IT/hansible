@@ -107,3 +107,25 @@ certbot_dir: /opt/certbot
 # certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
 # certbot_create_command: "{{ certbot_script }} --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
 certbot_create_command: "{{ certbot_script }} --apache --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+
+
+# common settings for fail2ban basic role with apache server
+      #fail2ban für die Serverdienste einrichen. Nur die Dienste aktivieren, die auch installiert sind!
+
+      # see inventory
+
+      #- name: dovecot
+      #  port: 143,993
+      #- name: nagios
+      #  port: 5666
+      #- name: postfix
+      #  port: 587
+      #
+      # weitere services von fail2ban:
+      # mysqld-auth
+      # nagios
+      # postfix
+      # proftpd
+      # sieve
+      # vsftpd
+      # xinetd-fail    <--- this is the NAGIOS server

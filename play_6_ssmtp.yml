@@ -10,11 +10,11 @@
     - vault
   hosts: all
   vars:
-    ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"
-    ssmtp_mailhub: "{{ _vault_ssmtp_mailhub }}"
+    ssmtp_root: "{{ host_ssmtp_AuthUser }}"
+    ssmtp_mailhub: "{{ host_ssmtp_mailhub }}"
     ssmtp_hostname: "{{ domain }}"
-    ssmtp_AuthUser: "{{ _vault_ssmtp_AuthUser }}"
-    ssmtp_AuthPass: "{{ _vault_ssmtp_AuthPass }}"
+    ssmtp_AuthUser: "{{ host_ssmtp_AuthUser }}"
+    ssmtp_AuthPass: "{{ host_ssmtp_AuthPass }}"
 
   roles:
    - ssmtp

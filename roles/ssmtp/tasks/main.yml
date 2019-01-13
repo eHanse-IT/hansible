@@ -1,8 +1,10 @@
 ---
-- name: Installiere sSMTP auf dem System.
+- name: Installiere sendmail auf dem System.
   apt:
     name: sendmail
     state: present
+
+- name: installiere SSMTP auf dem System.
   apt:
     name: ssmtp
     state: present
@@ -14,6 +16,9 @@
     owner: root
     group: mail
     mode: 0644
+
+
+# TODO sende eine Test - eMail über den sendmail command
 
 
 
