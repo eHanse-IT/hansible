@@ -1,15 +1,7 @@
 ---
 # This file manages our servers and their variables.
 # For each server, we declare the server-dependent variables that are required for the roles.
-#
-# The following inventory file contains three groups:
-# 1. bootstrap group: small server configs for the initial server setup with play_0_bootstrap.yml
-#    - oaprod_bootstrap
-#    - oatest_bootstrap
-#    - godalko bootstrap
-#    - ehprod_bootstrap
-#    - ehtest_bootstrap
-# 2. oatrade group:
+# 1. oatrade group:
 #    - oaprod
 #    - oatest
 #    - godalko
@@ -21,9 +13,9 @@
 
 oatrade:
   hosts:
-    oaprod:
+    twprod:
       pipelining: False              # TODO kann auf TRUE gesetzt werden wenn Ubuntu 16+04 oder neuer installiert
-      ansible_host: 103.231.254.6
+      ansible_host: "{{ _vault_twprod_ip }}"
       ansible_port: "{{ host_port }}"
       fqdn: "oaprod.oa-trade.com"
       hostname: "oaprod"
@@ -52,8 +44,8 @@ oatrade:
       odoo_config_smtp_user: erp@oawatches.net
 
 
-    godalko:
-      ansible_host: 103.254.208.197
+    chrono123:
+      ansible_host: "{{ _vault_chrono123_ip }}"
       ansible_port: "{{ host_port }}"
       fqdn: "godalko.com"
       hostname: "godalko.com"
@@ -81,10 +73,9 @@ oatrade:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
-      odoo_config_logfile: /var/log/odoo/odoo.log
 
-    oatest:
-      ansible_host: 103.231.254.5
+    twtest:
+      ansible_host: "{{ _vault_twtest_ip }}"
       ansible_port: "{{ host_port }}"
       fqdn: "test.oa-trade.com"
       hostname: "oatest"
@@ -109,13 +100,12 @@ oatrade:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
-      odoo_config_logfile: /var/log/odoo/odoo.log
 
 
 ehanse:
   hosts:
     ehprod:
-      ansible_host: 5.45.105.50
+      ansible_host: "{{ _vault_ehprod_ip }}"
       ansible_port: "{{ host_port }}"
       fqdn: "www.ehanse.de"
       hostname: "ehanse.de"
@@ -143,12 +133,11 @@ ehanse:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
-      odoo_config_logfile: /var/log/odoo/odoo-server.log
 
 
     ehtest:
       pipelining: true
-      ansible_host: 185.170.113.205
+      ansible_host: "{{ _vault_ehtest_ip_ }}"
       ansible_port: "{{ host_port }}"
       timezone: "Europe/Berlin"
       domain: "erptest.ehanse.de" #für Odoo
@@ -174,7 +163,6 @@ ehanse:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
-      odoo_config_logfile: /var/log/odoo/odoo.log                   #TODO ein anderer Wert wird nicht übernommen
 
       #fail2ban für die Serverdienste einrichen. Nur die Dienste aktivieren, die auch installiert sind!
       fail2ban_services:

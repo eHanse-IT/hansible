@@ -4,7 +4,7 @@
 # durchzuführen, um genau einen Task auszuführen: unsere SSH User einzurichten.
 # Alle weiteren Konfigschritte werden dann in den restlichen Playbooks gemacht.
 #
-# Nutzung (am Beispiel des Servers ehtest):
+# Nutzung (am Beispiel des Servers 185.170.113.205):
 #
 # 1. SSH Key entfernen:
 #    ssh-keygen -f "/home/joerg/.ssh/known_hosts" -R 185.170.113.205
