@@ -1,2 +1,5 @@
+---
 - name: restart_ssh_event
-  command: service ssh restart
+  service:
+    name: ssh
+    state: restarted
