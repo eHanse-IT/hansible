@@ -1,0 +1,22 @@
+<VirtualHost *:80>
+        ServerName {{ mail_subdomain }}
+        # DocumentRoot /var/www/mail
+        Redirect permanent / {{ webmail_address }}
+
+</VirtualHost>
+
+
+
+<VirtualHost *:443>
+    ServerName {{ mail_subdomain }}
+    # DocumentRoot /var/www/mail
+    Redirect permanent / {{ webmail_address }}
+
+    SSLEngine On
+    SSLCertificateFile /etc/letsencrypt/live/{{ domain }}/cert.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/{{ domain }}/privkey.pem
+    SSLCertificateChainFile /etc/letsencrypt/live/{{ domain }}/chain.pem
+
+
+
+</VirtualHost>

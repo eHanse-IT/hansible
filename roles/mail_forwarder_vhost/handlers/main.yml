@@ -1,0 +1,5 @@
+---
+- name: restart_apache2_event
+  service:
+    name: apache2
+    state: restarted

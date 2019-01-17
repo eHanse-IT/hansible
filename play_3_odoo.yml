@@ -94,5 +94,71 @@
 # TODO https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
 
 
+# TODO godalko master odoo.conf:
+
+#[options]
+#addons_path = /home/odoo/odoo/server/addons,/home/odoo/odoo/custom/OAW-custom,/home/odoo/odoo/custom/awo-custom
+#admin_passwd = diesisteingeheimesPW123#
+#auto_reload = False
+#csv_internal_sep = ,
+#data_dir = /home/odoo/.local/share/Odoo
+#db_host = False
+#db_maxconn = 64
+#db_name = godalko
+#db_password = False
+#db_port = False
+#db_template = template1
+#db_user = odoo
+#dbfilter =
+#debug_mode = False
+#demo = {}
+#email_from = False
+#geoip_database = /usr/share/GeoIP/GeoLiteCity.dat
+#import_partial =
+#limit_memory_hard = 4294967296
+#limit_memory_soft = 671088640
+#limit_request = 8192
+#limit_time_cpu = 8192
+#limit_time_real = 1000
+#list_db = False
+#log_db = False
+#log_db_lvl = warning
+#log_handler = [':INFO']
+#log_level = debug
+#logfile = /var/log/odoo/odoo-server.log
+#logrotate = True
+#longpolling_port = 8072
+#max_cron_threads = 2
+#osv_memory_age_limit = 1.0
+#osv_memory_count_limit = False
+#pg_path = None
+#pidfile = None
+#proxy_mode = False
+#reportgz = False
+#secure_cert_file = server.cert
+#secure_pkey_file = server.pkey
+#server_wide_modules = web,web_kanban,
+#smtp_password = somepassword
+#smtp_port = 587
+#smtp_server = somesmtpserver.com
+#smtp_ssl = True
+#smtp_user = erp@oawatches.net
+#syslog = False
+#test_commit = False
+#test_enable = False
+#test_file = False
+#test_report_directory = False
+#timezone = False
+#translate_modules = ['all']
+#unaccent = False
+#without_demo = False
+#workers = 5
+#xmlrpc = True
+#xmlrpc_interface =
+#xmlrpc_port = 8069
+#xmlrpcs = True
+#xmlrpcs_interface =
+#xmlrpcs_port = 8071
+
 
 
