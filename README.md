@@ -23,7 +23,7 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 `echo <ourvaultpassword> > .vaultpw `
 6. Now your hansible-repo is ready to run. First, perform a a dry run on our servers using hte --check parameter: ` ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw --check -l oaprod`
 7. Perform an actual run using the same command without `--check` command: `
-ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw -l oaprod`
+ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw -l YOUR-HOSTNAME`
 
 Obviously, you need to replace YOURUSER with your linux admin username.
 ALWAYS use the -l parameter to define the host! Otherwise, ALL hosts will be changed!
