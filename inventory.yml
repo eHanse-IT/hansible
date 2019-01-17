@@ -186,7 +186,7 @@ ehanse:
       - "{{ ehanse_users }}"
 
       #play_3_odoo critical variables
-      odoo_version: 8.0
+      odoo_version: 11.0
       odoo_config_addons_path:
       - "/home/{{ odoo_user }}/odoo/server/addons"
       - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"

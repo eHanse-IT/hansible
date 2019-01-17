@@ -41,4 +41,4 @@ GNU GENERAL PUBLIC LICENSE
 
 ## Author Information
 
-This role was created in 2018 by [Jörg Schumacher](https://www.ehanse.de/).
+This role was created in 2018 by [Jörg Schumacher](https://github.com/eHanseJoerg).

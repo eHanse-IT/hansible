@@ -52,7 +52,7 @@ odoo_config_db_port: False
 odoo_config_db_sslmode: prefer          # >= 11.0 #whats that
 odoo_config_db_template: template1
 odoo_config_db_user: "{{ odoo_user }}"
-odoo_config_dbfilter: None            # unset by frank 06.10.2018
+odoo_config_dbfilter: .*            # unset by frank 06.10.2018
 odoo_config_debug_mode: False           # <= 9.0
 odoo_config_pidfile: None
 odoo_config_proxy_mode: False
