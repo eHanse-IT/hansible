@@ -28,7 +28,7 @@ odoo_debian_packages:
     - python3-pydot
     - python3-pyparsing
     - python3-pypdf2
-    # python3-qrcode  # Not available in Ubuntu 16.04
+    - python3-qrcode  # Not available in Ubuntu 16.04   but in 18 04 added by joerg
     - python3-reportlab
     - python3-requests
     - python3-serial

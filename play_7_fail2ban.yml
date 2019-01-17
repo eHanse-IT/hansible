@@ -12,7 +12,12 @@
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
-  hosts: all
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
   vars:
     fail2ban_banaction: iptables-multiport         # Ban Definition: add a rule to iptables
     fail2ban_action: '%(action_mwl)s'              # Ban + lookup WhoIs + send Logs and GeoIP Info via mail

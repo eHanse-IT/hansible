@@ -10,6 +10,96 @@
 #    - ehtest
 #    - jupyter
 
+ehanse:
+  hosts:
+
+    any_localhost:
+      ansible_host: 127.0.0.1
+      connection: local
+
+    ehprod:
+      ansible_host: "{{ _vault_ehprod_ip }}"
+      ansible_port: "{{ host_port }}"
+      fqdn: "www.ehanse.de"
+      hostname: "ehanse.de"
+      timezone: "Europe/Berlin"
+      domain: "erp.ehanse.de"  #für Odoo
+      domainAliases: "www.ehanse.de"
+      certbot_admin_email: info@ehanse.de
+      certbot_certs:
+       - domains:
+          - wiki.ehanse.de
+          - seafile.ehanse.de
+          - www.ehanse.de
+          - erp.ehanse.de
+      certbot_create_standalone_stop_services:
+        - apache2
+      userlist:
+      - "{{ ehanse_users }}"
+      odoo_version: 8.0
+      odoo_config_addons_path:
+      - "/home/{{ odoo_user }}/odoo/server/addons"
+      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
+      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+      odoo_config_smtp_password: somepassword                       #TODO
+      odoo_config_smtp_port: 587
+      odoo_config_smtp_server: somesmtpserver.com                   #TODO
+      odoo_config_smtp_ssl: True                                    #TODO
+      odoo_config_smtp_user: erp@oawatches.net                      #TODO
+
+
+    ehtest:
+      # Ansible critical variables
+      pipelining: true
+      ansible_host: "{{ _vault_ehtest_ip }}"
+      ansible_port: "{{ host_port }}"
+      timezone: "Europe/Berlin"
+      # play_2_apache critical variables
+      domain: "erptest.ehanse.de" #für Odoo
+      domainAliases: "wwwtest.ehanse.de"
+      fqdn: "erptest.ehanse.de"
+      hostname: "erptest.ehanse.de"
+      certbot_admin_email: info@ehanse.de
+      certbot_certs:
+       - domains:
+          - erptest.ehanse.de
+          - wwwtest.ehanse.de
+      certbot_create_standalone_stop_services:
+        - apache2
+      userlist:
+      - "{{ ehanse_users }}"
+
+      #play_3_odoo critical variables
+      odoo_version: 11.0
+      odoo_config_addons_path:
+      - "/home/{{ odoo_user }}/odoo/server/addons"
+      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
+      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+      odoo_config_smtp_password: somepassword                       #TODO
+      odoo_config_smtp_port: 587
+      odoo_config_smtp_server: somesmtpserver.com                   #TODO
+      odoo_config_smtp_ssl: True                                    #TODO
+      odoo_config_smtp_user: erp@oawatches.net                      #TODO
+
+      #play_6_ssmtp critical variables
+      host_ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"
+      host_ssmtp_mailhub: "{{ _vault_ssmtp_mailhub }}"
+      host_ssmtp_hostname: "{{ domain }}"
+      host_ssmtp_AuthUser: "{{ _vault_ssmtp_AuthUser }}"
+      host_ssmtp_AuthPass: "{{ _vault_ssmtp_AuthPass }}"
+
+
+      # play_7_fail2ban critical services
+      fail2ban_services:
+      - name: sshd
+        port: "{{ host_port }}"
+      #- name: apache-auth
+      #  port: http, https
+      #- name: apache-overflows
+      #  port: http, https
+      #- name: apache-badbots
+      #  port: http, https
+
 
 oatrade:
   hosts:
@@ -131,98 +221,12 @@ oatrade:
         port: http, https
 
 
-ehanse:
-  hosts:
-    ehprod:
-      ansible_host: "{{ _vault_ehprod_ip }}"
-      ansible_port: "{{ host_port }}"
-      fqdn: "www.ehanse.de"
-      hostname: "ehanse.de"
-      timezone: "Europe/Berlin"
-      domain: "erp.ehanse.de"  #für Odoo
-      domainAliases: "www.ehanse.de"
-      certbot_admin_email: info@ehanse.de
-      certbot_certs:
-       - domains:
-          - wiki.ehanse.de
-          - seafile.ehanse.de
-          - www.ehanse.de
-          - erp.ehanse.de
-      certbot_create_standalone_stop_services:
-        - apache2
-      userlist:
-      - "{{ ehanse_users }}"
-      odoo_version: 8.0
-      odoo_config_addons_path:
-      - "/home/{{ odoo_user }}/odoo/server/addons"
-      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
-      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
-      odoo_config_smtp_password: somepassword                       #TODO
-      odoo_config_smtp_port: 587
-      odoo_config_smtp_server: somesmtpserver.com                   #TODO
-      odoo_config_smtp_ssl: True                                    #TODO
-      odoo_config_smtp_user: erp@oawatches.net                      #TODO
-
-
-    ehtest:
-      # Ansible critical variables
-      pipelining: true
-      ansible_host: "{{ _vault_ehtest_ip }}"
-      ansible_port: "{{ host_port }}"
-      timezone: "Europe/Berlin"
-      # play_2_apache critical variables
-      domain: "erptest.ehanse.de" #für Odoo
-      domainAliases: "wwwtest.ehanse.de"
-      fqdn: "erptest.ehanse.de"
-      hostname: "erptest.ehanse.de"
-      certbot_admin_email: info@ehanse.de
-      certbot_certs:
-       - domains:
-          - erptest.ehanse.de
-          - wwwtest.ehanse.de
-      certbot_create_standalone_stop_services:
-        - apache2
-      userlist:
-      - "{{ ehanse_users }}"
-
-      #play_3_odoo critical variables
-      odoo_version: 11.0
-      odoo_config_addons_path:
-      - "/home/{{ odoo_user }}/odoo/server/addons"
-      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
-      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
-      odoo_config_smtp_password: somepassword                       #TODO
-      odoo_config_smtp_port: 587
-      odoo_config_smtp_server: somesmtpserver.com                   #TODO
-      odoo_config_smtp_ssl: True                                    #TODO
-      odoo_config_smtp_user: erp@oawatches.net                      #TODO
-
-      #play_6_ssmtp critical variables
-      host_ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"
-      host_ssmtp_mailhub: "{{ _vault_ssmtp_mailhub }}"
-      host_ssmtp_hostname: "{{ domain }}"
-      host_ssmtp_AuthUser: "{{ _vault_ssmtp_AuthUser }}"
-      host_ssmtp_AuthPass: "{{ _vault_ssmtp_AuthPass }}"
-
-
-      # play_7_fail2ban critical services
-      fail2ban_services:
-      - name: sshd
-        port: "{{ host_port }}"
-      #- name: apache-auth
-      #  port: http, https
-      #- name: apache-overflows
-      #  port: http, https
-      #- name: apache-badbots
-      #  port: http, https
 
 
 
 
 
-    any_localhost:
-      ansible_host: 127.0.0.1
-      connection: local
+
       
 
 

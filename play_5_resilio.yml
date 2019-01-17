@@ -1,9 +1,12 @@
+# Dieses Playbook installiert Resilio Sync auf den Zielservern.
+
 ---
 - name: Resilio installieren
-  vars_files:  # Verweis auf verschlüsselte Pws
+  hosts:
+    - twtest
+  vars_files:
     - vars
     - vault
-  hosts: all
   vars:
     resilio_folders:
     - "/opt/resilio/"

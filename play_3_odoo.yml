@@ -6,11 +6,46 @@
 
 ---
 - name: Odoo installieren,
+  hosts:
+  - ehprod
+  - ehtest
+  - twprod
+  - twtest
+  - chrono123
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
-  hosts: all
-  vars: []
+  vars:
+    odoo_version: "{{ odoo_version }}"
+    odoo_config_addons_path: " {{ odoo_config_addons_path }}"
+    odoo_config_admin_passwd: "{{ odoo_config_superadmin_password }}"
+    odoo_config_dbfilter: .*
+    odoo_config_proxy_mode: False
+    odoo_config_email_from: False
+    odoo_config_limit_memory_hard: 4294967296
+    odoo_config_limit_memory_soft: 671088640
+    odoo_config_limit_time_cpu: 8192
+    odoo_config_limit_time_real: 1000
+    odoo_config_limit_time_real_cron: 3000    # >= 10.0
+    odoo_config_list_db: False       #change by joerg on 07.03.2018
+    odoo_config_log_level: info
+    odoo_config_logfile: /var/log/odoo/odoo-server.log
+    odoo_config_logrotate: True
+    odoo_config_server_wide_modules: web,web_kanban,dbfilter_from_header,
+    odoo_config_smtp_password: "{{ odoo_config_smtp_password }}"
+    odoo_config_smtp_port: "{{ odoo_config_smtp_port }}"
+    odoo_config_smtp_server: "{{ odoo_config_smtp_server }}"
+    odoo_config_smtp_ssl: "{{ odoo_config_smtp_ssl }}"
+    odoo_config_smtp_user: "{{ odoo_config_smtp_user }}"
+    odoo_config_workers: 5
+    odoo_config_xmlrpc: True                # <= 10.0
+    odoo_config_xmlrpc_interface: ''        # <= 10.0
+    odoo_config_xmlrpc_port: 8069           # <= 10.0
+    odoo_config_xmlrpcs: True               # <= 8.0
+    odoo_config_xmlrpcs_interface: ''       # <= 8.0
+    odoo_config_xmlrpcs_port: 8071          # <= 8.0
+    # TODO refactor variables to be in the host definitions!
+
   pre_tasks:
     - apt:
        name: "{{ item }}"
@@ -53,6 +88,11 @@
        group: "{{ odoo_user }}"
        mode: 0755
        recurse: yes
+
+
+# TODO: user password encrypten vom odoo_user_passwd
+# TODO https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+
 
 
 
