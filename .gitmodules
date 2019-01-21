@@ -16,3 +16,6 @@
 [submodule "roles/ansible-odoo"]
 	path = roles/ansible-odoo
 	url = https://github.com/OCA/ansible-odoo.git
+[submodule "roles/ansible-role-seafile"]
+	path = roles/ansible-role-seafile
+	url = https://github.com/ginsys/ansible-role-seafile.git

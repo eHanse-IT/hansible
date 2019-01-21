@@ -48,11 +48,11 @@ with your default editor (nano or vi)
 R 123.123.123.123' to remove any old SSH keys connected to that IP
 - In the same terminal, try to login once to get the new SSH key: ssh root@123.123.123.223.
 You can cancel the login after you have accepted the new SSH Key.
-- Run the Bootstrapping playbook play_0_bootstrap.yml first. As this
+- Run the Bootstrapping playbook play_00_bootstrap.yml first. As this
 is the first time Ansible connects to a server, you need to run as _root_,
 you need to connect to port 22 and you need to pass the SSH password (which
 is the same as the root password in your clipboard). Observe that you
 need to replace the _ehtes_ variable with the name of your server.
-ansible-playbook play_0_bootstrap.yml -i inventory.yml -u root -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
+ansible-playbook play_00_bootstrap.yml -i inventory.yml -u root -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
 - Run all other playbooks to your liking:
-ansible-playbook play_1_essentials.yml -i inventory.yml -u joerg -b -K --vault-password-file=.vaultpw -l ehtest
+ansible-playbook play_01_essentials.yml -i inventory.yml -u joerg -b -K --vault-password-file=.vaultpw -l ehtest

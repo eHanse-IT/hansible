@@ -11,7 +11,7 @@
 # 2. Einmal via Terminal als SSH einen Loginversuch machen, um den neuen key zu holen:
 #    ssh root@185.170.113.205
 # 3. Bootstrap Playbook ausführen mit --ask-pass ausführen:
-#    ansible-playbook play_0_bootstrap.yml -i inventory.yml -u root -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
+#    ansible-playbook play_00_bootstrap.yml -i inventory.yml -u root -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
 
 - name: play_0_bootstrap - Users und SSH einrichten
   hosts: all
