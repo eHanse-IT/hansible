@@ -2,7 +2,7 @@
 #
 
 ---
-- name: Installiere Odoo Regeln für fail2ban
+- name: Installiere VHost in Apache, um automatisch zum Webmail-Service weitergeleitet zu werden
   hosts:
     - ehprod
   vars_files:  # Verweise auf verschlüsselte Pws

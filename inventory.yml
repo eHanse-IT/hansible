@@ -83,7 +83,8 @@ ehanse:
 
       #play_6_ssmtp critical variables
       host_ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"
-      host_ssmtp_mailhub: "{{ _vault_ssmtp_mailhub }}"
+      host_ssmtp_host: "{{ _vault_ssmtp_host }}"
+      host_ssmtp_port: "{{ _vault_ssmtp_port }}"
       host_ssmtp_hostname: "{{ domain }}"
       host_ssmtp_AuthUser: "{{ _vault_ssmtp_AuthUser }}"
       host_ssmtp_AuthPass: "{{ _vault_ssmtp_AuthPass }}"

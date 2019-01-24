@@ -85,13 +85,13 @@ ufw_ssh_port: "{{ host_port }}"
 
 
 
-# common settings for Odoo
+# common settings for role Odoo
 odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password }}"
 odoo_config_proxy_mode: True
 
 
 
-# common settings for Certbot role
+# common settings for role Certbot
 certbot_auto_renew: true
 certbot_auto_renew_user: "{{ ansible_user }}"
 certbot_auto_renew_hour: 3
@@ -129,3 +129,9 @@ certbot_create_command: "{{ certbot_script }} --apache --noninteractive --agree-
       # sieve
       # vsftpd
       # xinetd-fail    <--- this is the NAGIOS server
+
+
+
+
+
+

@@ -92,6 +92,9 @@
 
 # TODO: user password encrypten vom odoo_user_passwd
 # TODO https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+# TODO: nach der Installation von Odoo 11 muss man einmal restarten, damit der Server keinen Error 500 hat
+
+# TODO: Postgresql tuning mit pgbadger, siehe Mails mit Yoshi vom 10.07.2016
 
 
 # TODO godalko master odoo.conf:

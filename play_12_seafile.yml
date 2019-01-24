@@ -1,0 +1,155 @@
+# Dieses Playbook installiert Seafile auf den Zielservern.
+
+---
+- name: Seafile installieren
+  hosts:
+    - ehtest
+  vars_files:
+    - vars
+    - vault
+  vars:
+    seafile_install_version: '6.3.2'
+    seafile_user:               seafile
+    seafile_user_home:          /home/seafile
+    seafile_org_name:           'Seafile'
+    seafile_server_name:        '{{ seafile_org_name }}'
+    seafile_ip_or_domain:       'seafile.{{ domain }}'
+    seafile_service_url:        https://{{ seafile_ip_or_domain }}
+
+    seafile_quota_enable:       false
+    seafile_quota_default: 2
+
+    seafile_history_keepall:    true # set to false to enable keep_days limit
+    seafile_history_keep_days: 30
+
+    seafile_max_upload_size_enable:         false # set to true to enable max
+    seafile_max_upload_size:                200  # MB
+    seafile_max_download_dir_size_enable:   false # set to true to enable max
+    seafile_max_download_dir_size: 200 # MB
+
+    seafile_email_enable:       enable
+    seafile_email_use_tls:      true
+    seafile_email_host:         "{{ host_ssmtp_host }}"
+    seafile_email_port:         "{{ host_ssmtp_port }}"
+    seafile_email_user:         "{{ host_ssmtp_AuthUser }}"
+    seafile_email_password:     "{{ host_ssmtp_AuthPass }}"
+    seafile_default_from_email: "Seafile auf {{ seafile_email_user }}"
+    seafile_server_email:       "{{ seafile_email_user }}"
+
+    seafile_time_zone:  'Europe/Brussels'
+    seafile_site_base:  'https://{{ seafile_ip_or_domain }}/'
+    seafile_site_name:  '{{ seafile_org_name }}' # used in email notifications
+    seafile_site_title: '{{ seafile_org_name }}'
+    seafile_site_root:  '/'
+    seafile_cloud_mode: true
+    #seafile_logo_path: 'custom/ginsys_seafile_logo.png'
+    # network ports
+    seafile_ccnet_port:         10001
+    seafile_seafile_port:       12001
+    seafile_httpserver_port:    8082
+    seafile_webdav_port:        8080
+
+    seafile_fastcgi_enabled: false
+
+    seafile_webdav_enabled:     true
+    seafile_webdav_fastcgi:     true
+    seafile_webdav_path: /dav
+
+    seafile_seahub_admin_email: _vault_seafile__seahub_admin_email
+    seafile_seahub_admin_password: _vault_seafile__seahub_admin_password
+
+    # database settings
+    seafile_backend: mysql
+
+
+    #mysql configuration
+    #
+    mysql_root_db_pass:         " {{ _vault_mysql_root_password }}"
+    seafile_db_user:            'seafile'
+    seafile_db_pass:            "{{ _vault_mysql_seafile_password }}"
+    seafile_db_host:            '127.0.0.1'
+    seafile_db_port:            '3306'
+    seafile_db_name:
+      ccnet:                    'ccnet'
+      seafile:                  'seafile'
+      seahub:                   'seahub'
+
+
+    mysql_root_username:        root
+    mysql_root_password:        "{{ _vault_mysql_root_password }}"
+    mysql_root_password_update: true
+    mysql_enabled_on_startup:   true
+    mysql_bind_address:         '{{ seafile_db_host }}'
+    mysql_db:
+      - name:                     '{{ seafile_db_name.ccnet }}'
+        replicate:                no
+        encoding:                 utf8
+      - name:                     '{{ seafile_db_name.seafile }}'
+        replicate:                no
+        encoding:                 utf8
+      - name:                     '{{ seafile_db_name.seahub }}'
+        replicate:                no
+        encoding:                 utf8
+    mysql_users:
+      - name:                     '{{ seafile_db_user }}'
+        password:                 '{{ seafile_db_pass }}'
+        priv: >
+          {{ seafile_db_name.ccnet    ~ ".*:ALL/" ~
+             seafile_db_name.seafile  ~ ".*:ALL/" ~
+             seafile_db_name.seahub   ~ ".*:ALL"  }}
+
+
+    ## cron jobs
+    # a weekly job to perform garbage collection
+    seafile_cron_gc_enabled:    true
+
+    ## ldap
+    #seafile_ldap:
+    #  host: 'ldap://127.0.0.1'
+    #  base: 'ou=people,dc=example,dc=com'
+    #  user_dn: 'cn=seafile,ou=services,dc=example,dc=com'
+    #  password: 'cleartext-password'
+    #  login_attr: mail
+
+
+
+
+  pre_tasks:
+    - apt:
+        name: "{{ item }}"
+        update_cache: no
+        state: present
+      loop:
+        - python3-pip
+        - python-pip
+    - pip:
+        name: pymysql
+        state: latest
+
+
+  roles:
+    - ansible-role-mysql
+    - ansible-role-seafile
+
+  post_tasks:
+    - name:       allow web server access to seafile data
+      user:
+        name:     'www-data'
+        groups:   '{{ seafile_user }}'
+        append: yes
+
+
+# TODO: alte /opt/seafile/ccnet.conf verarbeiten:
+#[General]
+#USER_NAME = eHanse
+#ID = d57adabbd9ac869316f312b11caba1a6202308f9
+#NAME = eHanse
+#SERVICE_URL = https://seafile.ehanse.de
+#
+#[Network]
+#PORT = 10001
+#
+#[Client]
+#PORT = 13418
+
+

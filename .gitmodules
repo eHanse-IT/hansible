@@ -19,3 +19,6 @@
 [submodule "roles/ansible-role-seafile"]
 	path = roles/ansible-role-seafile
 	url = https://github.com/ginsys/ansible-role-seafile.git
+[submodule "roles/ansible-role-mysql"]
+	path = roles/ansible-role-mysql
+	url = https://github.com/geerlingguy/ansible-role-mysql.git
