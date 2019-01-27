@@ -1,0 +1,22 @@
+---
+- name: Certbot Zertifikate installieren,
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  vars: []
+  roles:
+   - certbot
+
+  # TODO Vorsicht auf Ubuntu 18.04, pip hat eine Regression, siehe
+  # TODO https://community.letsencrypt.org/t/certbot-has-problem-setting-up-the-virtual-environment/83678?page=2
+  # TODO Also erstmal pip manuell auf dem Server auf die neueste Version bringen mit
+  # TODO https://pip.pypa.io/en/stable/installing/
+  # TODO
+
+

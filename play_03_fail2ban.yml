@@ -1,13 +1,8 @@
-# Dieses Playbook installiert fail2ban für die verschiedenen Services auf einem host.
-# Deswegen müssen die entsprechenden Services auch zuerst installiert sein, da
-# ansonsten der fail2ban Dienst die entsprechenden Logfiles nicht findet und mit einem
-# error einen shutdown macht.
-#
-# Daher werden in unserem ansible-repo die fail2ban-Services im Inventory definiert.
-
-
-
 ---
+# Dieses Playbook installiert fail2ban auf einem host.
+# Ähnlich wie in Apache müssen die einzelnen Services im Anschluss nochmal abgesichert werden.
+
+
 - name: Fail2Ban installieren
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars

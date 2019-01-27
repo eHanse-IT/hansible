@@ -1,0 +1,11 @@
+---
+
+- name: Restart Odoo
+  service:
+    name: "{{ odoo_service }}"
+    state: restarted
+
+- name: Reload Systemd
+  systemd:
+    daemon-reload: yes
+  when: ansible_service_mgr == 'systemd'

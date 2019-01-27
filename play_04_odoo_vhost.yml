@@ -12,7 +12,7 @@
   vars: []
   roles:
    - ansible-odoo-vhost-for-apache
-   - certbot
+   # - certbot
 
 
    # Anmerkung: checke dass certbot ein cron entry gemacht hat mit crontab -l als der user, mit dem das ansible ausgeführt wurde.

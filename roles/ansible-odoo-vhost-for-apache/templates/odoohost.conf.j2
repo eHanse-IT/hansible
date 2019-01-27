@@ -37,4 +37,9 @@
    # Header add X-ODOO-DBFILTER "oa"
    # RequestHeader add X-ODOO-DBFILTER "oa"
 
+   #Longpolling port
+   ProxyPass /longpolling/ http://127.0.0.1:8072/
+   ProxyPassReverse /longpolling/ http://127.0.0.1:8072
+
+
 </virtualhost>

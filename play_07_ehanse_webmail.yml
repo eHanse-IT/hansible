@@ -1,6 +1,3 @@
-# This Playbook installs Odoo filters and jails for fail2ban behind Apache Proxy.
-#
-
 ---
 - name: Installiere VHost in Apache, um automatisch zum Webmail-Service weitergeleitet zu werden
   hosts:

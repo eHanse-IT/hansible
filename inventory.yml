@@ -23,29 +23,83 @@ ehanse:
       fqdn: "www.ehanse.de"
       hostname: "ehanse.de"
       timezone: "Europe/Berlin"
-      domain: "erp.ehanse.de"  #für Odoo
-      domainAliases: "www.ehanse.de"
+      domain: "www.ehanse.de"  #für Odoo
+      domainAliases: "erp.ehanse.de"
       certbot_admin_email: info@ehanse.de
       certbot_certs:
        - domains:
+          - www.ehanse.de
+          - test1.ehanse.de
+          - test2.ehanse.de
           - wiki.ehanse.de
           - seafile.ehanse.de
-          - www.ehanse.de
-          - erp.ehanse.de
       certbot_create_standalone_stop_services:
         - apache2
       userlist:
       - "{{ ehanse_users }}"
-      odoo_version: 8.0
+
+      #play 4: Odoo essential variables
+      odoo_version:                       12.0
+      odoo_config_file:                   /etc/odoo/odoo.conf
+      odoo_user:                          odoo
+      odoo_user_shell:                    /bin/bash
+      odoo_user_system:                   False
+      odoo_user_passwd:                   "*"
+      odoo_config_admin_passwd:           "{{ _vault_odoo_config_superadmin_password_ehanse }}"
+      odoo_config_db_host:                False  # use local postgres database
+      odoo_config_db_port:                False
+      odoo_config_db_user:                "{{ odoo_user }}"
+      odoo_config_db_password:            False
+      odoo_config_db_name:                False  # für chrono, OA, website module hier den prodnamen eintragen
+      odoo_config_db_sslmode:             prefer
+      odoo_config_db_maxconn:             64
+      odoo_config_db_filter:              ^%d$       # database name must equal subdomain '.*'. Do not forget CERTBOT!
+      odoo_config_list_db:                True
       odoo_config_addons_path:
-      - "/home/{{ odoo_user }}/odoo/server/addons"
-      - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
-      - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
-      odoo_config_smtp_password: somepassword                       #TODO
-      odoo_config_smtp_port: 587
-      odoo_config_smtp_server: somesmtpserver.com                   #TODO
-      odoo_config_smtp_ssl: True                                    #TODO
-      odoo_config_smtp_user: erp@oawatches.net                      #TODO
+        - "/home/{{ odoo_user }}/odoo/custom/"
+      odoo_config_logfile:                /var/log/odoo/odoo-server.log
+      odoo_config_logrotate:              True
+
+      odoo_config_email_from:             False
+      odoo_config_smtp_server:            "{{ _vault_odoo_config_smtp_server }}"
+      odoo_config_smtp_port:              "{{ _vault_odoo_config_smtp_port }}"
+      odoo_config_smtp_ssl:               "{{ _vault_odoo_config_smtp_ssl }}"
+      odoo_config_smtp_user:              "{{ _vault_odoo_config_smtp_user }}"
+      odoo_config_smtp_password:          "{{ _vault_odoo_config_smtp_password }}"
+      odoo_config_csv_internal_sep:       ','
+      odoo_config_proxy_mode:             True
+      odoo_config_limit_memory_hard:      2684354560 # calculate min. 324MB RAM per worker: 324 * 5 *1024 * 1024 =
+      odoo_config_limit_memory_soft:      2147483648
+      odoo_config_limit_request:          8192       #Values added by Frank
+      odoo_config_limit_time_cpu:         600        #Frank should recheck
+      odoo_config_limit_time_real:        1200
+      odoo_config_limit_time_real_cron:   -1         # enables cronjobs to run longer after Odoo 10
+      odoo_config_longpolling_port:       8072
+      odoo_config_max_cron_threads:       1          # each cron thread needs his own worker
+      odoo_config_osv_memory_age_limit:   1.0
+      odoo_config_osv_memory_count_limit: False
+      odoo_config_workers:                2          # max. workers = (Anzahl CPU *2) + 1 . We need 1 worker per 6 users and 1 for cron
+      odoo_config_xmlrpc:                 True
+      odoo_config_xmlrpc_interface:       ''
+      odoo_config_xmlrpc_port:            8069
+      odoo_config_xmlrpcs:                True
+      odoo_config_xmlrpcs_interface:      ''
+      odoo_config_xmlrpcs_port:           8071
+
+      #play_6_ssmtp critical variables
+      host_ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"
+      host_ssmtp_host: "{{ _vault_ssmtp_host }}"
+      host_ssmtp_port: "{{ _vault_ssmtp_port }}"
+      host_ssmtp_hostname: "{{ domain }}"
+      host_ssmtp_AuthUser: "{{ _vault_ssmtp_AuthUser }}"
+      host_ssmtp_AuthPass: "{{ _vault_ssmtp_AuthPass }}"
+
+      # play_7_fail2ban critical services
+      fail2ban_services:
+      - name: sshd
+        port: "{{ host_port }}"
+
+
 
 
     ehtest:

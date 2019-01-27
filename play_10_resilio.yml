@@ -1,7 +1,5 @@
-# Dieses Playbook installiert Resilio Sync auf den Zielservern.
-
 ---
-- name: Resilio installieren
+- name: Resilio Sync installieren
   hosts:
     - twtest
   vars_files:
