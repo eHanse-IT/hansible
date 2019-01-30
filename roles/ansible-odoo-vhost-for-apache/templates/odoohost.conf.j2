@@ -1,0 +1,32 @@
+<VirtualHost *:80>
+        ServerName {{ domain }}
+        ServerAlias {{ domainAliases }}
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+<virtualhost *:443>
+
+  # SSL Engine und Einträge werden durch CERTBOT automatisch eingetragen.
+  # longpolling Instruktionen funktionieren noch nicht! Muss noch gemacht werden.
+
+  ServerName {{ domain }}
+  ServerAlias {{ domainAliases }}
+  ServerAdmin info@ehanse.de
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+  ProxyPreserveHost On
+  #ProxyVia full
+  #ProxyTimeout 18000
+  #SetEnv proxy-nokeepalive 1
+
+  #ProxyPass /longpolling/ http://localhost:8072/longpolling/
+  #ProxyPassReverse /longpolling/ http://localhost:8072/longpolling/
+  ProxyPass / http://localhost:8069/
+  ProxyPassReverse / http://localhost:8069/
+
+
+
+</virtualhost>

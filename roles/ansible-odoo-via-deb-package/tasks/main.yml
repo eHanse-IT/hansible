@@ -25,6 +25,16 @@
     group: "{{ odoo_user }}"
     mode:  "u=rwX,go=rX"
 
+- name: Create the addons paths
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ odoo_user }}"
+    group: "{{ odoo_user }}"
+    mode:  "u=rwX,go=rX"
+  with_items:
+    - "{{ odoo_config_addons_path }}"
+
 - name: Create the odoo lib dir
   file:
     path: "/var/lib/odoo"
@@ -111,9 +121,9 @@
   template:
     src: odoo-{{ odoo_version }}.conf.j2
     dest: "{{ odoo_config_file }}"
-    mode: 755
-    #owner={{ odoo_user }} group={{ odoo_user }} mode=0600
-    #force={{ odoo_force_config and 'yes' or 'no' }}
+    mode: 0600
+    owner: "{{ odoo_user }}"
+    group: "{{ odoo_user }}"
     #backup=yes
   notify: Restart Odoo
 
