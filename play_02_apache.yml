@@ -1,0 +1,16 @@
+---
+- name: Apache konfigurieren
+  hosts:
+    - twprod
+    - twtest
+    - ehprod
+    - ehtest
+    - chrono123
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  vars:
+    apache_listen_port: 80
+    apache_listen_ssl: 443
+  roles:
+   - apache

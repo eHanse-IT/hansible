@@ -26,19 +26,24 @@ ehanse:
       domain: "www.ehanse.de"  #für Odoo
       domainAliases: "erp.ehanse.de"
       certbot_admin_email: info@ehanse.de
-      certbot_certs:
-       - domains:
-          - www.ehanse.de
+      certbot_certs:                               # certbot wird erst erfolgreich laufen, wenn
+       - domains:                                  # für alle untenstehenden Domains
+          - www.ehanse.de                          # ein vhost eingetragen ist!
           - test1.ehanse.de
           - test2.ehanse.de
-          - wiki.ehanse.de
+          #- wiki.ehanse.de
           - seafile.ehanse.de
+          - etherpad.ehanse.de
       certbot_create_standalone_stop_services:
         - apache2
       userlist:
       - "{{ ehanse_users }}"
 
       #play 4: Odoo essential variables
+      odoo_domains:                              # zur Übergabe an das vhost play,
+        - www.ehanse.de                          # sind ein subset von "domains"
+        - test1.ehanse.de
+        - test2.ehanse.de
       odoo_version:                       12.0
       odoo_config_file:                   /etc/odoo/odoo.conf
       odoo_user:                          odoo
@@ -56,10 +61,9 @@ ehanse:
       odoo_config_db_filter:              ^%d$       # database name must equal subdomain '.*'. Do not forget CERTBOT!
       odoo_config_list_db:                True
       odoo_config_addons_path:
-        - "/home/{{ odoo_user }}/odoo/custom/"
+        - "/home/{{ odoo_user }}/odoo/custom/"       # muss eine Lsite sein
       odoo_config_logfile:                /var/log/odoo/odoo-server.log
       odoo_config_logrotate:              True
-
       odoo_config_email_from:             False
       odoo_config_smtp_server:            "{{ _vault_odoo_config_smtp_server }}"
       odoo_config_smtp_port:              "{{ _vault_odoo_config_smtp_port }}"
@@ -78,10 +82,10 @@ ehanse:
       odoo_config_max_cron_threads:       1          # each cron thread needs his own worker
       odoo_config_osv_memory_age_limit:   1.0
       odoo_config_osv_memory_count_limit: False
-      odoo_config_workers:                2          # max. workers = (Anzahl CPU *2) + 1 . We need 1 worker per 6 users and 1 for cron
-      odoo_config_xmlrpc:                 True
-      odoo_config_xmlrpc_interface:       ''
-      odoo_config_xmlrpc_port:            8069
+      odoo_config_workers:                0          # max. workers = (Anzahl CPU *2) + 1 . We need 1 worker per 6 users and 1 for cron
+      odoo_config_xmlrpc:                 True       # nur mit 0 workers funktioniert der liveChat hinter Apache.
+      odoo_config_xmlrpc_interface:       ''         # mit mehr als 1 workern wird der longpolling_port belegt
+      odoo_config_xmlrpc_port:            8069       # und dann haben wir Konfigurationsstress in der apache conf.
       odoo_config_xmlrpcs:                True
       odoo_config_xmlrpcs_interface:      ''
       odoo_config_xmlrpcs_port:           8071
@@ -134,6 +138,7 @@ ehanse:
       odoo_config_smtp_server: somesmtpserver.com                   #TODO
       odoo_config_smtp_ssl: True                                    #TODO
       odoo_config_smtp_user: erp@oawatches.net                      #TODO
+      odoo_config_workers: 3
 
       #play_6_ssmtp critical variables
       host_ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"

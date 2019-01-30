@@ -1,4 +1,4 @@
-# Dieses Playbook installiert Seafile auf den Zielservern.
+# Dieses Playbook installiert einen Seafile Vhost auf den Zielservern.
 
 ---
 

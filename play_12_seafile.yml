@@ -1,16 +1,5 @@
 # Dieses Playbook installiert Seafile auf den Zielservern.
 
-# TODO Rolle funktioniert nicht! Seafile muss manuell installiert werden!
-
-# TODO Voraussetzungen: apt-get install python
-# TODO Voraussetzungen: apt-get install python2.7 libpython2.7 python-setuptools python-ldap python-urllib3 ffmpeg python-pip python-mysqldb python-memcache python-requests
-# TODO Voraussetzungen: pip install Pillow==4.3.0
-# TODO Voraussetzungen: apt-get install nfs-common
-# TODO Voraussetzungen: directory zum mounten kreieren, z.B. /opt/netcup_storageserver/
-# TODO Voraussetzungen: den mount durchführen: mount 46.38.248.210:/voln44901a1 /opt/netcup_storageserver
-
-# symlink im /opt/seafile kreieren:  ln -s /opt/netcup_storageserver/seafile/seafile-data/ seafile-data
-
 ---
 - name: Seafile installieren
   hosts:
@@ -162,38 +151,5 @@
 #
 #[Client]
 #PORT = 13418
-
-
-# INFO : alte mysql Rolle:
-# Dieses Playbook installiert Seafile auf den Zielservern.
-#
-#---
-#- name: MySQL installieren mit der Rolle von geerlingguy
-#  hosts:
-#    - ehtest
-#  become: yes
-#  vars_files:
-#    - vars
-#    - vault
-#  vars:
-#    mysql_root_home: /root
-#    mysql_root_username: root
-#    mysql_root_password: "{{ _vault_mysql_root_password }}"
-#    #mysql_root_password_update: true
-#    mysql_enabled_on_startup: true
-#
-#    mysql_databases:
-#      - name: example_db
-#        encoding: latin1
-#        collation: latin1_general_ci
-#    mysql_users:
-#      - name: example_user
-#        host: "%"
-#        password: similarly-secure-password
-#        priv: "example_db.*:ALL"
-#
-#
-#  roles:
-#    - ansible-role-mysql
 
 

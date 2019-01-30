@@ -1,0 +1,41 @@
+# Dieses Playbook installiert fail2ban für die verschiedenen Services auf einem host.
+# Deswegen müssen die entsprechenden Services auch zuerst installiert sein, da
+# ansonsten der fail2ban Dienst die entsprechenden Logfiles nicht findet und mit einem
+# error einen shutdown macht.
+#
+# Daher werden in unserem ansible-repo die fail2ban-Services im Inventory definiert.
+
+
+
+---
+- name: Fail2Ban installieren
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+  vars:
+    fail2ban_banaction: iptables-multiport         # Ban Definition: add a rule to iptables
+    fail2ban_action: '%(action_mwl)s'              # Ban + lookup WhoIs + send Logs and GeoIP Info via mail
+    fail2ban_dbpurgeage: 86400                     # remove record of modified rules after 24 hours
+    fail2ban_bantime: 30                           # TODO Block for one hour
+    fail2ban_maxretry: 12                          # TODO Block after 12 retries
+    fail2ban_findtime: 7800                        # take into account if the monitored service logs in UTC time!
+    fail2ban_ignoreips:                            # ignore local ip
+     - 127.0.0.1/8
+    # Alert the admins configuration:
+    fail2ban_mta: sendmail
+    fail2ban_sendername: "Fail2ban_{{ domain }}"
+    fail2ban_sender: "Fail2ban_{{ domain }}"
+    fail2ban_destemail: info@ehanse.de
+    #Copy custom fail2ban definitions:
+    #fail2ban_filterd_path: [optional]: Path to directory containing filters to copy (note the trailing slash)
+    #fail2ban_actiond_path: [optional]: Path to directory containing actions to copy (note the trailing slash)
+    #fail2ban_jaild_path: [optional]: Path to directory containing jails to copy (note the trailing slash)
+  roles:
+   - ansible-fail2ban
+

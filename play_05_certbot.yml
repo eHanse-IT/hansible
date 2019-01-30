@@ -1,0 +1,18 @@
+---
+- name: Certbot Zertifikate installieren,
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  vars: []
+  roles:
+   - certbot
+
+
+
+

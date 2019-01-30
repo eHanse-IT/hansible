@@ -1,0 +1,25 @@
+# Dieses Playbook installiert sSMTP.
+# Es erlaubt uns, von einem beliebigen Server aus mails mit dem 'sendmail' command zu senden,
+# auch wenn der Server u.U. keine eigene domain und keinen Postfix-Dienst hat.
+# Das funktioniert, indem einfach die Nachricht an einen existierenden SMTP-Dienst (gmail, ehanse.de, ...) gesendet wird
+
+---
+- name: Sendmail und sSMTP installieren
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+  vars_files:  # Verweis auf verschlüsselte Pws
+    - vars
+    - vault
+  vars:
+    ssmtp_root: "{{ host_ssmtp_AuthUser }}"
+    ssmtp_mailhub: "{{ host_ssmtp_host }}:{{ host_ssmtp_port}}"   #merge host and port to one string
+    ssmtp_hostname: "{{ domain }}"
+    ssmtp_AuthUser: "{{ host_ssmtp_AuthUser }}"
+    ssmtp_AuthPass: "{{ host_ssmtp_AuthPass }}"
+
+  roles:
+   - ssmtp

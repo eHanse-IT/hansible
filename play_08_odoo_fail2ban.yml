@@ -1,0 +1,20 @@
+# This Playbook installs Odoo filters and jails for fail2ban behind Apache Proxy.
+#
+
+---
+- name: Installiere Odoo Regeln für fail2ban
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+  vars_files:  # Verweise auf verschlüsselte Pws
+    - vars
+    - vault
+  vars:
+    apache_odoo_vhost_log_path: /var/log/apache2/odoo.log
+    apache_odoo_vhost_file: /etc/apache2/sites-available/{{ domain }}.conf
+  roles:
+   - ansible-odoo-rules-for-fail2ban
+
