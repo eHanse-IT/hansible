@@ -2,15 +2,9 @@
 eHanse's ansible configuration files.
 
 ## General Usage
-Ansible is a command line program to configure servers. When starting ansible, 
-you need to define _what_ you want to configure, and _where_ you want it to configure.
-The _what_ is defined by the playbook. The _where_ is defined by the inventory file.
-If you do not want to manage all servers, use the '-l _hostname_' parameter when starting ansible.
-
-The playbooks ("play_odoo" et cetera) in turn call all the tasks 
-that we find in the 'roles' subfolder. Before starting with ansible, 
-you need to install it and write the vault password in a file that is 
-accessible to ansible, but will not be synced to git. Here is how to do it.
+Ansible is a command line program to configure servers. Ansible only needs a local installation and connects to servers via SSH. When starting ansible, you need to define _what_ you want to configure, and _where_ you want it to configure.
+The _what_ is defined by the **playbook**. The _where_ is defined by the **inventory** file. Secret passwords that are not supposed to be accessible the the public are stored in the **vault** file.
+The playbooks ("play_odoo" et cetera) in turn call all the tasks  that we find in the 'roles' subfolder. Before starting with ansible, you need to install it and write the vault password in a file that is accessible to ansible, but will not be synced to git. Here is how to do it.
 
 ## Installation 
 
@@ -19,7 +13,7 @@ https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.ht
 2. git-clone this repository.
 3. This repository contains submodules. Run `git submodule update --init` to clone them too.
 4. `cd` into the cloned directory `hansible`.
-5. Save our vault-password into a `.vaultpw`-file (which is git-ignored) by pasting it into that file or by 
+5. Get our vault password from Keepass and save to a new a `.vaultpw`-file (which is git-ignored by our above gitignore file) by pasting it into that file or by 
 `echo <ourvaultpassword> > .vaultpw `
 6. Now your hansible-repo is ready to run. First, perform a a dry run on our servers using hte --check parameter: ` ansible-playbook playbook.yml -i inventory.yml -u YOURUSER -b -K --vault-password-file=.vaultpw --check -l oaprod`
 7. Perform an actual run using the same command without `--check` command: `
