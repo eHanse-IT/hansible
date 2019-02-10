@@ -123,6 +123,27 @@
     #  login_attr: mail
 
 
+    ## cron jobs
+    # a weekly job to perform garbage collection
+    seafile_cron_gc_enabled:    true
+
+    ## ldap
+    #seafile_ldap:
+    #  host: 'ldap://127.0.0.1'
+    #  base: 'ou=people,dc=example,dc=com'
+    #  user_dn: 'cn=seafile,ou=services,dc=example,dc=com'
+    #  password: 'cleartext-password'
+    #  login_attr: mail
+
+    # noch einstellen: Seafile starten
+    # mount 46.38.248.210:/voln44901a1 /opt/netcup_storageserver
+    # su seafile
+    # /opt/seafile/seafile-s-latest/seafile.sh start seahub.sh start
+
+    # on the new machine, make sure mysql_server is installed and setup a new user:
+    # CREATE USER 'seafile@localhost' IDENTIFIED BY password
+    # SELECT User, Host, authentication_string FROM mysql.user;
+
 
 
   pre_tasks:

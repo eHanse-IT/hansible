@@ -1,0 +1,103 @@
+---
+# Diese Rolle installiert Let'sEncrypt-Zertifikate auf einem Apache-Server wie folgt:
+#
+# 1. Installation von certbot über die offizielle certbot-Rolle
+# 2. Diese Rolle  übernimmt auch die Challenge & Installation der Zertifikate in /etc/letsencrypt
+# 3. Diese Rolle übernimmt auch das Einrichten eines Cronjobs
+# 4. Anschließend werden die vhost-Dateien in /etc/sites-available um dei Links zum Zertifikat ergänzt.
+
+- name: Certbot Zertifikate installieren,
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+  vars_files:
+    - vars
+    - vault
+  vars:
+    certbot_admin_email: info@ehanse.de
+    certbot_auto_renew: true
+    certbot_auto_renew_user: "{{ ansible_user }}"
+    certbot_auto_renew_hour: 3
+    certbot_auto_renew_minute: 43
+    certbot_auto_renew_options: "--quiet --no-self-upgrade"
+    certbot_create_if_missing: yes
+    certbot_create_method: standalone
+    certbot_install_from_source: yes
+    certbot_repo: https://github.com/certbot/certbot.git
+    certbot_version: master
+    certbot_keep_updated: yes
+    certbot_dir: /opt/certbot
+    certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+    # certbot_create_command: "{{ certbot_script }} --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+    #certbot_create_command: "{{ certbot_script }} --apache --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
+    certbot_certs:
+     - domains:
+        "{{ domains | map(attribute='vhost') | list }}"
+        # dieser wilde command setzt das im Inventory definierte Domain-Dictionary in eine Liste um.
+        # siehe http://jinja.pocoo.org/docs/dev/templates/#map
+
+
+
+  roles:
+   - certbot
+
+  post_tasks:
+    - lineinfile:
+        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+        regexp: '^SSLEngine'
+        line:   'SSLEngine On'
+        state: present
+        insertafter: '^<VirtualHost \*:443>'    # caution case sensitive
+      with_items:
+        - "{{ domains }}"
+      register: conf_changed
+
+    #- lineinfile:      # uncomment if using --apache flag for the certbot command
+    #    path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+    #    regexp: '^Include /etc/letsencrypt/'
+    #    line:   'Include /etc/letsencrypt/options-ssl-apache.conf'
+    #    state: present
+    #    insertafter: '^<virtualhost \*:443>'
+    #  with_items:
+    #    - "{{ domains }}"
+
+    - lineinfile:
+        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+        regexp: '^SSLCertificateFile'
+        line:   'SSLCertificateFile /etc/letsencrypt/live/{{ domains[0].vhost }}/fullchain.pem'
+        state: present
+        insertafter: '^SSLEngine On'   # replace with '^Include /etc/letsencrypt' if running certbot with --apache flag
+      with_items:
+        - "{{ domains }}"
+      register: conf_changed
+
+
+
+    - lineinfile:
+        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+        regexp: '^SSLCertificateKeyFile'
+        line:   'SSLCertificateKeyFile /etc/letsencrypt/live/{{ domains[0].vhost }}/privkey.pem'
+        state: present
+        insertafter: '^SSLCertificateFile'
+      with_items:
+        - "{{ domains }}"
+      register: conf_changed
+
+
+    - service:
+        name: apache2
+        state: restarted
+      when: conf_changed.changed
+
+
+
+  # TODO Vorsicht auf Ubuntu 18.04, pip hat eine Regression, siehe
+  # TODO https://community.letsencrypt.org/t/certbot-has-problem-setting-up-the-virtual-environment/83678?page=2
+  # TODO Also erstmal pip manuell auf dem Server auf die neueste Version bringen mit
+  # TODO https://pip.pypa.io/en/stable/installing/
+  # TODO
+
+

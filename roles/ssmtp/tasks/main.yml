@@ -15,10 +15,11 @@
     dest: "/etc/ssmtp/ssmtp.conf"
     owner: root
     group: mail
-    mode: 0644
+    mode: 0640
 
 
-# TODO sende eine Test - eMail über den sendmail command
+  # TODO alle Prozesse (User), die SSMTP nutzen wollen, müssen Mitglied der Gruppe "mail" werden.
+  # TODO Beispielsweise müssen wir den Webserver www-data zum member von mail machen
 
 
 

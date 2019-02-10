@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+        ServerName {{ item.vhost }}
+        Redirect / https://{{ item.webmail_address }}
+
+</VirtualHost>
+
+
+
+<VirtualHost *:443>
+    ServerName {{ item.vhost }}
+    Redirect / https://{{ item.webmail_address }}
+
+    # SSL Engine und Einträge werden durch CERTBOT automatisch eingetragen.
+
+</VirtualHost>

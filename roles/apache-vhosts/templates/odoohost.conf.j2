@@ -1,19 +1,16 @@
 <VirtualHost *:80>
-        ServerName {{ domain }}
-        ServerAlias {{ domainAliases }}
+        ServerName {{ item.vhost }}
         RewriteEngine On
         RewriteCond %{HTTPS} off
         RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 </VirtualHost>
 
-<virtualhost *:443>
+<VirtualHost *:443>
 
   # SSL Engine und Einträge werden durch CERTBOT automatisch eingetragen.
   # longpolling Instruktionen funktionieren noch nicht! Muss noch gemacht werden.
 
-  ServerName {{ domain }}
-  ServerAlias {{ domainAliases }}
-  ServerAdmin info@ehanse.de
+  ServerName {{ item.vhost }}
   ErrorLog ${APACHE_LOG_DIR}/error.log
   CustomLog ${APACHE_LOG_DIR}/access.log combined
 
@@ -29,4 +26,4 @@
 
 
 
-</virtualhost>
+</VirtualHost>

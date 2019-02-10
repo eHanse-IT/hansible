@@ -1,0 +1,39 @@
+<VirtualHost *:80>
+        ServerName {{ item.vhost }}
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+
+
+<VirtualHost *:443>
+
+    # SSL Engine und Einträge werden durch CERTBOT automatisch eingetragen.
+
+    ServerName {{ item.vhost }}
+    # Use "DocumentRoot /var/www" for Ubuntu/Debian
+    DocumentRoot /var/www
+    Alias /media  /opt/seafile/seafile-server-latest/seahub/media
+
+    RewriteEngine On
+
+    <Location /media>
+        Require all granted
+    </Location>
+
+    #
+    # seafile fileserver
+    #
+    ProxyPass /seafhttp http://127.0.0.1:8082
+    ProxyPassReverse /seafhttp http://127.0.0.1:8082
+    RewriteRule ^/seafhttp - [QSA,L]
+
+    #
+    # seahub
+    #
+    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+    ProxyPreserveHost On
+    ProxyPass / http://127.0.0.1:8000/
+    ProxyPassReverse / http://127.0.0.1:8000/
+</VirtualHost>

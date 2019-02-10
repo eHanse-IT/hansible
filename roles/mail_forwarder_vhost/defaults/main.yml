@@ -1,4 +1,0 @@
----
-webmail_address: "{{ _vault_ehanse_webmail }}"
-mail_subdomain: "{{ _vault_ehanse_mail_subdomain }}"
-domain: "{{ domain }}"

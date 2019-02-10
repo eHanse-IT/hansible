@@ -1,0 +1,51 @@
+<VirtualHost *:80>
+        ServerName {{ item.vhost }}
+        RewriteEngine On
+        RewriteCond %{HTTPS} off
+        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+
+
+<VirtualHost *:443>
+
+    ServerName {{ item.vhost }}
+    DocumentRoot /var/www/dokuwiki
+    LogLevel debug
+
+    <Directory /var/www/dokuwiki/>
+        Options +FollowSymLinks
+        require all granted
+
+        <IfModule mod_rewrite.c>
+       # Uncomment to implement server-side URL rewriting
+        # (cf. <http://www.dokuwiki.org/config:userewrite>).
+        # Do *not* mix that with multisite!
+        #RewriteEngine on
+        #RewriteBase /dokuwiki
+        #RewriteRule ^lib                      - [L]
+        #RewriteRule ^doku.php                 - [L]
+        #RewriteRule ^feed.php                 - [L]
+        #RewriteRule ^install.php              - [L]
+        #RewriteRule ^_media/(.*)              lib/exe/fetch.php?media=$1  [QSA,L]
+        #RewriteRule ^_detail/(.*)             lib/exe/detail.php?media=$1 [QSA,L]
+        #RewriteRule ^_export/([^/]+)/(.*)     doku.php?do=export_$1&id=$2 [QSA,L]
+        #RewriteRule ^$                        doku.php  [L]
+        #RewriteRule (.*)                      doku.php?id=$1  [QSA,L]
+        </IfModule>
+    </Directory>
+
+
+    <Directory /var/www/dokuwiki/bin>
+            Require all denied
+            ##FOR VER APACHE2.4
+    </Directory>
+
+    <Directory /var/www/dokuwiki/data>
+            Require all denied
+            ##FOR VER APACHE2.4
+    </Directory>
+
+
+
+</VirtualHost>

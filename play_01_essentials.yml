@@ -28,4 +28,3 @@
    - git
    - firewall
    - unattended-upgrades
-   # enable pipelining

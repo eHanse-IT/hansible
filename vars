@@ -91,23 +91,6 @@ odoo_config_proxy_mode: True
 
 
 
-# common settings for role Certbot
-certbot_auto_renew: true
-certbot_auto_renew_user: "{{ ansible_user }}"
-certbot_auto_renew_hour: 3
-certbot_auto_renew_minute: 43
-certbot_auto_renew_options: "--quiet --no-self-upgrade"
-certbot_create_if_missing: yes
-certbot_create_method: standalone
-certbot_install_from_source: yes
-certbot_repo: https://github.com/certbot/certbot.git
-certbot_version: master
-certbot_keep_updated: yes
-certbot_dir: /opt/certbot
-# certbot_create_command: "{{ certbot_script }} certonly --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
-# certbot_create_command: "{{ certbot_script }} --standalone --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
-certbot_create_command: "{{ certbot_script }} --apache --noninteractive --agree-tos --email {{ cert_item.email | default(certbot_admin_email) }} -d {{ cert_item.domains | join(',') }}"
-
 
 # common settings for fail2ban basic role with apache server
       #fail2ban für die Serverdienste einrichen. Nur die Dienste aktivieren, die auch installiert sind!

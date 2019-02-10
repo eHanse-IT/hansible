@@ -1,4 +1,4 @@
-# Dieses Playbook installiert Seafile auf den Zielservern.
+# Dieses Playbook installiert MySQL auf den Zielservern.
 
 ---
 - name: MySQL installieren mit der Rolle von geerlingguy
@@ -24,7 +24,6 @@
         host: "%"
         password: similarly-secure-password
         priv: "example_db.*:ALL"
-
 
   roles:
     - ansible-role-mysql

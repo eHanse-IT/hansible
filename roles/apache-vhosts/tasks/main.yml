@@ -1,0 +1,98 @@
+---
+# Diese role durchläuft alle übergebenen domains unt installiert die entsprechenden vhosts.
+
+
+# Odoo vhosts
+- name: vhosts für Odoo installieren.
+  template:
+    src: templates/odoohost.conf.j2
+    dest: "/etc/apache2/sites-available/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "odoo"
+  notify: restart_apache2_event
+
+# Seafile vhosts
+- name: vhosts für Seafile installieren.
+  template:
+    src: templates/seafilehost.conf.j2
+    dest: "/etc/apache2/sites-available/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "seafile"
+  notify: restart_apache2_event
+
+# Wiki vhosts
+- name: vhosts für Wiki installieren.
+  template:
+    src: templates/wikihost.conf.j2
+    dest: "/etc/apache2/sites-available/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "wiki"
+  notify: restart_apache2_event
+
+# Etherpad vhosts
+- name: vhosts für Etherpad installieren.
+  template:
+    src: templates/etherpadhost.conf.j2
+    dest: "/etc/apache2/sites-available/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "etherpad"
+  notify: restart_apache2_event
+
+
+
+
+# Mail forwarder vhost
+- name: vhosts für Mailforwarder. Erstmal Apache alias module aktivieren.
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - alias
+  notify: restart_apache2_event
+- name: vhosts für Mailforwarder installieren.
+  template:
+    src: templates/mailhost.conf.j2
+    dest: /etc/apache2/sites-available/{{ item.vhost }}.conf
+    owner: www-data
+    group: www-data
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "mailforwarder"
+  notify: restart_apache2_event
+
+
+
+
+
+# zum Schluss alle vhosts aktivieren
+- name: Zum Schluss in dieser role alle vhosts enablen.
+  file:
+    src: "/etc/apache2/sites-available/{{ item.vhost }}.conf"
+    dest: "/etc/apache2/sites-enabled/{{ item.vhost }}.conf"
+    state: link
+  with_items:
+    - "{{ domains }}"
+  when: not ansible_check_mode
+  notify: restart_apache2_event
+
+
+
+
+
