@@ -1,0 +1,21 @@
+[Unit]
+Description={{ odoo_service }}
+Requires=postgresql.service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+SyslogIdentifier=odoo{{ odoo_version }}
+User={{ odoo_user }}
+WorkingDirectory={{ odoo_workdir }}
+ExecStart={{ odoo_rootdir }}/odoo-bin{{ odoo_logfile and ' --logfile %s' % odoo_logfile }} --config {{ odoo_config_file }}
+Restart=always
+RestartSec=30
+
+
+{% for name, value in odoo_init_env.items() | list %}
+Environment={{ name }}={{ value }}
+{% endfor %}
+
+[Install]
+WantedBy=multi-user.target

@@ -47,7 +47,7 @@
 
 
  # install dependencies
-- name: Install Odoo dependencies.
+- name: Install uncovered Odoo dependencies.
   apt:
     name: "{{ item }}"
     update_cache: no
@@ -63,8 +63,11 @@
     - libpq-dev
     - python-psycopg2
     - python3-psycopg2
+    - python3-XlsxWriter
+    - python3-xlwt
+    - python3-xlrd
 
-  # additional dependenciy: install wkhtmltox
+  # additional dependency: install wkhtmltox
 - import_tasks: wkhtmltox.yml
   tags:
     - odoo
@@ -126,6 +129,30 @@
     group: "{{ odoo_user }}"
     #backup=yes
   notify: Restart Odoo
+
+#- name: Generate Odoo service file and enable service    # not rqrd, because the deb package will install an init.d script
+#  template:
+#    src: odoo.service.j2
+#    dest: /etc/systemd/system/{{ odoo_service }}.service
+#    owner: root
+#    group: root
+#    mode: 0755
+#    force: yes
+#    backup: yes
+#  notify:
+#  - Reload Systemd
+#  - Restart Odoo
+
+- name: save config path in init.d script
+  lineinfile:
+    path: /etc/init.d/odoo
+    regexp: '^CONFIG='
+    line:   'CONFIG={{ odoo_config_file }}'
+    state: present
+    insertafter: '^DESC=>'    # caution case sensitive
+  notify:
+    - Restart Odoo
+
 
 
 

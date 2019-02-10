@@ -16,6 +16,7 @@
     - vars
     - vault
   vars:
+    odoo_config_file: "/etc/odoo/odoo.conf"
     odoo_version: "{{ odoo_version }}"
     odoo_config_addons_path: " {{ odoo_config_addons_path }}"
     odoo_config_admin_passwd: "{{ odoo_config_superadmin_password }}"
@@ -94,13 +95,11 @@
 # TODO https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
 # TODO: nach der Installation von Odoo 11 muss man einmal restarten, damit der Server keinen Error 500 hat
 
-# TODO: im Odoo service müssen wir sicherstellen dass der richtige Pfad zur Odoo.conf übergeben wird
-
 # TODO godalko master odoo.conf:
 
 #[options]
 #addons_path = /home/odoo/odoo/server/addons,/home/odoo/odoo/custom/OAW-custom,/home/odoo/odoo/custom/awo-custom
-#admin_passwd = diesisteingeheimesPW123#
+#admin_passwd
 #auto_reload = False
 #csv_internal_sep = ,
 #data_dir = /home/odoo/.local/share/Odoo

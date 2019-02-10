@@ -85,33 +85,6 @@ ufw_ssh_port: "{{ host_port }}"
 
 
 
-# common settings for role Odoo
-odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password }}"
-odoo_config_proxy_mode: True
-
-
-
-
-# common settings for fail2ban basic role with apache server
-      #fail2ban für die Serverdienste einrichen. Nur die Dienste aktivieren, die auch installiert sind!
-
-      # see inventory
-
-      #- name: dovecot
-      #  port: 143,993
-      #- name: nagios
-      #  port: 5666
-      #- name: postfix
-      #  port: 587
-      #
-      # weitere services von fail2ban:
-      # mysqld-auth
-      # nagios
-      # postfix
-      # proftpd
-      # sieve
-      # vsftpd
-      # xinetd-fail    <--- this is the NAGIOS server
 
 
 

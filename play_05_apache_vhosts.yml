@@ -3,7 +3,7 @@
 # Welches Template dabei genutzt wird, hängt vom "type" des vhosts im dictionary ab.
 # Anschließend wird certbot installiert und die Zertifikate werden in den conf-avail Datein abgelegt.
 
-- name: Odoo VHost installieren,
+- name: Alle VirtualHosts installieren.
   hosts:
     - ehprod
     - ehtest
@@ -16,7 +16,6 @@
   vars: []
   roles:
    - apache-vhosts
-   #- certbot
 
 
 
