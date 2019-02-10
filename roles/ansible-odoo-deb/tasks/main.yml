@@ -45,6 +45,16 @@
 
 
 
+# Install locales
+- name: Install German locale
+  - locale_gen:
+      name: de_DE.UTF-8
+      state: present
+- name: Install English locale
+  - locale_gen:
+      name: en_US.UTF-8
+      state: present
+
 
  # install dependencies
 - name: Install uncovered Odoo dependencies.
@@ -55,17 +65,25 @@
   loop:
     - python3-pip            #vorab pip3 installieren
     - python-pip
+    - python-setuptools
     - python3-setuptools
-    - postgresql
+    - postgresql             #vorab postgreql installieren
+    - postgresql-contrib
+    - ttf-wqy-zenhei         #vorab chinesische Schrift installieren
+    - ttf-wqy-microhei       #vorab chinesische Schrift installieren
     - libldap2-dev
     - libsasl2-dev
-    - postgresql-contrib
     - libpq-dev
     - python-psycopg2
     - python3-psycopg2
     - python3-XlsxWriter
     - python3-xlwt
     - python3-xlrd
+
+
+    #- pip:
+    #   name: XlsxWriter         # as per request by Manfred
+    #   state: latest
 
   # additional dependency: install wkhtmltox
 - import_tasks: wkhtmltox.yml
