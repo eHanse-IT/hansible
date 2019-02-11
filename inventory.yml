@@ -183,8 +183,8 @@ oatrade:
       odoo_version: 8.0
       odoo_config_debug_mode: True
       odoo_config_auto_reload: True
-      odoo_config_data_dir = /home/odoo/.local/share/Odoo
-      odoo_config_server_wide_modules = web,web_kanban,
+      odoo_config_data_dir: /home/odoo/.local/share/Odoo
+      odoo_config_server_wide_modules: web,web_kanban,
 
 
 

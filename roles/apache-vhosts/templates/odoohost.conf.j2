@@ -15,6 +15,10 @@
   CustomLog ${APACHE_LOG_DIR}/access.log combined
 
   ProxyPreserveHost On
+  ProxyAddHeaders On
+
+  #RewriteRule     .               -                   [E=noxff:%{REMOTE_ADDR}]
+  #RequestHeader   setIfEmpty      X-Forwarded-For     "%{noxff}e"
   #ProxyVia full
   #ProxyTimeout 18000
   #SetEnv proxy-nokeepalive 1

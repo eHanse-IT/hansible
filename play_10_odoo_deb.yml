@@ -48,6 +48,11 @@
 # TODO: user password encrypten vom odoo_user_passwd
 # TODO https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
 
+# TODO maybe use syslog in case of multiple workers:
+# TODO see here: https://www.odoo.com/de_DE/forum/hilfe-1/question/is-logging-safe-when-using-multiple-workers-43562
+
+# TODO solve the Odoo multi-worker + chat problem by moving to nginx
+
 
 
 
