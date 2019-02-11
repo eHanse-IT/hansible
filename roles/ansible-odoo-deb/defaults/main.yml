@@ -1,5 +1,6 @@
 ansible_ssh_pipelining: true
 
+odoo_service: odoo
 odoo_version: 12.0
 odoo_user: odoo
 odoo_user_passwd: "*"   # http://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module

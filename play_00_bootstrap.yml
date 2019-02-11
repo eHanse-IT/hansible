@@ -18,7 +18,33 @@
   vars_files:
    - vars
    - vault
-  gather_facts: false # verhindert error auf uninitialisierten Servern
+  vars:
+    # verhindere Error auf uninitialisierten Servern:
+    gather_facts: false
+    # common variables for role "users"
+    ehanse_users:
+      - username: joerg
+        pwd_cryp: "{{ _vault_joerg_pwd_cryp }}"
+        key: "{{ lookup('file', 'roles/users/authorized_keys/joerg.pub') }}"
+      - username: frank
+        pwd_cryp: "{{ _vault_frank_pwd_cryp }}"
+        key: "{{ lookup('file', 'roles/users/authorized_keys/frank.pub') }}"
+      - username: dominik
+        pwd_cryp: "{{ _vault_dominik_pwd_cryp }}"
+        key: "{{ lookup('file', 'roles/users/authorized_keys/dominik.pub') }}"
+    rfhk_users:
+      - username: ytashiro
+        pwd_cryp: "{{ _vault_ytashiro_pwd_cryp }}"
+        key: "{{ lookup('file', 'roles/users/authorized_keys/ytashiro.pub') }}"
+      - username: tslai
+        pwd_cryp: "{{ _vault_tslai_pwd_cryp }}"
+        key: "{{ lookup('file', 'roles/users/authorized_keys/tslai.pub') }}"
+    # common settings for role "ssh"
+    ehprod_ssh_pass: "{{ _vault_ehprod_ssh_pass }}"
+    ehtest_ssh_pass: "{{ _vault_ehtest_ssh_pass }}"
+    oaprod_ssh_pass: "{{ _vault_oaprod_ssh_pass }}"
+    oatest_ssh_pass: "{{ _vault_oatest_ssh_pass }}"
+
   pre_tasks:
   - name: setze ansible port auf 22
     set_fact:

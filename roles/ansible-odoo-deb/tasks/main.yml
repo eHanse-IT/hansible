@@ -47,13 +47,13 @@
 
 # Install locales
 - name: Install German locale
-  - locale_gen:
-      name: de_DE.UTF-8
-      state: present
+  locale_gen:
+    name: de_DE.UTF-8
+    state: present
 - name: Install English locale
-  - locale_gen:
-      name: en_US.UTF-8
-      state: present
+  locale_gen:
+    name: en_US.UTF-8
+    state: present
 
 
  # install dependencies
@@ -76,14 +76,18 @@
     - libpq-dev
     - python-psycopg2
     - python3-psycopg2
-    - python3-XlsxWriter
-    - python3-xlwt
-    - python3-xlrd
 
+- name: Install uncovered Odoo pip dependencies. Ansible will automagically use pip3 if Ansible is running on Python3.
+  pip:
+    name:
+    - XlsxWriter  # for Excel export
+    - xlwt
+    - xlrd
+    - pyinotify   # for odoo auto reload
+    - gevent      # for longpolling and chat with multiple workers
+    - psycogreen  # for longpolling and chat with multiple workers
+    state: latest
 
-    #- pip:
-    #   name: XlsxWriter         # as per request by Manfred
-    #   state: latest
 
   # additional dependency: install wkhtmltox
 - import_tasks: wkhtmltox.yml
@@ -108,37 +112,39 @@
     - postgresql-contrib
     - python-psycopg2
     - python3-psycopg2
+  when: "{{ odoo_config_db_host }}" == False  #only install psql if db on same host is intended
 
-- name: enable postgresql.
+- name: Enable postgresql.
   service:
     name: postgresql
     state: started
     enabled: yes
+  when: "{{ odoo_config_db_host }}" == False
 
-- name: Odoo Install 1/3 get Odoo apt signing key
+  # TODO the odoo_admin_password parameter should be the admin pw for postgresql
+
+- name: Odoo Install 1/6. Get Odoo apt signing key
   apt_key:
     url: https://nightly.odoo.com/odoo.key
     state: present
 
-- name: Odoo Install 2/3 add http://nightly.odoo.com/{{ odoo_version }}/nightly/deb/ to the /etc/sources.list
+- name: Odoo Install 2/6. Add http://nightly.odoo.com/{{ odoo_version }}/nightly/deb/ to /etc/sources.list
   apt_repository:
     repo: deb http://nightly.odoo.com/{{ odoo_version }}/nightly/deb/ ./
     filename: odoo
     state: present
 
-- name: Update and Upgrade apt cache.
+- name: Odoo Install 3/6. Update and Upgrade apt cache.
   apt:
     upgrade: yes
     update_cache: yes
 
-- name: Odoo Install 3/3 install odoo via deb package from https://nightly.odoo.com/{{ odoo_version }}/nightly/deb/odoo_12.0.latest_all.deb
+- name: Odoo Install 4/6. Install odoo via simple apt-get command.
   apt:
     name: odoo
     state: present
-    #deb: https://nightly.odoo.com/12.0/nightly/deb/odoo_{{ odoo_version }}.latest_all.deb
 
-
-- name: Generate Odoo configuration file
+- name: Odoo Install 5/6. Generate Odoo configuration file.
   template:
     src: odoo-{{ odoo_version }}.conf.j2
     dest: "{{ odoo_config_file }}"
@@ -161,7 +167,7 @@
 #  - Reload Systemd
 #  - Restart Odoo
 
-- name: save config path in init.d script
+- name: Odoo Install 6/6. Save config path in init.d script.
   lineinfile:
     path: /etc/init.d/odoo
     regexp: '^CONFIG='
