@@ -1,0 +1,27 @@
+
+- name: make sure logfile exists, otherwise fail2ban will not be able to start
+  file:
+    path: "{{ nginx_odoo_vhost_log_path }}"
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+- name: copy filter for Odoo
+  template:
+    src: templates/etc/fail2ban/filter.d/odoo.conf.j2
+    dest: /etc/fail2ban/filter.d/odoo.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban
+
+- name: copy jail for Odoo
+  template:
+    src: templates/etc/fail2ban/jail.d/odoo.conf.j2
+    dest: /etc/fail2ban/jail.d/odoo.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart fail2ban

@@ -86,6 +86,8 @@
     - pyinotify   # for odoo auto reload
     - gevent      # for longpolling and chat with multiple workers
     - psycogreen  # for longpolling and chat with multiple workers
+    - paramiko    # for Yenthes auto-backup module
+    - pysftp      # for Yenthes auto-backup module
     state: latest
 
 

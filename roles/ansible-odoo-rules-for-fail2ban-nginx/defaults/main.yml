@@ -1,0 +1,2 @@
+nginx_odoo_vhost_log_path: /var/log/nginx/odoo.access.log
+nginx_odoo_vhost_file: /etc/nginx/sites-available/odoo.conf

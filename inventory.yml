@@ -36,7 +36,8 @@ ehanse:
     odoo_config_admin_passwd:           "{{ _vault_odoo_config_superadmin_password_ehanse }}"
     odoo_config_db_filter:              ^%d$  # this ensures db filtering by subdomain
     odoo_config_list_db:                True
-    odoo_config_logrotate:              True
+    odoo_config_logfile: /var/log/odoo/odoo-server.log   #explicitly required for fail2ban role
+    odoo_config_logrotate: True
     odoo_config_proxy_mode:             True
     odoo_user_shell:                    /bin/bash
     odoo_user_system:                   False
@@ -57,6 +58,9 @@ ehanse:
       - "/home/{{ odoo_user }}/odoo/server/addons"
       - "/home/{{ odoo_user }}/odoo/custom/OAW-custom"
       - "/home/{{ odoo_user }}/odoo/custom/awo-custom"
+    # Odoo FAIL2BAN critical variables:
+    nginx_odoo_vhost_log_path: "/var/log/nginx/odoo.access.log"
+    nginx_odoo_vhost_file: /etc/nginx/sites-available/odoo.conf
 
   hosts:
     any_localhost:

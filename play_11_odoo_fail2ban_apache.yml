@@ -5,7 +5,7 @@
 - name: Installiere Odoo Regeln für fail2ban
   hosts:
     - ehprod
-    - ehtest
+    #- ehtest
     - twprod
     - twtest
     - chrono123
@@ -16,5 +16,5 @@
     apache_odoo_vhost_log_path: /var/log/apache2/odoo.log
     apache_odoo_vhost_file: /etc/apache2/sites-available/{{ domain }}.conf
   roles:
-   - ansible-odoo-rules-for-fail2ban
+   - ansible-odoo-rules-for-fail2ban-apache-apache
 

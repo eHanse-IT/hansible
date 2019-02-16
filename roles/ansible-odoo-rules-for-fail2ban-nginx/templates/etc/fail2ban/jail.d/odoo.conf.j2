@@ -1,0 +1,15 @@
+[odoo]
+enabled = true
+port = http,https
+bantime = {{ host_fail2ban_bantime }}
+maxretry = {{ host_fail2ban_maxretry }}
+findtime = {{ host_fail2ban_findtime }}
+logpath = {{ nginx_odoo_vhost_log_path }}
+
+
+
+# Remarks.
+# findtime needs to be not too small, as TZD has to be taken into account.
+#fail2ban_bantime: "{{ host_fail2ban_bantime }}"  # TODO Block for one hour
+#fail2ban_maxretry: "{{ host_fail2ban_maxretry }}"# TODO Block after 12 retries
+#fail2ban_findtime: "{{ host_fail2ban_findtime }}"# take into account if the monitored service logs in UTC time!

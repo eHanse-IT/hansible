@@ -15,9 +15,6 @@
   vars_files:
     - vars
     - vault
-  vars:
-    odoo_config_logfile: /var/log/odoo/odoo-server.log
-    odoo_config_logrotate: True
 
   roles:
    - ansible-odoo-deb
