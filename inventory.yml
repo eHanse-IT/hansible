@@ -88,12 +88,14 @@ ehanse:
       fqdn: "testsys1.ehanse.de"
       hostname: "ehtest"
       domains:
-        - {vhost: "testsys1.ehanse.de", type: "odoo"}
-        - {vhost: "testsys2.ehanse.de", type: "wiki"}
-        - {vhost: "testsys3.ehanse.de", type: "seafile"}
-        - {vhost: "testsys4.ehanse.de", type: "mailforwarder", webmail_address: "hosted.mailcow.de"}
+        - {vhost: "test1.ehanse.de", type: "odoo"}
+        - {vhost: "test2.ehanse.de", type: "odoo"}
+        #- {vhost: "testwiki.ehanse.de", type: "odoo"} TODO
+        #- {vhost: "testseafile.ehanse.de", type: "odoo"}
+        #- {vhost: "testsys3.ehanse.de", type: "seafile"}
+        #- {vhost: "testsys4.ehanse.de", type: "mailforwarder", webmail_address: "hosted.mailcow.de"}
       certbot_create_standalone_stop_services:
-        - apache2
+        - nginx
 
 
 oatrade:

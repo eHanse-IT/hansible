@@ -19,7 +19,7 @@
   vars:
     certbot_admin_email: info@ehanse.de
     certbot_auto_renew: true
-    certbot_auto_renew_user: "{{ ansible_user }}"
+    #certbot_auto_renew_user: "{{ ansible_user }}"
     certbot_auto_renew_hour: 3
     certbot_auto_renew_minute: 43
     certbot_auto_renew_options: "--quiet --no-self-upgrade"
@@ -44,53 +44,53 @@
   roles:
    - certbot
 
-  post_tasks:
-    - lineinfile:
-        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
-        regexp: '^SSLEngine'
-        line:   'SSLEngine On'
-        state: present
-        insertafter: '^<VirtualHost \*:443>'    # caution case sensitive
-      with_items:
-        - "{{ domains }}"
-      register: conf_changed
-
-    #- lineinfile:      # uncomment if using --apache flag for the certbot command
-    #    path: /etc/apache2/sites-available/{{ item.vhost }}.conf
-    #    regexp: '^Include /etc/letsencrypt/'
-    #    line:   'Include /etc/letsencrypt/options-ssl-apache.conf'
-    #    state: present
-    #    insertafter: '^<virtualhost \*:443>'
-    #  with_items:
-    #    - "{{ domains }}"
-
-    - lineinfile:
-        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
-        regexp: '^SSLCertificateFile'
-        line:   'SSLCertificateFile /etc/letsencrypt/live/{{ domains[0].vhost }}/fullchain.pem'
-        state: present
-        insertafter: '^SSLEngine On'   # replace with '^Include /etc/letsencrypt' if running certbot with --apache flag
-      with_items:
-        - "{{ domains }}"
-      register: conf_changed
-
-
-
-    - lineinfile:
-        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
-        regexp: '^SSLCertificateKeyFile'
-        line:   'SSLCertificateKeyFile /etc/letsencrypt/live/{{ domains[0].vhost }}/privkey.pem'
-        state: present
-        insertafter: '^SSLCertificateFile'
-      with_items:
-        - "{{ domains }}"
-      register: conf_changed
-
-
-    - service:
-        name: nginx
-        state: restarted
-      when: conf_changed.changed
+#  post_tasks:
+#    - lineinfile:
+#        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+#        regexp: '^SSLEngine'
+#        line:   'SSLEngine On'
+#        state: present
+#        insertafter: '^<VirtualHost \*:443>'    # caution case sensitive
+#      with_items:
+#        - "{{ domains }}"
+#      register: conf_changed
+#
+#    #- lineinfile:      # uncomment if using --apache flag for the certbot command
+#    #    path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+#    #    regexp: '^Include /etc/letsencrypt/'
+#    #    line:   'Include /etc/letsencrypt/options-ssl-apache.conf'
+#    #    state: present
+#    #    insertafter: '^<virtualhost \*:443>'
+#    #  with_items:
+#    #    - "{{ domains }}"
+#
+#    - lineinfile:
+#        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+#        regexp: '^SSLCertificateFile'
+#        line:   'SSLCertificateFile /etc/letsencrypt/live/{{ domains[0].vhost }}/fullchain.pem'
+#        state: present
+#        insertafter: '^SSLEngine On'   # replace with '^Include /etc/letsencrypt' if running certbot with --apache flag
+#      with_items:
+#        - "{{ domains }}"
+#      register: conf_changed
+#
+#
+#
+#    - lineinfile:
+#        path: /etc/apache2/sites-available/{{ item.vhost }}.conf
+#        regexp: '^SSLCertificateKeyFile'
+#        line:   'SSLCertificateKeyFile /etc/letsencrypt/live/{{ domains[0].vhost }}/privkey.pem'
+#        state: present
+#        insertafter: '^SSLCertificateFile'
+#      with_items:
+#        - "{{ domains }}"
+#      register: conf_changed
+#
+#
+#    - service:
+#        name: nginx
+#        state: restarted
+#      when: conf_changed.changed
 
 
 

@@ -10,7 +10,7 @@
     - vars
     - vault
   vars:
-    nginx_remove_default_vhost: false
+    nginx_remove_default_vhost: true
     nginx_upstreams: []         # für load balancer
     nginx_sendfile: "on"        # see https://t37.net/nginx-optimization-understanding-sendfile-tcp_nodelay-and-tcp_nopush.html
     nginx_tcp_nopush: "on"

@@ -9,6 +9,7 @@ upstream odoochat {
 # http -> https
 server {
    listen 80;
+   listen [::]:80;
    server_name {{ item.vhost }};
    rewrite ^(.*) https://$host$1 permanent;
 }

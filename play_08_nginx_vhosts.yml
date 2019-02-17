@@ -16,3 +16,6 @@
   vars: []
   roles:
    - nginx-vhosts
+
+     # TODO die Odoo upstream Elemente dürfen nicht in zwei VHOST-Dateien vorkommen.
+     # TODO korrigiere Seafile und wiki

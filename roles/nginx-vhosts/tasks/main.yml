@@ -1,0 +1,86 @@
+---
+# NGINX Diese role durchläuft alle übergebenen domains unt installiert die entsprechenden vhosts.
+
+# NGINX Configuration file
+- name: Sicherstellen, dass NGINX config file according template konfiguriert ist.
+  template:
+    src: templates/nginx.conf.j2
+    dest: "/etc/nginx/nginx.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+
+
+# Odoo vhosts
+- name: vhosts für Odoo installieren.
+  template:
+    src: templates/odoo.conf.j2
+    dest: "/etc/nginx/sites-enabled/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "odoo"
+  notify: restart nginx
+
+# Seafile vhosts
+- name: vhosts für Seafile installieren.
+  template:
+    src: templates/seafile.conf.j2
+    dest: "/etc/nginx/sites-enabled/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "seafile"
+  notify: restart nginx
+
+# Wiki vhosts
+- name: vhosts für Wiki installieren.
+  template:
+    src: templates/wiki.conf.j2
+    dest: "/etc/nginx/sites-enabled/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "wiki"
+  notify: restart nginx
+
+# Etherpad vhosts
+- name: vhosts für Etherpad installieren.
+  template:
+    src: templates/etherpad.conf.j2
+    dest: "/etc/nginx/sites-enabled/{{ item.vhost }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ domains }}"
+  when: item.type == "etherpad"
+  notify: restart nginx
+
+# Mail forwarder vhost
+#- name: vhosts für Mailforwarder. # TODO
+#  apache2_module:
+#    name: "{{ item }}"
+#    state: present
+#  with_items:
+#   - alias
+#  notify: restart_apache2_event
+#- name: vhosts für Mailforwarder installieren.
+#  template:
+#    src: templates/mailhost.conf.j2
+#    dest: /etc/apache2/sites-available/{{ item.vhost }}.conf
+#    owner: www-data
+#    group: www-data
+#    mode: 0644
+#  with_items:
+#    - "{{ domains }}"
+#  when: item.type == "mailforwarder"
+#  notify: restart_apache2_event
+

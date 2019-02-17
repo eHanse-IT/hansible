@@ -88,6 +88,7 @@
     - psycogreen  # for longpolling and chat with multiple workers
     - paramiko    # for Yenthes auto-backup module
     - pysftp      # for Yenthes auto-backup module
+    - paramiko    # for Yenthes auto-backup module
     state: latest
 
 
@@ -114,14 +115,14 @@
     - postgresql-contrib
     - python-psycopg2
     - python3-psycopg2
-  when: "{{ odoo_config_db_host }}" == False  #only install psql if db on same host is intended
+  when: odoo_config_db_host == False  #only install psql if db on same host is intended
 
 - name: Enable postgresql.
   service:
     name: postgresql
     state: started
     enabled: yes
-  when: "{{ odoo_config_db_host }}" == False
+  when: odoo_config_db_host  == False
 
   # TODO the odoo_admin_password parameter should be the admin pw for postgresql
 

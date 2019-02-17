@@ -34,11 +34,11 @@
        group: "{{ odoo_user }}"
        mode: 0755
        recurse: yes
-      register: conf_changed
-    - service:
-        name: "{{ odoo_service }}"
-        state: restarted
-      when: conf_changed.changed
+     register: conf_changed
+   - service:
+       name: "{{ odoo_service }}"
+       state: restarted
+     when: conf_changed.changed
 
 
 

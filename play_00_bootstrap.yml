@@ -13,6 +13,7 @@
 # 3. Bootstrap Playbook ausführen mit --ask-pass ausführen:
 #    ansible-playbook play_00_bootstrap.yml -i inventory.yml -u root -b -K --vault-password-file=.vaultpw -l ehtest --ask-pass
 
+
 - name: play_0_bootstrap - Users und SSH einrichten
   hosts: all
   remote_user: root
@@ -49,6 +50,13 @@
   - name: setze ansible port auf 22
     set_fact:
       ansible_port: "22"
+  - name: Stelle sicher dass der Public Key des Servers lokal verfügbar ist
+    delegate_to: localhost
+    lineinfile:
+      dest: ~/.ssh/known_hosts
+      create: yes
+      state: present
+      line: "{{ lookup('pipe', 'ssh-keyscan -trsa -p' + ansible_port + ' ' + ansible_host) }}"
   - name: setze ansible user auf root
     set_fact:
       ansible_user: root
