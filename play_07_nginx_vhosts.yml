@@ -1,21 +1,18 @@
 ---
-# Dieses Play installiert die Apache vhosts auf den Systemen.
+# Dieses Play installiert die NGINX vhosts auf den Systemen.
 # Welches Template dabei genutzt wird, hängt vom "type" des vhosts im dictionary ab.
+
 
 - name: Alle VirtualHosts installieren.
   hosts:
-    - ehprod
-    #- ehtest
-    - twprod
-    - twtest
-    - chrono123
+    #- ehprod
+    - ehtest
+    #- twprod
+    #- twtest
+    #- chrono123
   vars_files:
     - vars
     - vault
   vars: []
   roles:
-   - apache-vhosts
-
-
-
-
+   - nginx-vhosts

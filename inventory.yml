@@ -14,8 +14,10 @@ ehanse:
   vars:
     pipelining: true
     timezone: "Europe/Berlin"
+    # BOOTSTRAP critical variables
     userlist:
       - "{{ ehanse_users }}"
+    host_port: "{{ _vault_host_port }}"
     #SSMTP critical variables:
     host_ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"
     host_ssmtp_host: "{{ _vault_ssmtp_host }}"

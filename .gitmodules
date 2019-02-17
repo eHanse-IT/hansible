@@ -22,9 +22,3 @@
 [submodule "roles/ansible-role-mysql"]
 	path = roles/ansible-role-mysql
 	url = https://github.com/geerlingguy/ansible-role-mysql.git
-[submodule "ansible-role-nginx"]
-	path = ansible-role-nginx
-	url = https://github.com/geerlingguy/ansible-role-nginx.git
-[submodule "roles/ansible-role-nginx"]
-	path = roles/ansible-role-nginx
-	url = https://github.com/geerlingguy/ansible-role-nginx.git

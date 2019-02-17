@@ -4,7 +4,7 @@
     - twprod
     - twtest
     - ehprod
-    - ehtest
+    #- ehtest
     - chrono123
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars

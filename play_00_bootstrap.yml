@@ -15,12 +15,12 @@
 
 - name: play_0_bootstrap - Users und SSH einrichten
   hosts: all
+  remote_user: root
+  gather_facts: false
   vars_files:
    - vars
    - vault
   vars:
-    # verhindere Error auf uninitialisierten Servern:
-    gather_facts: false
     # common variables for role "users"
     ehanse_users:
       - username: joerg
