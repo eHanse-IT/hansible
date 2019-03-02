@@ -12,6 +12,7 @@
     - twprod
     - twtest
     - chrono123
+    - runbot
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault

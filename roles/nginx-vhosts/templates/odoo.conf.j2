@@ -31,6 +31,7 @@ server {
  ssl on;
  ssl_certificate /etc/letsencrypt/live/{{ domains[0].vhost }}/fullchain.pem;
  ssl_certificate_key /etc/letsencrypt/live/{{ domains[0].vhost }}/privkey.pem;
+ ssl_session_timeout 30m;
 
  # log
  access_log /var/log/nginx/odoo.access.log;

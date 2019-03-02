@@ -52,17 +52,17 @@
   notify: restart nginx
 
 # Etherpad vhosts
-- name: vhosts für Etherpad installieren.
-  template:
-    src: templates/etherpad.conf.j2
-    dest: "/etc/nginx/sites-enabled/{{ item.vhost }}.conf"
-    owner: root
-    group: root
-    mode: 0644
-  with_items:
-    - "{{ domains }}"
-  when: item.type == "etherpad"
-  notify: restart nginx
+#- name: vhosts für Etherpad installieren.
+#  template:
+#    src: templates/etherpad.conf.j2
+#    dest: "/etc/nginx/sites-enabled/{{ item.vhost }}.conf"
+#    owner: root
+#    group: root
+#    mode: 0644
+#  with_items:
+#    - "{{ domains }}"
+#  when: item.type == "etherpad"
+#  notify: restart nginx
 
 # Mail forwarder vhost
 #- name: vhosts für Mailforwarder. # TODO

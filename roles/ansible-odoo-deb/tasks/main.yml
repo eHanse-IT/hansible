@@ -89,6 +89,7 @@
     - paramiko    # for Yenthes auto-backup module
     - pysftp      # for Yenthes auto-backup module
     - paramiko    # for Yenthes auto-backup module
+    - fpdf        # as per request by Tim for export of PDFs
     state: latest
 
 

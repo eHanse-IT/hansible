@@ -1,0 +1,30 @@
+# Ordner kreieren
+# User kreieren oder definieren dass www-data der user ist von Python VENV
+
+
+
+- name: copy requirements file to remote machine.
+  template:
+    src: requirements.txt
+    dest: "/opt/jupyter/requirements.txt"
+    mode: 0644
+    owner: jupyter
+    group: jupyter
+    #backup=yes
+
+
+
+- name: Make sure a jupyter venv is installed.
+  pip:
+    requirements: /opt/jupyter/requirements.txt
+    virtualenv: /opt/jupyter/venv
+    # virtualenv_python:  #if not specified, the Python with which ansible is run is used
+    virtualenv_site_packages: no  #if the VENV should inehrit site packages
+
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ odoo_user }}"
+    group: "{{ odoo_user }}"
+    mode:  "u=rwX,go=rX"
+  with_items:
+    - "{{ odoo_config_addons_path }}"

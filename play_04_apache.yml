@@ -3,7 +3,7 @@
   hosts:
     - twprod
     - twtest
-    - ehprod
+    #- ehprod
     #- ehtest
     - chrono123
   vars_files:  # Verweis auf verschlüsselte Pws

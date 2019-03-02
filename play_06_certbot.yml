@@ -13,6 +13,7 @@
     - twprod
     - twtest
     - chrono123
+    - runbot
   vars_files:
     - vars
     - vault

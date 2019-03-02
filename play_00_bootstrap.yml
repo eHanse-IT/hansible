@@ -40,6 +40,11 @@
       - username: tslai
         pwd_cryp: "{{ _vault_tslai_pwd_cryp }}"
         key: "{{ lookup('file', 'roles/users/authorized_keys/tslai.pub') }}"
+    intelligentiio_users:
+      - username: tosin
+        pwd_cryp: "{{ _vault_tosin_pwd_cryp }}"
+        key: "{{ lookup('file', 'roles/users/authorized_keys/tosin.pub') }}"
+
     # common settings for role "ssh"
     ehprod_ssh_pass: "{{ _vault_ehprod_ssh_pass }}"
     ehtest_ssh_pass: "{{ _vault_ehtest_ssh_pass }}"
@@ -50,13 +55,13 @@
   - name: setze ansible port auf 22
     set_fact:
       ansible_port: "22"
-  - name: Stelle sicher dass der Public Key des Servers lokal verfügbar ist
-    delegate_to: localhost
-    lineinfile:
-      dest: ~/.ssh/known_hosts
-      create: yes
-      state: present
-      line: "{{ lookup('pipe', 'ssh-keyscan -trsa -p' + ansible_port + ' ' + ansible_host) }}"
+  #- name: Stelle sicher dass der Public Key des Servers lokal verfügbar ist
+  #  delegate_to: localhost
+  #  lineinfile:
+  #    dest: ~/.ssh/known_hosts
+  #    create: yes
+  #    state: present
+  #    line: "{{ lookup('pipe', 'ssh-keyscan -trsa -p' + ansible_port + ' ' + ansible_host) }}"
   - name: setze ansible user auf root
     set_fact:
       ansible_user: root

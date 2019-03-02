@@ -3,9 +3,10 @@
   hosts:
     #- twprod
     #- twtest
-    #- ehprod
+    - ehprod
     - ehtest
     #- chrono123
+    - runbot
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
@@ -15,7 +16,7 @@
     nginx_sendfile: "on"        # see https://t37.net/nginx-optimization-understanding-sendfile-tcp_nodelay-and-tcp_nopush.html
     nginx_tcp_nopush: "on"
     nginx_tcp_nodelay: "on"
-    nginx_server_tokens: "on"
+    nginx_server_tokens: "off"
     nginx_client_max_body_size: "4096m"
     nginx_server_names_hash_bucket_size: "64"
     nginx_proxy_cache_path: "/var/cache/nginx keys_zone=cache:32m"
@@ -25,8 +26,6 @@
       proxy_set_header   X-Scheme $scheme;
       proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header   Host $http_host;
-    #nginx_conf_template: "nginx.conf.j2"
-    #nginx_vhost_template: "vhost.j2"
 
   roles:
    - nginx

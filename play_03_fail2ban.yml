@@ -13,6 +13,7 @@
     - twprod
     - twtest
     - chrono123
+    - runbot
   vars:
     fail2ban_banaction: iptables-multiport           # Ban Definition: add a rule to iptables
     fail2ban_action: '%(action_mwl)s'                # Ban + lookup WhoIs + send Logs and GeoIP Info via mail

@@ -5,11 +5,12 @@
 
 - name: Alle VirtualHosts installieren.
   hosts:
-    #- ehprod
+    - ehprod
     - ehtest
     #- twprod
     #- twtest
     #- chrono123
+    - runbot
   vars_files:
     - vars
     - vault

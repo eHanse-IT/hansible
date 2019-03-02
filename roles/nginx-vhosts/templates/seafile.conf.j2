@@ -21,6 +21,9 @@ server {
     ssl_certificate /etc/letsencrypt/live/{{ domains[0].vhost }}/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/{{ domains[0].vhost }}/privkey.pem;
 
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+
+
 
     location / {
          proxy_pass         http://127.0.0.1:8000;
@@ -28,6 +31,7 @@ server {
          proxy_set_header   X-Real-IP $remote_addr;
          proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
          proxy_set_header   X-Forwarded-Host $server_name;
+         proxy_set_header   X-Forwarded-Proto https;
          proxy_read_timeout  1200s;
 
          # used for view/edit office file via Office Online Server
@@ -51,8 +55,11 @@ server {
         access_log      /var/log/nginx/seafhttp.access.log seafileformat;
         error_log       /var/log/nginx/seafhttp.error.log;
     }
-    location /media {
-        root /home/user/haiwen/seafile-server-latest/seahub;
-    }
+    #location /media {
+    #    root /opt/seafile/seafile-server-latest/seahub;
+    #}
 
 }
+
+
+# TODO variabilize the location of /media

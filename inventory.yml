@@ -75,8 +75,6 @@ ehanse:
       hostname: "ehprod"
       domains:
         - {vhost: "www.ehanse.de", type: "odoo"}
-        - {vhost: "test1.ehanse.de", type: "odoo"}
-        - {vhost: "test2.ehanse.de", type: "odoo"}
         - {vhost: "wiki.ehanse.de", type: "wiki"}
         - {vhost: "seafile.ehanse.de", type: "seafile"}
         - {vhost: "mail.ehanse.de", type: "mailforwarder", webmail_address: "hosted.mailcow.de"}
@@ -100,11 +98,10 @@ ehanse:
 
 oatrade:
   vars:
+    # BOOTSTRAP critical variables
+    host_port: "{{ _vault_host_port }}"
     pipelining: true
     timezone: "Asia/Hong_Kong"
-    userlist:
-      - "{{ ehanse_users }}"
-      - "{{ rfhk_users }}"
     #SSMTP critical variables:
     host_ssmtp_root: "{{ _vault_ssmtp_AuthUser }}"
     host_ssmtp_host: "{{ _vault_ssmtp_host }}"
@@ -149,6 +146,9 @@ oatrade:
 
   hosts:
     twprod:
+      userlist:
+        - "{{ ehanse_users }}"
+        - "{{ rfhk_users }}"
       ansible_host: "{{ _vault_twprod_ip }}"
       ansible_port: "{{ _vault_host_port }}"
       fqdn: "oaprod.oa-trade.com"
@@ -161,13 +161,14 @@ oatrade:
       #play_3_odoo critical variables (also uses domain info from above)
       odoo_version: 8.0
 
-
-
     chrono123:
+      userlist:
+        - "{{ ehanse_users }}"
+        - "{{ rfhk_users }}"
       ansible_host: "{{ _vault_chrono123_ip }}"
       ansible_port: "{{ _vault_host_port }}"
       fqdn: "godalko.com"
-      hostname: "godalko.com"
+      hostname: "godalko"
       domains:
         - {vhost: "www.chrono123.com", type: "odoo"}
         - {vhost: "backend.chrono123.com", type: "odoo"}
@@ -177,11 +178,13 @@ oatrade:
         - apache2
       odoo_version: 8.0
 
-
     twtest:
+      userlist:
+        - "{{ ehanse_users }}"
+        - "{{ rfhk_users }}"
       ansible_host: "{{ _vault_twtest_ip }}"
       ansible_port: "{{ host_port }}"
-      fqdn: "test.oa-trade.com"
+      fqdn: "oatest.oa-trade.com"
       hostname: "oatest"
       timezone: "Asia/Hong_Kong"
       domains:
@@ -195,8 +198,27 @@ oatrade:
       odoo_config_server_wide_modules: web,web_kanban,
 
 
-
-
+    # runbot will run in the timeware group so that Yoshi etc may log in
+    runbot:
+      userlist:
+        - "{{ ehanse_users }}"
+        - "{{ rfhk_users }}"
+        - "{{ intelligentiio_users }}"
+      ansible_host: "{{ _vault_runbot_ip }}"
+      ansible_port: "{{ host_port }}"
+      fqdn: "runbot.ehanse.de"
+      hostname: "runbot"
+      timezone: "Asia/Hong_Kong"
+      domains:
+        - {vhost: "runbot.ehanse.de", type: "odoo"}
+      certbot_create_standalone_stop_services:
+        - nginx
+      odoo_version: 11.0
+      odoo_config_debug_mode: True
+      odoo_config_auto_reload: True
+      odoo_config_data_dir: /home/odoo/.local/share/Odoo
+      odoo_config_server_wide_modules: web,web_kanban,
+      odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password_runbot }}"
 
 
 
