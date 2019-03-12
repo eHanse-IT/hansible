@@ -9,6 +9,7 @@
     #- twprod
     #- twtest
     #- chrono123
+    - testchrono
   vars_files:  # Verweise auf verschlüsselte Pws
     - vars
     - vault

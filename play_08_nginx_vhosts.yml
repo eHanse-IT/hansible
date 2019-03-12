@@ -11,6 +11,7 @@
     #- twtest
     #- chrono123
     - runbot
+    - testchrono
   vars_files:
     - vars
     - vault

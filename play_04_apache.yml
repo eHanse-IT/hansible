@@ -6,6 +6,7 @@
     #- ehprod
     #- ehtest
     - chrono123
+    - testchrono
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault

@@ -220,6 +220,26 @@ oatrade:
       odoo_config_server_wide_modules: web,web_kanban,
       odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password_runbot }}"
 
+    # runbot will run in the timeware group so that Yoshi etc may log in
+    testchrono:
+      userlist:
+        - "{{ ehanse_users }}"
+        - "{{ rfhk_users }}"
+      ansible_host: "{{ _vault_testchrono_ip }}"
+      ansible_port: "{{ host_port }}"
+      fqdn: "runbot.ehanse.de"
+      hostname: "testchrono"
+      timezone: "Asia/Hong_Kong"
+      domains:
+        - {vhost: "test.chrono123.com", type: "odoo"}
+      certbot_create_standalone_stop_services:
+        - nginx
+      odoo_version: 12.0
+      odoo_config_debug_mode: True
+      odoo_config_auto_reload: True
+      odoo_config_data_dir: /home/odoo/.local/share/Odoo
+      odoo_config_server_wide_modules: web,web_kanban,
+      odoo_config_superadmin_password: "{{ _vault_odoo_config_superadmin_password_runbot }}"
 
 
 

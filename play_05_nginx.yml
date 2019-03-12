@@ -7,6 +7,7 @@
     - ehtest
     #- chrono123
     - runbot
+    - testchrono
   vars_files:  # Verweis auf verschlüsselte Pws
     - vars
     - vault
