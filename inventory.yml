@@ -167,13 +167,15 @@ oatrade:
         - "{{ rfhk_users }}"
       ansible_host: "{{ _vault_chrono123_ip }}"
       ansible_port: "{{ _vault_host_port }}"
-      fqdn: "godalko.com"
-      hostname: "godalko"
+      fqdn: "chronob2b.com"
+      hostname: "chronob2b"
       domains:
         - {vhost: "www.chrono123.com", type: "odoo"}
         - {vhost: "backend.chrono123.com", type: "odoo"}
         - {vhost: "www.godalko.com", type: "odoo"}
         - {vhost: "go.godalko.com", type: "odoo"}
+        - {vhost: "www.chronob2b.com", type: "odoo"}
+        - {vhost: "chronob2b.com", type: "odoo"}
       certbot_create_standalone_stop_services:
         - apache2
       odoo_version: 8.0
@@ -245,6 +247,7 @@ oatrade:
 
 
       
+
 
 
 
