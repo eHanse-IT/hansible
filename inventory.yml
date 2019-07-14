@@ -95,6 +95,31 @@ ehanse:
       certbot_create_standalone_stop_services:
         - nginx
 
+jpm:
+  vars:
+    pipelining: true
+    timezone: "Europe/Berlin"
+    # BOOTSTRAP critical variables
+    userlist:
+      - "{{ ehanse_users }}"
+    host_port: "{{ _vault_host_port }}"
+
+    # Skipped config vars for Fail2Ban, Odoo and SSMTP
+
+  hosts:
+    cloud-jpm:
+      ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p -q frank@92.60.37.207 -p 7365"'
+      ansible_host: "{{ _vault_ehprod_ip }}"
+
+      ansible_port: "{{ _vault_host_port }}"
+      fqdn: "www.cloud.jpm-gmbh.de"
+      hostname: "cloud"
+      domains:
+        - {vhost: "seafile.jpm-gmbh.de", type: "seafile"}
+      certbot_create_standalone_stop_services:
+        - nginx
+
+
 
 oatrade:
   vars:

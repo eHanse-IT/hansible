@@ -12,6 +12,7 @@
     #- chrono123
     - runbot
     - testchrono
+    - jpm
   vars_files:
     - vars
     - vault
