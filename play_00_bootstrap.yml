@@ -15,7 +15,14 @@
 
 
 - name: play_0_bootstrap - Users und SSH einrichten
-  hosts: all
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+    - runbot
+    - testchrono
   remote_user: root
   gather_facts: false
   vars_files:

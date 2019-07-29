@@ -3,7 +3,15 @@
 #
 #
 - name: Essentials Sysctl.conf, Firewall, Git, Python, Apt-Update
-  hosts: all
+  hosts:
+    - ehprod
+    - ehtest
+    - twprod
+    - twtest
+    - chrono123
+    - runbot
+    - testchrono
+
   vars_files:
     - vars
     - vault
