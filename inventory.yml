@@ -79,7 +79,7 @@ ehanse:
         - {vhost: "seafile.ehanse.de", type: "seafile"}
         - {vhost: "mail.ehanse.de", type: "mailforwarder", webmail_address: "hosted.mailcow.de"}
       certbot_create_standalone_stop_services:
-        - apache2
+        - nginx
     ehtest:
       ansible_host: "{{ _vault_ehtest_ip }}"
       ansible_port: "{{ _vault_host_port }}"
