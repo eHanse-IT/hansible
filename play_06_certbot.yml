@@ -24,7 +24,7 @@
     #certbot_auto_renew_user: "{{ ansible_user }}"
     certbot_auto_renew_hour: 3
     certbot_auto_renew_minute: 43
-    certbot_auto_renew_options: "--quiet --no-self-upgrade"
+    certbot_auto_renew_options: "--quiet"
     certbot_create_if_missing: yes
     certbot_create_method: standalone
     certbot_install_from_source: yes
